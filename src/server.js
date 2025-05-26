@@ -4,7 +4,7 @@ import express from 'express'
 import AsyncExitHook from 'async-exit-hook'
 import { CLOSE_DB, CONNECT_DB } from '~/config/mongodb'
 import { env } from '~/config/environment'
-import { APIs_V1 } from '~/routes/v1'
+import { APIs_V1 } from '~/routes/v1/index'
 
 // hello
 const START_SERVER = () => {
