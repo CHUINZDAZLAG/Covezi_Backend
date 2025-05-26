@@ -5,6 +5,7 @@ import AsyncExitHook from 'async-exit-hook'
 import { CLOSE_DB, CONNECT_DB } from '~/config/mongodb'
 import { env } from '~/config/environment'
 
+// hello
 const START_SERVER = () => {
   const app = express()
 
