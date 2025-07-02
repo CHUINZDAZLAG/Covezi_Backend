@@ -6,9 +6,14 @@ import { CLOSE_DB, CONNECT_DB } from '~/config/mongodb'
 import { env } from '~/config/environment'
 import { APIs_V1 } from '~/routes/v1/index'
 import { errorHandlingMiddleware } from '~/middlewares/errorHandlingMiddleware'
+import cors from 'cors'
+import { corsOptions } from './config/cors'
 
 const START_SERVER = () => {
   const app = express()
+
+  // Handle CORS
+  app.use(cors(corsOptions))
 
   // Enable req.body json data
   app.use(express.json())
@@ -39,8 +44,8 @@ const START_SERVER = () => {
     console.log('2. Connected to MongoDB Cloud Atlas!')
 
     START_SERVER()
-  } catch (error) {
-    console.log(error)
+  } catch (err) {
+    console.log(err)
     process.exit(0)
   }
 })()
