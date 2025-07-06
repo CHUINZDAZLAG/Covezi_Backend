@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { ObjectId } from 'mongodb'
+import { ObjectId, ReturnDocument } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
 import { BOARD_TYPES } from '~/utils/constants'
@@ -22,6 +22,8 @@ const BOARD_COLLECTION_SCHEMA = Joi.object({
   _destroy: Joi.boolean().default(false)
 })
 
+const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
+
 const validateBeforeCreate = async (data) => {
   return await BOARD_COLLECTION_SCHEMA.validateAsync(data, { abortEarly: false })
 }
@@ -32,8 +34,8 @@ const createNew = async (data) => {
 
     const createdBoard = await GET_DB().collection(BOARD_COLLECTION_NAME).insertOne(validData)
     return createdBoard
-  } catch (err) {
-    throw new Error(err)
+  } catch (error) {
+    throw new Error(error)
   }
 }
 
@@ -44,8 +46,8 @@ const findOneById = async (id) => {
       _id: new ObjectId(id)
     })
     return result
-  } catch (err) {
-    throw new Error(err)
+  } catch (error) {
+    throw new Error(error)
   }
 }
 
@@ -55,32 +57,76 @@ const getDetails = async (id) => {
     // const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOne({ _id: new Object(id) })
     const result = await GET_DB().collection(BOARD_COLLECTION_NAME).aggregate([
       { $match: {
-        _id: new Object(id),
+        _id: new ObjectId(id),
         _destroy: false
       } },
       { $lookup: {
         from: columnModel.COLUMN_COLLECTION_NAME,
         localField: '_id',
-        foreignFiled: 'boardId',
+        foreignField: 'boardId',
         as: 'columns'
       } },
       { $lookup: {
         from: cardModel.CARD_COLLECTION_NAME,
         localField: '_id',
-        foreignFiled: 'boardId',
+        foreignField: 'boardId',
         as: 'cards'
       } }
     ]).toArray()
-    return result[0] || {}
-  } catch (err) {
-    throw new Error(err)
+    return result[0] || null
+  } catch (error) {
+    throw new Error(error)
   }
 }
 
-export const broadModel = {
+// Push columnId into columnOrderIds
+const pushColumnOrderIds = async (column) => {
+  try {
+    const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new Object(column.boardId) },
+      { $push: { columnOrderIds: new Object(column._id) } },
+      { ReturnDocument: 'after' } // Return new result after update
+    )
+
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+// Update order of column
+const update = async (boardId, updateData) => {
+  try {
+    // Dont allow update some important fields
+    Object.keys(updateData).forEach(fieldName => {
+      if (INVALID_UPDATE_FIELDS.includes(fieldName)) {
+        delete updateData[fieldName]
+      }
+    })
+
+    // Convert data related ObjectId
+    if (updateData.columnOrderIds) {
+      updateData.columnOrderIds = updateData.columnOrderIds.map(_id => (new ObjectId(_id)))
+    }
+
+    const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(boardId) },
+      { $set: updateData },
+      { ReturnDocument: 'after' }
+    )
+
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+export const boardModel = {
   BOARD_COLLECTION_NAME,
   BOARD_COLLECTION_SCHEMA,
   createNew,
   findOneById,
-  getDetails
+  getDetails,
+  pushColumnOrderIds,
+  update
 }

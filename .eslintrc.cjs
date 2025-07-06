@@ -11,6 +11,7 @@ module.exports = {
   plugins: [],
   rules: {
     // Common
+    'no-useless-catch': 0,
     'no-console': 1,
     'no-extra-boolean-cast': 0,
     'no-lonely-if': 1,
@@ -20,8 +21,8 @@ module.exports = {
     'no-multiple-empty-lines': 1,
     'space-before-blocks': ['error', 'always'],
     'object-curly-spacing': [1, 'always'],
-    indent: ['warn', 2],
-    semi: [1, 'never'],
+    'indent': ['warn', 2],
+    'semi': [1, 'never'],
     'quotes': ['error', 'single'],
     'array-bracket-spacing': 1,
     'linebreak-style': 0,

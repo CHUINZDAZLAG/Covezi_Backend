@@ -1,7 +1,7 @@
-/* eslint-disable no-useless-catch */
-/* eslint-disable no-empty */
 import { slugify } from '~/utils/formatters'
-import { broadModel } from '~/models/boardModel'
+import { boardModel } from '~/models/boardModel'
+import { columnModel } from '~/models/columnModel'
+import { cardModel } from '~/models/cardModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
 import { cloneDeep } from 'lodash'
@@ -16,19 +16,19 @@ const createNew = async (reqBody) => {
     }
 
     // Goi toi tang Model de xu ly luu ban ghi vao Database
-    const createdBoard = await broadModel.createNew(newBoard)
+    const createdBoard = await boardModel.createNew(newBoard)
 
     // Lay ban ghi sau khi goi
-    const getNewBoard = await broadModel.findOneById(createdBoard.insertedId)
+    const getNewBoard = await boardModel.findOneById(createdBoard.insertedId)
 
     // Tra ket qua ve cho tang Service
     return getNewBoard
-  } catch (err) { throw err }
+  } catch (error) { throw error }
 }
 
 const getDetails = async (boardId) => {
   try {
-    const board = await broadModel.getDetails(boardId)
+    const board = await boardModel.getDetails(boardId)
     if (!board) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'Board not found!')
     }
@@ -39,6 +39,7 @@ const getDetails = async (boardId) => {
 
     // Move card back to its correct column
     resBoard.columns.forEach(column => {
+      // Convert data related ObjectId
       column.cards = resBoard.cards.filter(card => card.columnId.equals(column._id))
       // column.cards = resBoard.cards.filter(card => card.columnId.toString() === column._id.toString())
     })
@@ -47,10 +48,49 @@ const getDetails = async (boardId) => {
     delete resBoard.cards
 
     return resBoard
-  } catch (err) { throw err }
+  } catch (error) { throw error }
+}
+
+// Update order of column
+const update = async (boardId, reqBody) => {
+  try {
+    const updateData = {
+      ...reqBody,
+      updateAt: Date.now()
+    }
+    console.log('lop ser: ', updateData)
+    const updatedBoard = await boardModel.update(boardId, updateData)
+
+    return updatedBoard
+  } catch (error) { throw error }
+}
+
+const moveCardToDifferentColumn = async (reqBody) => {
+  try {
+    // Step1: update array cardOrderIds of initial Column (delete _id)
+    await columnModel.update(reqBody.prevColumnId, {
+      cardOrderIds: reqBody.prevCardOrderIds,
+      updateAt: Date.now()
+    })
+
+    // Step2: update array cardOrderIds of destination Column (insert _id)
+    await columnModel.update(reqBody.nextColumnId, {
+      cardOrderIds: reqBody.nextCardOrderIds,
+      updateAt: Date.now()
+    })
+
+    // Step3: update new columnId of Card dragged
+    await cardModel.update(reqBody.currentCardId, {
+      columnId: reqBody.nextColumnId
+    })
+
+    return { updateResult: 'Successfully!' }
+  } catch (error) { throw error }
 }
 
 export const boardService = {
   createNew,
-  getDetails
+  getDetails,
+  update,
+  moveCardToDifferentColumn
 }

@@ -1,5 +1,7 @@
 import Joi from 'joi'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
+import { ObjectId } from 'mongodb'
+import { GET_DB } from '~/config/mongodb'
 
 // Define Collection (name & schema)
 const COLUMN_COLLECTION_NAME = 'columns'
@@ -16,8 +18,87 @@ const COLUMN_COLLECTION_SCHEMA = Joi.object({
   updatedAt: Joi.date().timestamp('javascript').default(null),
   _destroy: Joi.boolean().default(false)
 })
+const INVALID_UPDATE_FIELDS = ['_id', 'boardId', 'createdAt']
+
+const validateBeforeCreate = async (data) => {
+  return await COLUMN_COLLECTION_SCHEMA.validateAsync(data, { abortEarly: false })
+}
+
+const createNew = async (data) => {
+  try {
+    const validData = await validateBeforeCreate(data)
+
+    // Convert string(ID) to ObjectId(ID)
+    const newColumnToAdd = {
+      ...validData,
+      boardId: new ObjectId(validData.boardId)
+    }
+
+    const createdColumn = await GET_DB().collection(COLUMN_COLLECTION_NAME).insertOne(newColumnToAdd)
+    return createdColumn
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+// Find Column by id
+const findOneById = async (id) => {
+  try {
+    const result = await GET_DB().collection(COLUMN_COLLECTION_NAME).findOne({
+      _id: new ObjectId(id)
+    })
+    return result
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+// Push cardId into cardOrderIds
+const pushCardOrderIds = async (card) => {
+  try {
+    const result = await GET_DB().collection(COLUMN_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new Object(card.columnId) },
+      { $push: { cardOrderIds: new Object(card._id) } },
+      { ReturnDocument: 'after' }
+    )
+
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+const update = async (columnId, updateData) => {
+  try {
+    // Dont allow update some important fields
+    Object.keys(updateData).forEach(fieldName => {
+      if (INVALID_UPDATE_FIELDS.includes(fieldName)) {
+        delete updateData[fieldName]
+      }
+    })
+
+    // Convert data related ObjectId
+    if (updateData.cardOrderIds) {
+      updateData.cardOrderIds = updateData.cardOrderIds.map(_id => (new ObjectId(_id)))
+    }
+
+    const result = await GET_DB().collection(COLUMN_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(columnId) },
+      { $set: updateData },
+      { ReturnDocument: 'after' }
+    )
+
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 
 export const columnModel = {
   COLUMN_COLLECTION_NAME,
-  COLUMN_COLLECTION_SCHEMA
+  COLUMN_COLLECTION_SCHEMA,
+  createNew,
+  findOneById,
+  pushCardOrderIds,
+  update
 }

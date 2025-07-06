@@ -23,7 +23,30 @@ const getDetails = async (req, res, next) => {
   }
 }
 
+const update = async (req, res, next) => {
+  try {
+    const boardId = req.params.id
+    const updatedBoard = await boardService.update(boardId, req.body)
+
+    res.status(StatusCodes.OK).json(updatedBoard)
+  } catch (err) {
+    next(err)
+  }
+}
+
+const moveCardToDifferentColumn = async (req, res, next) => {
+  try {
+    const result = await boardService.moveCardToDifferentColumn(req.body)
+
+    res.status(StatusCodes.OK).json(result)
+  } catch (err) {
+    next(err)
+  }
+}
+
 export const boardController = {
   createNew,
-  getDetails
+  getDetails,
+  update,
+  moveCardToDifferentColumn
 }

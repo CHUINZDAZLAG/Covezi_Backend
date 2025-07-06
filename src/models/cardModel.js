@@ -1,5 +1,7 @@
 import Joi from 'joi'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
+import { ObjectId } from 'mongodb'
+import { GET_DB } from '~/config/mongodb'
 
 // Define Collection (name & schema)
 const CARD_COLLECTION_NAME = 'cards'
@@ -14,8 +16,73 @@ const CARD_COLLECTION_SCHEMA = Joi.object({
   updatedAt: Joi.date().timestamp('javascript').default(null),
   _destroy: Joi.boolean().default(false)
 })
+const INVALID_UPDATE_FIELDS = ['_id', 'boardId', 'createdAt']
+
+const validateBeforeCreate = async (data) => {
+  return await CARD_COLLECTION_SCHEMA.validateAsync(data, { abortEarly: false })
+}
+
+const createNew = async (data) => {
+  try {
+    const validData = await validateBeforeCreate(data)
+
+    const newCardToAdd = {
+      ...validData,
+      boardId: new ObjectId(validData.boardId),
+      columnId: new ObjectId(validData.columnId)
+    }
+
+    const createdCard = await GET_DB().collection(CARD_COLLECTION_NAME).insertOne(newCardToAdd)
+    return createdCard
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+// Find Card by id
+const findOneById = async (id) => {
+  try {
+    const result = await GET_DB().collection(CARD_COLLECTION_NAME).findOne({
+      _id: new ObjectId(id)
+    })
+
+    return result
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+// Update data of Card
+const update = async (cardId, updateData) => {
+  try {
+    // Dont allow update some important fields
+    Object.keys(updateData).forEach(fieldName => {
+      if (INVALID_UPDATE_FIELDS.includes(fieldName)) {
+        delete updateData[fieldName]
+      }
+    })
+
+    // Convert ObjectId datatype
+    if (updateData.columnId) {
+      updateData.columnId = new ObjectId(updateData.columnId)
+    }
+
+    const result = await GET_DB().collection(CARD_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(cardId) },
+      { $set: updateData },
+      { ReturnDocument: 'after' }
+    )
+
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 
 export const cardModel = {
   CARD_COLLECTION_NAME,
-  CARD_COLLECTION_SCHEMA
+  CARD_COLLECTION_SCHEMA,
+  createNew,
+  findOneById,
+  update
 }
