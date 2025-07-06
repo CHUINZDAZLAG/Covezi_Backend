@@ -24,9 +24,17 @@ const START_SERVER = () => {
   // Middleware xu ly loi tap trung
   app.use(errorHandlingMiddleware)
 
-  app.listen(env.APP_PORT, env.APP_HOST, () => {
-    console.log(`3. Hi ${env.AUTHOR}, Server is running at ${env.APP_HOST}:${env.APP_PORT}`)
-  })
+  // Production environment (Render.com)
+  if (env.BUILD_MODE === 'production') {
+    app.listen(process.env.PORT, () => {
+      console.log(`3. Production: Hi ${env.AUTHOR}, Server is running at ${process.env.PORT}`)
+    })
+  } else {
+    // Local environment
+    app.listen(env.LOCAL_DEV_APP_PORT, env.LOCAL_DEV_APP_HOST, () => {
+      console.log(`3. Local dev: Hi ${env.AUTHOR}, Server is running at ${env.LOCAL_DEV_APP_HOST}:${env.LOCAL_DEV_APP_PORT}`)
+    })
+  }
 
   // Ham nay hien tai tren Window khong hoat dong!
   // Co the dong hay khong dong ket noi cung duoc
