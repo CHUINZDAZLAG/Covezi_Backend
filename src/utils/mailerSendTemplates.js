@@ -1,0 +1,3 @@
+export const MAILERSEND_TEMPLATE_IDS = {
+  REGISTER_ACCOUNT: 'pr9084z1y7vgw63d'
+}

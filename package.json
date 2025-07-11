@@ -26,6 +26,7 @@
     "http-status-codes": "2.3.0",
     "joi": "17.10.2",
     "lodash": "4.17.21",
+    "mailersend": "^2.6.0",
     "mongodb": "6.0.0",
     "uuid": "^9.0.1"
   },
