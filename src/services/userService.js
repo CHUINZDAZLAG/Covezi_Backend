@@ -6,7 +6,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { pickUser } from '~/utils/formatters'
 import { WEBSITE_DOMAIN } from '~/utils/constants'
 import { MailerSendProvider } from '~/providers/MailerSendProvider'
-import { MAILERSEND_TEMPLATE_IDS } from '~/utils/mailerSendTemplates'
+import { env } from '~/config/environment'
+import { JwtProvider } from '~/providers/JwtProvider'
 
 const createNew = async (reqBody) => {
   try {
@@ -83,6 +84,68 @@ const createNew = async (reqBody) => {
   } catch (error) { throw error }
 }
 
+const verifyAccount = async (reqBody) => {
+  try {
+    // Query user in database
+    const existUser = await userModel.findOneByEmail(reqBody.email)
+
+    // Check some data
+    if (!existUser) throw new ApiError(StatusCodes.NOT_FOUND, 'Account not found!')
+    if (existUser.isActive) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your account is already active!')
+    if (reqBody.token !== existUser.verifyToken) {
+      throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Token is invalid!')
+    }
+
+    // Update user's data to verify account
+    const updateData = {
+      isActive: true,
+      verifyToken: null
+    }
+
+    // Update
+    const updatedUser = await userModel.update(existUser._id, updateData)
+    return pickUser(updatedUser)
+  } catch (error) { throw error}
+}
+
+const login = async (reqBody) => {
+  try {
+    // Query user in database
+    const existUser = await userModel.findOneByEmail(reqBody.email)
+
+    // Check some data
+    if (!existUser) throw new ApiError(StatusCodes.NOT_FOUND, 'Account not found!')
+    if (!existUser.isActive) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your account is not active!')
+    if (!bcryptjs.compareSync(reqBody.password, existUser.password)) {
+      throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your Email or Password is incorrect!')
+    }
+
+    // If everything is OK, start creating login tokens to return to the FE (Frontend)
+    // Create information to be attached in JWT Token includes _id and email of the user
+    const userInfo = {
+      _id: existUser._id,
+      email: existUser.email
+    }
+
+    // Create 2 types of tokens, accessToken and refreshToken, to return to the FE
+    const accessToken = await JwtProvider.generateToken(
+      userInfo,
+      env.ACCESS_TOKEN_SECRET_SIGNATURE,
+      env.ACCESS_TOKEN_LIFE
+    )
+    const refreshToken = await JwtProvider.generateToken(
+      userInfo,
+      env.REFRESH_TOKEN_SECRET_SIGNATURE,
+      env.REFRESH_TOKEN_LIFE
+    )
+
+    // Return user information along with the 2 newly created tokens
+    return { accessToken, refreshToken, ...pickUser(existUser) }
+  } catch (error) { throw error}
+}
+
 export const userService = {
-  createNew
+  createNew,
+  verifyAccount,
+  login
 }
