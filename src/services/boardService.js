@@ -7,7 +7,7 @@ import { StatusCodes } from 'http-status-codes'
 import { cloneDeep } from 'lodash'
 import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from '~/utils/constants'
 
-const createNew = async (reqBody) => {
+const createNew = async (userId, reqBody) => {
   try {
     // Xu ly logic du lieu
 
@@ -17,7 +17,7 @@ const createNew = async (reqBody) => {
     }
 
     // Goi toi tang Model de xu ly luu ban ghi vao Database
-    const createdBoard = await boardModel.createNew(newBoard)
+    const createdBoard = await boardModel.createNew(userId, newBoard)
 
     // Lay ban ghi sau khi goi
     const getNewBoard = await boardModel.findOneById(createdBoard.insertedId)
@@ -27,9 +27,9 @@ const createNew = async (reqBody) => {
   } catch (error) { throw error }
 }
 
-const getDetails = async (boardId) => {
+const getDetails = async (userId, boardId) => {
   try {
-    const board = await boardModel.getDetails(boardId)
+    const board = await boardModel.getDetails(userId, boardId)
     if (!board) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'Board not found!')
     }
@@ -59,7 +59,6 @@ const update = async (boardId, reqBody) => {
       ...reqBody,
       updateAt: Date.now()
     }
-    console.log('lop ser: ', updateData)
     const updatedBoard = await boardModel.update(boardId, updateData)
 
     return updatedBoard
