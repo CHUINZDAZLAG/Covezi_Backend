@@ -173,7 +173,7 @@ const update = async (boardId, updateData) => {
   } catch (error) { throw new Error(error) }
 }
 
-const getBoards = async (userId, page, itemsPerPage) => {
+const getBoards = async (userId, page, itemsPerPage, queryFilters) => {
   try {
     const queryCondition = [
       // Condition 01: Board has not been delete
@@ -184,6 +184,19 @@ const getBoards = async (userId, page, itemsPerPage) => {
         { memberIds: { $all: [new ObjectId(userId)] } }
       ] }
     ]
+
+    // Handle query filter for each search board
+    if (queryFilters) {
+      Object.keys(queryFilters).forEach((key) => {
+        // queryFilter[key] for example queryFilter[title] if FE send q[title]
+
+        // // Case-sensitive
+        // queryCondition.push({ [key]: { $regex: queryFilters[key] } })
+
+        // Case-insensitive
+        queryCondition.push({ [key]: { $regex: new RegExp(queryFilters[key], 'i') } })
+      })
+    }
 
     const query = await GET_DB().collection(BOARD_COLLECTION_NAME).aggregate(
       [
