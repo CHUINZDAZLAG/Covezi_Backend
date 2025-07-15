@@ -5,9 +5,7 @@ const createNew = async (req, res, next) => {
   try {
     const createdColumn = await columnService.createNew(req.body)
     res.status(StatusCodes.CREATED).json(createdColumn)
-  } catch (err) {
-    next(err)
-  }
+  } catch (error) { next(error) }
 }
 
 const update = async (req, res, next) => {
@@ -16,9 +14,7 @@ const update = async (req, res, next) => {
     const updatedColumn = await columnService.update(columnId, req.body)
 
     res.status(StatusCodes.OK).json(updatedColumn)
-  } catch (err) {
-    next(err)
-  }
+  } catch (error) { next(error) }
 }
 
 const deleteItem = async (req, res, next) => {
@@ -27,9 +23,7 @@ const deleteItem = async (req, res, next) => {
     const result = await columnService.deleteItem(columnId)
 
     res.status(StatusCodes.OK).json(result)
-  } catch (err) {
-    next(err)
-  }
+  } catch (error) { next(error) }
 }
 
 export const columnController = {
