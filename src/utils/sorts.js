@@ -1,18 +1,13 @@
 /**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- * ---
- * Order an array of objects based on another array & return new Ordered Array
- * The original array will not be modified.
- * ---
- * @param {*} originalArray
- * @param {*} orderArray
- * @param {*} key = Key to order
- * @return new Ordered Array
+ * Sort an array based on a predefined order array
+ * @param {Array} originalArray - The array to be sorted
+ * @param {Array} orderArray - Array defining the desired order sequence
+ * @param {string} key - Object property to use for ordering comparison
+ * @returns {Array} New array sorted according to the order specified in orderArray
  *
- * For Vietnamese with love :D
- * Xác định các phần tử trong array gốc ban đầu (originalArray) xem nó nằm ở đâu trong array thứ 2 (orderArray) (là array mà mình dùng để sắp xếp) bằng cách tìm index (indexOf) rồi sẽ sắp xếp theo index đó bằng hàm sort của Javascript.
+ * Example: Sort columns by their predefined order in columnOrderIds
+ * mapOrder([col1, col2, col3], ['col3_id', 'col1_id', 'col2_id'], '_id')
+ * Returns: [col3, col1, col2]
  */
 
 export const mapOrder = (originalArray, orderArray, key) => {

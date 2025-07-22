@@ -12,28 +12,28 @@ import { CloudinaryProvider } from '~/providers/CloudinaryProvider'
 
 const createNew = async (reqBody) => {
   try {
-    // Check if the email already exists
+    // Check if email is already registered in the system
     const existUser = await userModel.findOneByEmail(reqBody.email)
     if (existUser) {
       throw new ApiError(StatusCodes.CONFLICT, 'Email already exists!')
     }
 
-    // Create data to store database
-    // nameFromEmail: if email is trander@gamil.com so we get 'trander'
+    // Prepare user data for database storage
+    // Extract username from email (e.g., 'trander@gmail.com' → 'trander')
     const nameFromEmail = reqBody.email.split('@')[0]
     const newUser = {
       email: reqBody.email,
-      password: bcryptjs.hashSync(reqBody.password, 8), // 8 is complexity of algorithms
+      password: bcryptjs.hashSync(reqBody.password, 8), // Hash with complexity level 8
       username: nameFromEmail,
       displayName: nameFromEmail,
       verifyToken: uuidv4()
     }
 
-    // Store data in database
+    // Store user data in database
     const createdUser = await userModel.createNew(newUser)
     const getNewUser = await userModel.findOneById(createdUser.insertedId)
 
-    // Send email to user verification
+    // Send account verification email to user
     const verificationLink = `${WEBSITE_DOMAIN}/account/verification?email=${getNewUser.email}&token=${getNewUser.verifyToken}`
     const to = getNewUser.email
     const toName = getNewUser.username
@@ -70,7 +70,7 @@ const createNew = async (reqBody) => {
     //     fileId: '123' // dung cho html inline file
     //   }
     // ]
-    // Call Provider to send email
+    // Execute email sending through MailerSend provider
     const mailerSend = await MailerSendProvider.sendEmail({
       to,
       toName,
@@ -80,30 +80,30 @@ const createNew = async (reqBody) => {
       // templateId: MAILERSEND_TEMPLATE_IDS.REGISTER_ACCOUNT // templateId cua email, khi co nhieu nen tach ra
     })
 
-    // return data for controller which specific fields
+    // Return sanitized user data excluding sensitive information
     return pickUser(getNewUser)
   } catch (error) { throw error }
 }
 
 const verifyAccount = async (reqBody) => {
   try {
-    // Query user in database
+    // Find user by email in database
     const existUser = await userModel.findOneByEmail(reqBody.email)
 
-    // Check some data
+    // Validate account verification prerequisites
     if (!existUser) throw new ApiError(StatusCodes.NOT_FOUND, 'Account not found!')
     if (existUser.isActive) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your account is already active!')
     if (reqBody.token !== existUser.verifyToken) {
       throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Token is invalid!')
     }
 
-    // Update user's data to verify account
+    // Activate account and clear verification token
     const updateData = {
       isActive: true,
       verifyToken: null
     }
 
-    // Update
+    // Apply account activation updates
     const updatedUser = await userModel.update(existUser._id, updateData)
     return pickUser(updatedUser)
   } catch (error) { throw error}
@@ -111,24 +111,24 @@ const verifyAccount = async (reqBody) => {
 
 const login = async (reqBody) => {
   try {
-    // Query user in database
+    // Find user account by email
     const existUser = await userModel.findOneByEmail(reqBody.email)
 
-    // Check some data
+    // Validate login credentials and account status
     if (!existUser) throw new ApiError(StatusCodes.NOT_FOUND, 'Account not found!')
     if (!existUser.isActive) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your account is not active!')
     if (!bcryptjs.compareSync(reqBody.password, existUser.password)) {
       throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your Email or Password is incorrect!')
     }
 
-    // If everything is OK, start creating login tokens to return to the FE (Frontend)
-    // Create information to be attached in JWT Token includes _id and email of the user
+    // Generate JWT tokens for authenticated session
+    // Create user payload for token generation (minimal data for security)
     const userInfo = {
       _id: existUser._id,
       email: existUser.email
     }
 
-    // Create 2 types of tokens, accessToken and refreshToken, to return to the FE
+    // Generate dual-token authentication system (access + refresh tokens)
     const accessToken = await JwtProvider.generateToken(
       userInfo,
       env.ACCESS_TOKEN_SECRET_SIGNATURE,
@@ -140,31 +140,31 @@ const login = async (reqBody) => {
       env.REFRESH_TOKEN_LIFE
     )
 
-    // Return user information along with the 2 newly created tokens
+    // Return authentication tokens with sanitized user data
     return { accessToken, refreshToken, ...pickUser(existUser) }
   } catch (error) { throw error}
 }
 
 const refreshToken = async (clientRefreshToken) => {
   try {
-    // Verify / giải mã cái refresh token xem có hợp lệ không
+    // Verify and decode the refresh token to ensure it's valid
     const refreshTokenDecoded = await JwtProvider.verifyToken(
       clientRefreshToken,
       env.REFRESH_TOKEN_SECRET_SIGNATURE
     )
 
-    // Đoạn này vì chúng ta chỉ lưu những thông tin unique và cố định của user trong token thôi, vì vậy có thể
-    // lấy luôn từ decoded ra, tiết kiệm query vào DB để lấy data mới.
+    // Extract user info from decoded token (avoid database query for performance)
+    // Since we store only immutable user data in tokens, we can safely reuse it
     const userInfo = {
       _id: refreshTokenDecoded._id,
       email: refreshTokenDecoded.email
     }
 
-    // Tạo accessToken mới
+    // Generate new access token with fresh expiration time
     const accessToken = await JwtProvider.generateToken(
       userInfo,
       env.ACCESS_TOKEN_SECRET_SIGNATURE,
-      env.ACCESS_TOKEN_LIFE // 1 tiếng
+      env.ACCESS_TOKEN_LIFE // Short-lived token (e.g., 1 hour)
     )
 
     return { accessToken }
@@ -173,35 +173,35 @@ const refreshToken = async (clientRefreshToken) => {
 
 const update = async (userId, reqBody, userAvatarFile) => {
   try {
-    // Query user and check some data
+    // Verify user exists and account is active
     const existUser = await userModel.findOneById(userId)
     if (!existUser) throw new ApiError(StatusCodes.NOT_FOUND, 'Account not found!')
     if (!existUser.isActive) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your account is not active!')
 
-    // Initialize updated User is empty
+    // Initialize variable for update result
     let updatedUser = {}
 
-    // Case change password
+    // Handle password change with current password verification
     if (reqBody.current_password && reqBody.new_password) {
-      // Check if current_password is correct
+      // Verify current password before allowing change
       if (!bcryptjs.compareSync(reqBody.current_password, existUser.password)) {
         throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Your Current Password is incorrect!')
       }
 
-      // If current_password is correct, hash a new password and update DB
+      // Hash new password and update in database
       updatedUser = await userModel.update(existUser._id, {
         password: bcryptjs.hashSync(reqBody.new_password, 8)
       })
     } else if (userAvatarFile) {
-      // Case upload file to Cloud Storage - Cloudinary
+      // Handle avatar upload to Cloudinary cloud storage
       const uploadResult = await CloudinaryProvider.streamUpload(userAvatarFile.buffer, 'users')
 
-      // Store URL (secure_url) of image file to DB
+      // Store secure URL of uploaded image in database
       updatedUser = await userModel.update(existUser._id, {
         avatar: uploadResult.secure_url
       })
     } else {
-      // Case update common infor
+      // Handle general profile information updates
       updatedUser = await userModel.update(existUser._id, reqBody)
     }
 

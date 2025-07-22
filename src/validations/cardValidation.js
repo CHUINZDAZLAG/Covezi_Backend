@@ -19,15 +19,15 @@ const createNew = async (req, res, next) => {
 }
 
 const update = async (req, res, next) => {
-  // Lưu ý không dùng hàm required() trong trường hợp Update
+  // Remove required() constraints for update operations to allow partial updates
   const correctCondition = Joi.object({
     title: Joi.string().min(3).max(50).trim().strict(),
     description: Joi.string().optional()
   })
 
   try {
-    // Chỉ định abortEarly: false để trường hợp có nhiều lỗi validation thì trả về tất cả cả lỗi (video 52)
-    // Đối với trường hợp update, cho phép Unknown để không cần đầy một số field lên
+    // Set abortEarly: false to collect all validation errors instead of stopping at first error
+    // Allow unknown fields for update flexibility without requiring all fields to be present
     await correctCondition.validateAsync(req.body, {
       abortEarly: false,
       allowUnknown: true

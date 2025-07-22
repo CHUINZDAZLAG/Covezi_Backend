@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { MailerSend, EmailParams, Sender, Recipient, Attachment } from 'mailersend'
 // import fs from 'fs'
 import { env } from '~/config/environment'
@@ -6,13 +7,13 @@ const MAILERSEND_API_KEY = env.MAILERSEND_API_KEY
 const ADMIN_SENDER_EMAIL = env.ADMIN_SENDER_EMAIL
 const ADMIN_SENDER_NAME = env.ADMIN_SENDER_NAME
 
-// Create Instance of MailerSend to use
+// Create MailerSend instance with API key for email service
 const mailerSendInstance = new MailerSend({ apiKey: MAILERSEND_API_KEY })
 
-// Create sentFrom: sender
+// Configure default sender information for all outgoing emails
 const sentFrom = new Sender(ADMIN_SENDER_EMAIL, ADMIN_SENDER_NAME)
 
-// Function to send email
+// Function to send email with customizable parameters
 const sendEmail = async ({
   to,
   toName,
@@ -24,31 +25,30 @@ const sendEmail = async ({
   // sendAt
 }) => {
   try {
-    // Setup email va ten nguoi nhan, hoac nhieu ng nhan, du lieu trong mang
+    // Configure recipient list (supports multiple recipients)
     const recipients = [
       new Recipient(to, toName)
-      // new Recipient(to, toName) co the gui nhieu email 1 luc
+      // Additional recipients can be added to this array
     ]
 
-    // // CC (Carbon Copy): Gửi bản sao công khai, nghĩa là gửi bản sao của email cho người khác để họ biết nội
-    // // dung email, nhưng không cần phản hồi.
-    // // Người nhận chính và người được CC đều thấy email của nhau.
+    // // CC (Carbon Copy): Send public copy to additional recipients
+    // // Both primary recipient and CC recipients can see each other's email addresses
     // const cc = [
     //   new Recipient('your_cc_01@trungquandev.com', 'Your Client CC 01'),
     //   new Recipient('your_cc_02@trungquandev.com', 'Your Client CC 02'),
     //   new Recipient('your_cc_03@trungquandev.com', 'Your Client CC 03')
     // ]
 
-    // // BCC (Blind Carbon Copy): Gửi bản sao ẩn danh, nghĩa là người nhận chính không biết ai đang nhận BCC.
-    // // BCC rất hữu ích khi gửi email hàng loạt (VD: thông báo đến nhiều khách hàng mà không cho phép họ thấy
-    // // thông tin nhau).
+    // // BCC (Blind Carbon Copy): Send hidden copy to recipients
+    // // Primary recipient cannot see BCC recipients, useful for mass notifications
+    // // while maintaining privacy between recipients
     // const bcc = [
     //   new Recipient('your_bcc_01@trungquandev.com', 'Your Client BCC 01'),
     //   new Recipient('your_bcc_02@trungquandev.com', 'Your Client BCC 02'),
     //   new Recipient('your_bcc_03@trungquandev.com', 'Your Client BCC 03')
     // ]
 
-    // // attachments: attachment files
+    // // File attachments: Convert files to base64 for email delivery
     // const buildAttachments = attachments.map(att => {
     //   return new Attachment(
     //     fs.readFileSync(att.filePath, { encoding: 'base64' }),
@@ -58,22 +58,22 @@ const sendEmail = async ({
     //   )
     // })
 
-    // Setup email params theo chuan cua MailerSend
+    // Configure email parameters according to MailerSend specifications
     const emailParams = new EmailParams()
       .setFrom(sentFrom)
       .setTo(recipients)
       .setReplyTo(sentFrom)
       .setSubject(subject)
-      // .setTemplateId(templateId) // Template duoc tao tu MailerSend dashboard
-      // .setPersonalization(personalizationData) // Dynamic data, cac bien truyen vao template
+      // .setTemplateId(templateId) // Use pre-built template from MailerSend dashboard
+      // .setPersonalization(personalizationData) // Dynamic variables for template substitution
       // .setAttachments(buildAttachments)
       // .setCc(cc)
       // .setBcc(bcc)
-      .setHtml(html) // Dung html de dinh kem file vao content
-      // .setText(text) Email dang text don gian, it dung
+      .setHtml(html) // HTML content for rich email formatting
+      // .setText(text) // Plain text alternative (rarely used)
       // .setSendAt(sendAt)
 
-    // Send email
+    // Send email and return response data
     const data = await mailerSendInstance.email.send(emailParams)
     return data
   } catch (error) {

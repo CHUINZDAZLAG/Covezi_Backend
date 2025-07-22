@@ -1,13 +1,13 @@
 import JWT from 'jsonwebtoken'
 
-// Function generate token need 3 parametters: userInfo, secretSignature(privateKey), tokenLife
+// Generate JWT token with user information, secret signature, and expiration time
 const generateToken = async (userInfo, secretSignature, tokenLife) => {
   try {
     return JWT.sign(userInfo, secretSignature, { algorithm: 'HS256', expiresIn: tokenLife })
   } catch (error) { throw new Error(error)}
 }
 
-// Check if a token is valid by checking secretSignature(privateKey)
+// Verify JWT token authenticity and return decoded payload if valid
 const verifyToken = async (token, secretSignature) => {
   try {
     return JWT.verify(token, secretSignature)

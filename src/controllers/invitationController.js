@@ -3,7 +3,7 @@ import { invitationService } from '~/services/invitationService'
 
 const createNewBoardInvitation = async (req, res, next) => {
   try {
-    // User thực hiện request này chính là Inviter - người đi mời
+    // Extract inviter ID from authenticated user's JWT token
     const inviterId = req.jwtDecoded._id
     const resInvitation = await invitationService.createNewBoardInvitation(req.body, inviterId)
 
@@ -23,10 +23,9 @@ const getInvitations = async (req, res, next) => {
 const updateBoardInvitation = async (req, res, next) => {
   try {
     const userId = req.jwtDecoded._id
-    // Mặc dù ở phía FE để là notificationId nhưng bản chất ở API này nó cũng chính là invitationId
+    // Note: Although frontend uses 'notificationId', it's actually the same as 'invitationId'
     const { invitationId } = req.params
     const { status } = req.body
-
     const updatedInvitation = await invitationService.updateBoardInvitation(userId, invitationId, status)
 
     res.status(StatusCodes.OK).json(updatedInvitation)

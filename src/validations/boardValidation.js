@@ -12,9 +12,9 @@ const createNew = async (req, res, next) => {
   })
 
   try {
-    // Chi dinh abortEarly: false de xu ly truong hop co nhieu loi validation de tra ve tat ca loi
+    // Set abortEarly: false to collect all validation errors instead of stopping at first error
     await correctCondition.validateAsync(req.body, { abortEarly: false })
-    // Validation xong thi cho request chay tiep sang Controller
+    // Pass request to controller after successful validation
     next()
   } catch (error) {
     next(new ApiError(StatusCodes.UNPROCESSABLE_ENTITY, new Error(error).message))
@@ -22,11 +22,11 @@ const createNew = async (req, res, next) => {
 }
 
 const update = async (req, res, next) => {
-  // Dont use required() when update
+  // Remove required() constraints for update operations to allow partial updates
   const correctCondition = Joi.object({
     title: Joi.string().min(3).max(255).trim().strict(),
     description: Joi.string().min(3).max(255).trim().strict(),
-    type: Joi.string().valid(BOARD_TYPES.PUBLIC, BOARD_TYPES.PRIVATE),
+    type: Joi.string().valid(BOARD_TYPES.PUBLIC, BOARD_TYPES.PRIVATE)
     // columnOrderIds: Joi.array().items(
     //   Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE))
   })
@@ -34,7 +34,7 @@ const update = async (req, res, next) => {
   try {
     await correctCondition.validateAsync(req.body, {
       abortEarly: false,
-      allowUnknown: true // For updating, allow Unkown data fields
+      allowUnknown: true // Allow additional fields not defined in schema for flexibility
     })
     next()
   } catch (error) {

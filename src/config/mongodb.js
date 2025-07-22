@@ -1,11 +1,10 @@
 /* eslint-disable no-console */
-
 import { MongoClient } from 'mongodb'
 import { env } from '~/config/environment'
 
 let trelloDatabaseInstance = null
 
-// Khởi tạo một đối tượng mongoClientInstance để connect tói MongoDB
+// Initialize MongoDB client instance for database connection
 const mongoClientInstance = new MongoClient(env.MONGODB_URI, {
   // serverApi: {
   //   version: ServerApiVersion.v1,
@@ -15,21 +14,21 @@ const mongoClientInstance = new MongoClient(env.MONGODB_URI, {
 })
 
 export const CONNECT_DB = async () => {
-  // Goi ket noi toi MongoDB Atlas voi URI da khai bao trong than cua mongoClientInstance
+  // Establish connection to MongoDB Atlas using the configured client instance
   await mongoClientInstance.connect()
 
-  // Ket noi thanh cong thi lay ra Database theo ten va gan nguoc no lai vao bien trelloDatabaseInstance o tren
+  // Retrieve and cache the database instance after successful connection
   trelloDatabaseInstance = mongoClientInstance.db(env.DATABASE_NAME)
 }
 
-// Export ra trello database instance sau khi da connect thanh cong toi mongDB de su dung o nhieu noi
-// Luu y phai dam bao chi luon goi getDB nay sau khi da ket noi thanh cong voi mongoDB
+// Export database instance for use throughout the application
+// Note: This function should only be called after successful database connection
 export const GET_DB = () => {
   if (!trelloDatabaseInstance) throw new Error('Must connect to Database first!')
   return trelloDatabaseInstance
 }
 
-// Dong ket noi toi Database khi can
+// Gracefully close database connection when needed
 export const CLOSE_DB = async () => {
   console.log('4. Disconncting from MongoDB Cloud Atlas...')
   await mongoClientInstance.close()

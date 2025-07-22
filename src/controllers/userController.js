@@ -20,13 +20,12 @@ const verifyAccount = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const result = await userService.login(req.body)
-
     /**
-     * Xử lý trả về http only cookie cho phía trình duyệt
-     * Về cái maxAge và thư viện ms: https://expressjs.com/en/api.html
-     * Đối với cái maxAge - thời gian sống của Cookie thì chúng ta sẽ để tối đa 14 ngày, tùy dự án. Lưu ý
-     thời gian sống của cookie khác với cái thời gian sống của token.
-    */
+     * Set HTTP-only cookies for secure token storage in browser
+     * Reference: https://expressjs.com/en/api.html
+     * Note: Cookie maxAge (14 days) is separate from token expiration time
+     * This provides additional security layer for token management
+     */
     res.cookie('accessToken', result.accessToken, {
       httpOnly: true,
       secure: true,
@@ -46,7 +45,7 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    // Xóa cookie - đơn giản là làm ngược lại so với việc gán cookie ở hàm login
+    // Clear authentication cookies to complete logout process
     res.clearCookie('accessToken')
     res.clearCookie('refreshToken')
 
@@ -63,6 +62,7 @@ const refreshToken = async (req, res, next) => {
       sameSite: 'none',
       maxAge: ms('14 days')
     })
+
     res.status(StatusCodes.OK).json(result)
   } catch (error) {
     next(new ApiError(StatusCodes.FORBIDDEN, 'Please Sign In! (Error from refresh Token)'))
@@ -74,6 +74,7 @@ const update = async (req, res, next) => {
     const userId = req.jwtDecoded._id
     const userAvatarFile = req.file
     const updatedUser = await userService.update(userId, req.body, userAvatarFile)
+
     res.status(StatusCodes.OK).json(updatedUser)
   } catch (error) { next(error) }
 }

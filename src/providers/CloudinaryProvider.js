@@ -3,10 +3,11 @@ import streamifier from 'streamifier'
 import { env } from '~/config/environment'
 
 /*
-Tài liệu tham khảo
+Reference documentation:
 https://cloudinary.com/blog/node_js_file_upload_to_a_local_server_or_to_the_cloud
 */
-// Bước cấu hình cloudinary, sử dụng v2 - version 2
+
+// Configure Cloudinary v2 with environment credentials
 const cloudinaryV2 = cloudinary.v2
 cloudinaryV2.config({
   cloud_name: env.CLOUDINARY_CLOUD_NAME,
@@ -14,16 +15,16 @@ cloudinaryV2.config({
   api_secret: env.CLOUDINARY_API_SECRET
 })
 
-// Initialize function to upload file to Cloudinary
+// Stream-based file upload to Cloudinary cloud storage
 const streamUpload = (fileBuffer, folderName) => {
   return new Promise((resolve, reject) => {
-    // Tạo một cái luồng stream upload lên cloudinary
+    // Create upload stream with target folder configuration
     const stream = cloudinaryV2.uploader.upload_stream({ folder: folderName }, (err, result) => {
       if (err) reject(err)
       else resolve(result)
     })
 
-    // Thực hiện upload cái luồng trên bằng lib streamifier
+    // Execute upload by piping file buffer through streamifier
     streamifier.createReadStream(fileBuffer).pipe(stream)
   })
 }

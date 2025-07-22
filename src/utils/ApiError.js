@@ -1,16 +1,16 @@
 class ApiError extends Error {
   constructor(statusCode, message) {
-    // Gọi tới hàm khởi tạo của class Error (class cha) để còn dùng this (kiến thức OOP lập trình hướng đối tượng căn bản)
-    // Thằng cha (Error) có property message rồi nên gọi nó luôn trong super cho gọn
+    // Call parent Error constructor to inherit base error functionality
+    // Pass message to parent constructor for proper error handling
     super(message)
 
-    // Tên của cái custom Error này, nếu không set thì mặc định nó sẽ kế thừa là "Error"
+    // Set custom error name to distinguish from generic Error instances
     this.name = 'ApiError'
 
-    // Gán thêm http status code của chúng ta ở đây
+    // Attach HTTP status code for proper API response handling
     this.statusCode = statusCode
 
-    // Ghi lại Stack Trace (dấu vết ngăn xếp) để thuận tiện cho việc debug
+    // Capture stack trace for debugging purposes, excluding constructor from trace
     Error.captureStackTrace(this, this.constructor)
   }
 }

@@ -12,7 +12,7 @@ export const slugify = (val) => {
     .replace(/-+/g, '-') // remove consecutive hyphens
 }
 
-// Lấy một vài dữ liệu cụ thể trong User để tránh việc trả về các dữ liệu nhạy cảm như hash password
+// Extract specific user fields to prevent exposure of sensitive data like password hashes
 export const pickUser = (user) => {
   if (!user) return {}
   return pick(user, ['_id', 'email', 'username', 'displayName', 'avatar', 'role', 'isActive', 'createdAt', 'updatedAt'])

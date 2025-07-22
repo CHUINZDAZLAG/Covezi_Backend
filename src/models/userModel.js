@@ -3,20 +3,18 @@ import { ObjectId } from 'mongodb'
 import { GET_DB } from '~/config/mongodb'
 import { EMAIL_RULE, EMAIL_RULE_MESSAGE } from '~/utils/validators'
 
-// Define tạm 2 roles cho user, tùy việc mở rộng dự án ảnh như thế nào mà mọi người có thể thêm role tùy ý sao
-// cho phù hợp sau.
+// Define user roles for authorization system (can be extended based on project requirements)
 const USER_ROLES = {
   CLIENT: 'client',
   ADMIN: 'admin'
 }
 
-// Define Collection (name & schema)
+// Define MongoDB collection name and Joi validation schema
 const USER_COLLECTION_NAME = 'users'
 const USER_COLLECTION_SCHEMA = Joi.object({
   email: Joi.string().required().pattern(EMAIL_RULE).message(EMAIL_RULE_MESSAGE), // unique
   password: Joi.string().required(),
-  // username cắt ra từ email sẽ có khả năng không unique bởi vì sẽ có những tên email trùng nhau nhưng từ
-  // các nhà cung cấp khác nhau
+  // Username derived from email may not be unique due to same usernames from different providers
   username: Joi.string().required().trim().strict(),
   displayName: Joi.string().required().trim().strict(),
   avatar: Joi.string().default(null),
@@ -30,7 +28,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   _destroy: Joi.boolean().default(false)
 })
 
-// Chỉ định ra những Fields mà chúng ta không muốn cho phép cập nhật trong hàm update()
+// Specify fields that should not be allowed for updates in the update() function
 const INVALID_UPDATE_FIELDS = ['_id', 'email', 'username', 'createdAt']
 
 const validateBeforeCreate = async (data) => {
@@ -61,7 +59,7 @@ const findOneByEmail = async (emailValue) => {
 
 const update = async (userId, updateData) => {
   try {
-    // Lọc những field mà chúng ta không cho phép cập nhật linh tinh
+    // Filter out fields that are not allowed to be updated for data integrity
     Object.keys(updateData).forEach(fieldName => {
       if (INVALID_UPDATE_FIELDS.includes(fieldName)) {
         delete updateData[fieldName]
@@ -71,7 +69,7 @@ const update = async (userId, updateData) => {
     const result = await GET_DB().collection(USER_COLLECTION_NAME).findOneAndUpdate(
       { _id: new ObjectId(userId) },
       { $set: updateData },
-      { returnDocument: 'after' } // sẽ trả về kết quả mới sau khi cập nhật
+      { returnDocument: 'after' } // Return updated document instead of original
     )
 
     return result
