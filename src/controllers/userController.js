@@ -26,18 +26,15 @@ const login = async (req, res, next) => {
      * Note: Cookie maxAge (14 days) is separate from token expiration time
      * This provides additional security layer for token management
      */
-    res.cookie('accessToken', result.accessToken, {
+    const cookieOptions = {
       httpOnly: true,
-      secure: true,
-      sameSite: 'none',
+      secure: process.env.BUILD_MODE === 'production', // Only require HTTPS in production
+      sameSite: process.env.BUILD_MODE === 'production' ? 'none' : 'lax', // 'lax' for localhost
       maxAge: ms('14 days')
-    })
-    res.cookie('refreshToken', result.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      maxAge: ms('14 days')
-    })
+    }
+    
+    res.cookie('accessToken', result.accessToken, cookieOptions)
+    res.cookie('refreshToken', result.refreshToken, cookieOptions)
 
     res.status(StatusCodes.OK).json(result)
   } catch (error) { next(error) }
@@ -46,8 +43,14 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   try {
     // Clear authentication cookies to complete logout process
-    res.clearCookie('accessToken')
-    res.clearCookie('refreshToken')
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.BUILD_MODE === 'production',
+      sameSite: process.env.BUILD_MODE === 'production' ? 'none' : 'lax'
+    }
+    
+    res.clearCookie('accessToken', cookieOptions)
+    res.clearCookie('refreshToken', cookieOptions)
 
     res.status(StatusCodes.OK).json({ loggedOut: true })
   } catch (error) { next(error) }
@@ -56,12 +59,14 @@ const logout = async (req, res, next) => {
 const refreshToken = async (req, res, next) => {
   try {
     const result = await userService.refreshToken(req.cookies?.refreshToken)
-    res.cookie('accessToken', result.accessToken, {
+    const cookieOptions = {
       httpOnly: true,
-      secure: true,
-      sameSite: 'none',
+      secure: process.env.BUILD_MODE === 'production',
+      sameSite: process.env.BUILD_MODE === 'production' ? 'none' : 'lax',
       maxAge: ms('14 days')
-    })
+    }
+    
+    res.cookie('accessToken', result.accessToken, cookieOptions)
 
     res.status(StatusCodes.OK).json(result)
   } catch (error) {

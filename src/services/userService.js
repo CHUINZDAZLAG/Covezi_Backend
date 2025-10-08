@@ -26,7 +26,8 @@ const createNew = async (reqBody) => {
       password: bcryptjs.hashSync(reqBody.password, 8), // Hash with complexity level 8
       username: nameFromEmail,
       displayName: nameFromEmail,
-      verifyToken: uuidv4()
+      verifyToken: uuidv4(),
+      isActive: env.BUILD_MODE === 'dev' ? true : false // Auto-active in dev mode
     }
 
     // Store user data in database
@@ -71,14 +72,16 @@ const createNew = async (reqBody) => {
     //   }
     // ]
     // Execute email sending through MailerSend provider
-    const mailerSend = await MailerSendProvider.sendEmail({
-      to,
-      toName,
-      subject,
-      html
-      // personalizationData
-      // templateId: MAILERSEND_TEMPLATE_IDS.REGISTER_ACCOUNT // templateId cua email, khi co nhieu nen tach ra
-    })
+    if (env.BUILD_MODE === 'production') {
+      await MailerSendProvider.sendEmail({
+        to,
+        toName,
+        subject,
+        html
+        // personalizationData
+        // templateId: MAILERSEND_TEMPLATE_IDS.REGISTER_ACCOUNT // templateId cua email, khi co nhieu nen tach ra
+      })
+    }
 
     // Return sanitized user data excluding sensitive information
     return pickUser(getNewUser)
@@ -125,7 +128,8 @@ const login = async (reqBody) => {
     // Create user payload for token generation (minimal data for security)
     const userInfo = {
       _id: existUser._id,
-      email: existUser.email
+      email: existUser.email,
+      role: existUser.role
     }
 
     // Generate dual-token authentication system (access + refresh tokens)
@@ -157,7 +161,8 @@ const refreshToken = async (clientRefreshToken) => {
     // Since we store only immutable user data in tokens, we can safely reuse it
     const userInfo = {
       _id: refreshTokenDecoded._id,
-      email: refreshTokenDecoded.email
+      email: refreshTokenDecoded.email,
+      role: refreshTokenDecoded.role
     }
 
     // Generate new access token with fresh expiration time

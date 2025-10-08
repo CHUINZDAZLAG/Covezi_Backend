@@ -2,21 +2,25 @@
 import express from 'express'
 import AsyncExitHook from 'async-exit-hook'
 import { CLOSE_DB, CONNECT_DB } from '~/config/mongodb'
+import { CLOSE_DB as CLOSE_MONGOOSE, CONNECT_DB as CONNECT_MONGOOSE } from '~/config/mongooseConnection'
 import { env } from '~/config/environment'
 import { APIs_V1 } from '~/routes/v1/index'
 import { errorHandlingMiddleware } from '~/middlewares/errorHandlingMiddleware'
 import cors from 'cors'
 import { corsOptions } from './config/cors'
 import cookieParser from 'cookie-parser'
-// Configure Socket.io for real-time communication
-import socketIo from 'socket.io'
 import http from 'http'
-import { inviteUserToBoardSocket } from './sockets/inviteUserToBoardSocket'
+import { Server as SocketIOServer } from 'socket.io'
+// Challenge cron jobs
+import { challengeCronJobs } from './jobs/challengeJobs'
+// Voucher cleanup cron job
+import { scheduleVoucherCleanupJob } from './jobs/voucherCleanupJob'
 
 const START_SERVER = () => {
   const app = express()
 
   // Disable Express.js cache to prevent serving stale content
+  app.set('etag', false)
   app.use((req, res, next) => {
     res.set('Cache-Control', 'no-store')
     next()
@@ -30,6 +34,15 @@ const START_SERVER = () => {
 
   // Enable JSON request body parsing
   app.use(express.json())
+  
+  // Enable URL-encoded form parsing (needed for FormData)
+  app.use(express.urlencoded({ extended: true }))
+
+  // Debug logging middleware - log all requests
+  app.use((req, res, next) => {
+    console.log(`[${req.method}] ${req.path}`)
+    next()
+  })
 
   // Mount API v1 routes
   app.use('/v1', APIs_V1)
@@ -37,31 +50,53 @@ const START_SERVER = () => {
   // Apply centralized error handling middleware
   app.use(errorHandlingMiddleware)
 
-  // Create HTTP server wrapping Express app for Socket.io integration
-  const server = http.createServer(app)
-  // Initialize Socket.io with CORS configuration
-  const io = socketIo(server, { cors: corsOptions })
-  io.on('connection', (socket) => {
-    // Register socket handlers for specific features
-    inviteUserToBoardSocket(socket)
+  // Create HTTP server with Socket.io
+  const httpServer = http.createServer(app)
+  const io = new SocketIOServer(httpServer, {
+    cors: corsOptions
   })
+
+  // Socket.io connection handler
+  io.on('connection', (socket) => {
+    console.log('📌 New socket connection:', socket.id)
+    socket.on('disconnect', () => {
+      console.log('📌 Socket disconnected:', socket.id)
+    })
+  })
+
+  // Schedule cron jobs
+  challengeCronJobs.initChallengeJobs()
+  scheduleVoucherCleanupJob()
 
   // Production environment configuration (Render.com)
   if (env.BUILD_MODE === 'production') {
-    // Use server.listen instead of app.listen to include Socket.io configuration
-    server.listen(process.env.PORT, () => {
+    httpServer.listen(process.env.PORT, () => {
       console.log(`3. Production: Hi ${env.AUTHOR}, Server is running at ${process.env.PORT}`)
     })
   } else {
     // Local development environment
-    server.listen(env.LOCAL_DEV_APP_PORT, env.LOCAL_DEV_APP_HOST, () => {
+    httpServer.listen(env.LOCAL_DEV_APP_PORT, env.LOCAL_DEV_APP_HOST, () => {
       console.log(`3. Local dev: Hi ${env.AUTHOR}, Server is running at ${env.LOCAL_DEV_APP_HOST}:${env.LOCAL_DEV_APP_PORT}`)
     })
   }
 
-  // Graceful shutdown handler for database connections
-  AsyncExitHook(() => {
-    CLOSE_DB()
+  // Handle uncaught exceptions
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason)
+    console.error(reason?.stack)
+  })
+
+  process.on('uncaughtException', (error) => {
+    console.error('❌ Uncaught Exception:', error)
+    console.error(error?.stack)
+  })
+
+  // Handle graceful shutdown
+  process.on('SIGINT', async () => {
+    console.log('\n⚠️  Received SIGINT, gracefully shutting down...')
+    await CLOSE_DB()
+    await CLOSE_MONGOOSE()
+    process.exit(0)
   })
 }
 
@@ -71,7 +106,11 @@ const START_SERVER = () => {
   try {
     console.log('1. Connecting to MongoDB Cloud Atlas...')
     await CONNECT_DB()
+    await CONNECT_MONGOOSE()
     console.log('2. Connected to MongoDB Cloud Atlas!')
+
+    // Initialize cron jobs for challenge cleanup
+    challengeCronJobs.initChallengeJobs()
 
     START_SERVER()
   } catch (error) {

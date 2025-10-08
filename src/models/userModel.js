@@ -76,6 +76,10 @@ const update = async (userId, updateData) => {
   } catch (error) { throw new Error(error) }
 }
 
+const isAdmin = (user) => {
+  return user && user.role === USER_ROLES.ADMIN
+}
+
 export const userModel = {
   USER_COLLECTION_NAME,
   USER_COLLECTION_SCHEMA,
@@ -83,5 +87,6 @@ export const userModel = {
   createNew,
   findOneById,
   findOneByEmail,
-  update
+  update,
+  isAdmin
 }

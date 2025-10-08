@@ -34,4 +34,95 @@ const isAuthorized = async (req, res, next) => {
   }
 }
 
-export const authMiddleware = { isAuthorized }
+// Optional authorization - doesn't require token but decodes if present
+const isAuthorizedOptional = async (req, res, next) => {
+  const clientAccessToken = req.cookies?.accessToken
+
+  // If no token, just continue without user info
+  if (!clientAccessToken) {
+    req.jwtDecoded = null
+    next()
+    return
+  }
+
+  try {
+    const accessTokenDecoded = await JwtProvider.verifyToken(clientAccessToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
+    req.jwtDecoded = accessTokenDecoded
+    next()
+  } catch (error) {
+    // Token invalid/expired - continue without user info
+    req.jwtDecoded = null
+    next()
+  }
+}
+
+// Middleware to verify user is admin
+const isAdmin = (req, res, next) => {
+  if (!req.jwtDecoded) {
+    return next(new ApiError(StatusCodes.UNAUTHORIZED, 'User not authenticated'))
+  }
+  
+  console.log('[DEBUG isAdmin] req.jwtDecoded:', req.jwtDecoded)
+  
+  // Check if role exists in JWT, if not check email fallback
+  const userRole = req.jwtDecoded.role
+  const userEmail = req.jwtDecoded.email
+  const isAdminUser = userRole === 'admin' || userEmail?.includes('admin')
+  
+  console.log('[DEBUG isAdmin] userRole:', userRole, 'userEmail:', userEmail, 'isAdminUser:', isAdminUser)
+  
+  if (!isAdminUser) {
+    return next(new ApiError(StatusCodes.FORBIDDEN, 'Admin access required'))
+  }
+  
+  next()
+}
+
+// Middleware to verify user is client
+const isClient = (req, res, next) => {
+  if (!req.jwtDecoded) {
+    return next(new ApiError(StatusCodes.UNAUTHORIZED, 'User not authenticated'))
+  }
+  
+  if (req.jwtDecoded.role !== 'client') {
+    return next(new ApiError(StatusCodes.FORBIDDEN, 'Client access required'))
+  }
+  
+  next()
+}
+
+// Middleware to check specific permission
+const requirePermission = (permission) => {
+  return (req, res, next) => {
+    if (!req.jwtDecoded) {
+      return next(new ApiError(StatusCodes.UNAUTHORIZED, 'User not authenticated'))
+    }
+    
+    // Define permissions based on role
+    const adminPermissions = [
+      'product.create',
+      'product.read',
+      'product.update',
+      'product.delete',
+      'voucher.manage',
+      'voucher.confirm',
+      'user.manage'
+    ]
+    
+    const clientPermissions = [
+      'product.read',
+      'voucher.view',
+      'voucher.use'
+    ]
+    
+    const userPermissions = req.jwtDecoded.role === 'admin' || req.jwtDecoded.email?.includes('admin') ? adminPermissions : clientPermissions
+    
+    if (!userPermissions.includes(permission)) {
+      return next(new ApiError(StatusCodes.FORBIDDEN, `Permission '${permission}' required`))
+    }
+    
+    next()
+  }
+}
+
+export const authMiddleware = { isAuthorized, isAuthorizedOptional, isAdmin, isClient, requirePermission }

@@ -1,10 +1,15 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { boardRoute } from '~/routes/v1/boardRoute'
-import { columnRoute } from './columnRoute'
-import { cardRoute } from './cardRoute'
 import { userRoute } from './userRoute'
-import { invitationRoute } from './invitationRoute'
+import { homepageRoute } from './homepageRoute'
+import { productRoute } from './productRoute'
+import { challengeRoute } from './challengeRoute'
+import { gardenRoute } from './gardenRoute'
+import { gamificationRoutes } from './gamificationRoutes'
+import { voucherRoute } from './voucherRoute'
+import { adminVoucherConfigRoute } from './adminVoucherConfigRoute'
+import { adminChallengeRoute } from './adminChallengeRoute'
+import { adminUserVoucherHistoryRoute } from './adminUserVoucherHistoryRoute'
 
 const Router = express.Router()
 
@@ -12,19 +17,35 @@ Router.get('/status', (req, res) => {
   res.status(StatusCodes.OK).json({ message: 'APIs V1 are ready to use' })
 })
 
-// Board API
-Router.use('/boards', boardRoute)
-
-// Column API
-Router.use('/columns', columnRoute)
-
-// Card API
-Router.use('/cards', cardRoute)
-
 // User API
 Router.use('/users', userRoute)
 
-// Invitation API
-Router.use('/invitations', invitationRoute)
+// Covezi Platform APIs
+// Homepage API
+Router.use('/homepage', homepageRoute)
+
+// Product API
+Router.use('/products', productRoute)
+
+// Challenge API (with likes and proof comments)
+Router.use('/challenges', challengeRoute)
+
+// Garden API
+Router.use('/garden', gardenRoute)
+
+// Gamification API
+Router.use('/gamification', gamificationRoutes)
+
+// Voucher API
+Router.use('/vouchers', voucherRoute)
+
+// Admin Voucher Config API
+Router.use('/admin/voucher-config', adminVoucherConfigRoute)
+
+// Admin Challenge API
+Router.use('/admin/challenges', adminChallengeRoute)
+
+// Admin User Voucher History API
+Router.use('/admin/voucher-history', adminUserVoucherHistoryRoute)
 
 export const APIs_V1 = Router

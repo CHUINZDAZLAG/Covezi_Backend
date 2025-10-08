@@ -23,4 +23,13 @@ const upload = multer({
   limits: { fileSize: LIMIT_COMMON_FILE_SIZE },
   fileFilter: customFileFilter
 })
-export const multerUploadMiddleware = { upload }
+
+// Export different upload methods
+export const multerUploadMiddleware = { 
+  upload,
+  uploadSingle: (fieldName) => upload.single(fieldName),
+  uploadMultiple: (fieldName, maxCount = 10) => upload.array(fieldName, maxCount),
+  uploadFields: (fields) => upload.fields(fields),
+  // Upload with any field names but allow text fields to pass through
+  uploadAny: () => upload.any()
+}
