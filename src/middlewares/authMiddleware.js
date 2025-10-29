@@ -50,26 +50,6 @@ const isAuthorized = async (req, res, next) => {
     return next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized!'))
   }
 }
-  try {
-    // Step 1: Verify and decode the JWT access token
-    const accessTokenDecoded = await JwtProvider.verifyToken(clientAccessToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
-
-    // Step 2: Attach decoded user info to request object for downstream use
-    req.jwtDecoded = accessTokenDecoded
-
-    // Step 3: Allow request to proceed to next middleware/route handler
-    next()
-  } catch (error) {
-    // Handle expired token: Return 410 GONE to trigger refresh token flow
-    if (error?.message?.includes('jwt expired')) {
-      next(new ApiError(StatusCodes.GONE, 'Need to refresh token.'))
-      return
-    }
-
-    // Handle invalid token: Return 401 UNAUTHORIZED to trigger re-authentication
-    next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized!'))
-  }
-}
 
 // Optional authorization - doesn't require token but decodes if present
 const isAuthorizedOptional = async (req, res, next) => {

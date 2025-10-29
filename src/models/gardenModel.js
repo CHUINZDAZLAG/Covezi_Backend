@@ -182,6 +182,8 @@ const initializeGarden = async (userId) => {
       name: 'Vườn của tôi',
       level: 1,
       experience: 0,
+      currentXp: 0,
+      nextLevelXp: 100,
       inventory: {
         seeds: { oak: 2, flower: 3 },
         water: 100,
@@ -416,6 +418,16 @@ const addChallengePoints = async (userId, points) => {
       }
     }
 
+    // Calculate currentXp (XP towards next level)
+    // currentXp = newExperience - thresholdForCurrentLevel
+    const currentLevelThreshold = levelThresholds[newLevel - 1] || 0
+    const newCurrentXp = newExperience - currentLevelThreshold
+
+    // Calculate nextLevelXp (XP needed for next level)
+    // nextLevelXp = thresholdForNextLevel - thresholdForCurrentLevel
+    const nextLevelThreshold = levelThresholds[newLevel] || levelThresholds[levelThresholds.length - 1]
+    const newNextLevelXp = nextLevelThreshold - currentLevelThreshold
+
     const leveledUp = newLevel > garden.level
 
     const result = await GET_DB().collection(GARDEN_COLLECTION_NAME).findOneAndUpdate(
@@ -424,6 +436,8 @@ const addChallengePoints = async (userId, points) => {
         $inc: { experience: points },
         $set: {
           level: newLevel,
+          currentXp: newCurrentXp,
+          nextLevelXp: newNextLevelXp,
           updatedAt: Date.now(),
           'stats.lastActiveDate': Date.now()
         }

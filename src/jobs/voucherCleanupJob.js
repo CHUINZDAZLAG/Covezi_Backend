@@ -4,7 +4,8 @@ import { voucherModel } from '~/models/voucherModel'
 
 /**
  * Schedule voucher expiry cleanup job
- * Runs daily at 2 AM to delete expired vouchers
+ * Runs daily at 2 AM to delete vouchers that have been expired for 3 months or more
+ * Formula: Voucher is deleted if (currentTime - expiryTime) >= 3 months
  */
 export const scheduleVoucherCleanupJob = () => {
   // Run every day at 02:00 (2 AM)
@@ -13,21 +14,23 @@ export const scheduleVoucherCleanupJob = () => {
       console.log('⏰ Running scheduled voucher cleanup job...')
       
       const now = new Date()
+      // Calculate the cutoff date: 3 months ago
+      const threeMonthsAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
       
-      // Find and delete expired vouchers
-      const result = await voucherModel.deleteExpiredVouchers(now)
+      // Find and delete vouchers that expired 3+ months ago
+      const result = await voucherModel.deleteExpiredVouchers(threeMonthsAgo)
       
       if (result.deletedCount > 0) {
-        console.log(`✅ Deleted ${result.deletedCount} expired vouchers`)
+        console.log(`✅ Deleted ${result.deletedCount} vouchers that expired 3+ months ago`)
       } else {
-        console.log('✅ No expired vouchers found')
+        console.log('✅ No vouchers eligible for cleanup found')
       }
     } catch (error) {
       console.error('❌ Error running voucher cleanup job:', error.message)
     }
   })
 
-  console.log('✅ Voucher cleanup job scheduled to run daily at 02:00')
+  console.log('✅ Voucher cleanup job scheduled to run daily at 02:00 - removes vouchers expired 3+ months ago')
 }
 
 /**
@@ -40,32 +43,39 @@ export const scheduleVoucherCleanupJobFrequent = () => {
       console.log('⏰ Running scheduled voucher cleanup job (6-hour interval)...')
       
       const now = new Date()
-      const result = await voucherModel.deleteExpiredVouchers(now)
+      // Calculate the cutoff date: 3 months ago
+      const threeMonthsAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
+      
+      const result = await voucherModel.deleteExpiredVouchers(threeMonthsAgo)
       
       if (result.deletedCount > 0) {
-        console.log(`✅ Deleted ${result.deletedCount} expired vouchers`)
+        console.log(`✅ Deleted ${result.deletedCount} vouchers that expired 3+ months ago`)
       } else {
-        console.log('✅ No expired vouchers found')
+        console.log('✅ No vouchers eligible for cleanup found')
       }
     } catch (error) {
       console.error('❌ Error running voucher cleanup job:', error.message)
     }
   })
 
-  console.log('✅ Voucher cleanup job scheduled to run every 6 hours')
+  console.log('✅ Voucher cleanup job scheduled to run every 6 hours - removes vouchers expired 3+ months ago')
 }
 
 /**
  * Manual cleanup trigger (for admin dashboard)
+ * Deletes vouchers that have been expired for 3+ months
  */
 export const triggerVoucherCleanupManual = async () => {
   try {
     const now = new Date()
-    const result = await voucherModel.deleteExpiredVouchers(now)
+    // Calculate the cutoff date: 3 months ago
+    const threeMonthsAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000)
+    
+    const result = await voucherModel.deleteExpiredVouchers(threeMonthsAgo)
     return {
       success: true,
       deletedCount: result.deletedCount,
-      message: `Manually deleted ${result.deletedCount} expired vouchers`
+      message: `Manually deleted ${result.deletedCount} vouchers that expired 3+ months ago`
     }
   } catch (error) {
     return {

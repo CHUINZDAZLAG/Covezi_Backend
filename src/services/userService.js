@@ -5,86 +5,99 @@ import bcryptjs from 'bcryptjs'
 import { v4 as uuidv4 } from 'uuid'
 import { pickUser } from '~/utils/formatters'
 import { WEBSITE_DOMAIN } from '~/utils/constants'
-import { MailerSendProvider } from '~/providers/MailerSendProvider'
+import { SendGridProvider } from '~/providers/SendGridProvider'
 import { env } from '~/config/environment'
 import { JwtProvider } from '~/providers/JwtProvider'
 import { CloudinaryProvider } from '~/providers/CloudinaryProvider'
+import { PINVerificationHelper } from '~/utils/pinVerificationHelper'
 
 const createNew = async (reqBody) => {
   try {
     // Check if email is already registered in the system
     const existUser = await userModel.findOneByEmail(reqBody.email)
-    if (existUser) {
+    if (existUser && existUser.isActive) {
       throw new ApiError(StatusCodes.CONFLICT, 'Email already exists!')
     }
 
-    // Prepare user data for database storage
+    // Generate 6-digit PIN
+    const pin = PINVerificationHelper.generatePIN()
+    const pinRecord = PINVerificationHelper.createPINRecord(pin)
+    const registerVerificationToken = uuidv4()
+
     // Extract username from email (e.g., 'trander@gmail.com' → 'trander')
     const nameFromEmail = reqBody.email.split('@')[0]
-    const newUser = {
-      email: reqBody.email,
-      password: bcryptjs.hashSync(reqBody.password, 8), // Hash with complexity level 8
-      username: nameFromEmail,
-      displayName: nameFromEmail,
-      verifyToken: uuidv4(),
-      isActive: env.BUILD_MODE === 'dev' ? true : false // Auto-active in dev mode
+
+    let newUser
+    if (existUser && !existUser.isActive) {
+      // Update existing inactive user with new PIN
+      const updateData = {
+        password: bcryptjs.hashSync(reqBody.password, 8),
+        pinVerification: pinRecord,
+        registerVerificationToken
+      }
+      newUser = await userModel.update(existUser._id, updateData)
+    } else {
+      // Create new user with PIN verification
+      newUser = {
+        email: reqBody.email,
+        password: bcryptjs.hashSync(reqBody.password, 8),
+        username: nameFromEmail,
+        displayName: nameFromEmail,
+        verifyToken: uuidv4(),
+        pinVerification: pinRecord,
+        registerVerificationToken,
+        isActive: false
+      }
+      const createdUser = await userModel.createNew(newUser)
+      newUser = await userModel.findOneById(createdUser.insertedId)
     }
 
-    // Store user data in database
-    const createdUser = await userModel.createNew(newUser)
-    const getNewUser = await userModel.findOneById(createdUser.insertedId)
-
-    // Send account verification email to user
-    const verificationLink = `${WEBSITE_DOMAIN}/account/verification?email=${getNewUser.email}&token=${getNewUser.verifyToken}`
-    const to = getNewUser.email
-    const toName = getNewUser.username
-    const subject = 'Please vefiry your email before using our service!'
+    // Send PIN email to user
+    const to = newUser.email
+    const toName = newUser.username
+    const subject = 'Xác nhận PIN đăng ký tài khoản - Covezi'
     const html = `
-      <h1>Hello ${toName}</h1>
-      <h2>Link to verify your account: ${verificationLink}.</h2>
-      <h3>Regards, Trander</h3>
+      <h1>Xin chào ${toName}</h1>
+      <h2>Mã PIN xác nhận của bạn là: <strong style="font-size: 1.5em; color: #063B71;">${pin}</strong></h2>
+      <p>Mã PIN này sẽ hết hạn trong 10 phút.</p>
+      <p>Vui lòng nhập mã PIN này để hoàn tất quá trình đăng ký.</p>
+      <p style="color: #999; font-size: 0.9em; margin-top: 2em;">Trân trọng,<br/>Đội ngũ Covezi</p>
     `
 
-    // // Custom data to assign in template
-    // const personalizationData = [
-    //   {
-    //     email: to,
-    //     data: {
-    //       name: 'Trander',
-    //       account_name: 'Trander25',
-    //       account_image: 'https://trungquandev.com/wp-content/uploads/2024/03/white-bg-main-avatar-circle-min-trungquandev-codetq-375.jpeg'
-    //     }
-    //   }
-    // ]
-
-    // // Attachments
-    // const attachments = [
-    //   {
-    //     filePath: 'src/files/test01.pdf',
-    //     fileName: 'test01',
-    //     attachmentType: 'attachment' // Truyen dung gia tri 'attachment' thi file se dc dinh kem cuoi email
-    //   },
-    //   {
-    //     filePath: 'src/files/test02.png',
-    //     fileName: 'test02',
-    //     attachmentType: 'inline', // Truyen dung gia tri 'inline' thi file anh se dc dinh kem trong email
-    //     fileId: '123' // dung cho html inline file
-    //   }
-    // ]
-    // Execute email sending through MailerSend provider
-    if (env.BUILD_MODE === 'production') {
-      await MailerSendProvider.sendEmail({
+    // Execute email sending through SendGrid provider
+    console.log('\n[userService.createNew] About to send PIN email...')
+    try {
+      console.log('[userService.createNew] Calling SendGridProvider.sendEmail()')
+      const emailResult = await SendGridProvider.sendEmail({
         to,
         toName,
         subject,
         html
-        // personalizationData
-        // templateId: MAILERSEND_TEMPLATE_IDS.REGISTER_ACCOUNT // templateId cua email, khi co nhieu nen tach ra
       })
+      console.log(`[✅ Email Sent] PIN email sent to ${to}`)
+    } catch (emailError) {
+      console.error(`[❌ Email Failed] Error sending to ${to}`)
+      console.error('Error Details:', {
+        message: emailError?.message,
+        statusCode: emailError?.statusCode,
+        code: emailError?.code,
+        responseBody: emailError?.response?.body,
+        fullError: JSON.stringify(emailError)
+      })
+      // In DEV mode, print PIN to console for testing
+      if (env.BUILD_MODE !== 'production') {
+        console.log(`[🔐 DEV PIN] Email failed, but PIN is: ${pin}`)
+      }
+      // Don't throw - continue registration even if email fails
+      // User can retry or use resend feature later
     }
 
-    // Return sanitized user data excluding sensitive information
-    return pickUser(getNewUser)
+    // Return token and email for frontend to use in next step
+    return {
+      registerVerificationToken,
+      email: newUser.email,
+      message: 'PIN has been sent to your email. Please check your inbox.'
+    }
   } catch (error) { throw error }
 }
 
@@ -109,7 +122,51 @@ const verifyAccount = async (reqBody) => {
     // Apply account activation updates
     const updatedUser = await userModel.update(existUser._id, updateData)
     return pickUser(updatedUser)
-  } catch (error) { throw error}
+  } catch (error) { throw error }
+}
+
+const verifyPIN = async (reqBody) => {
+  try {
+    // Find user by registerVerificationToken
+    const existUser = await userModel.findOneByEmail(reqBody.email)
+
+    if (!existUser) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Account not found!')
+    }
+
+    if (reqBody.registerVerificationToken !== existUser.registerVerificationToken) {
+      throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'Invalid verification token!')
+    }
+
+    if (!existUser.pinVerification) {
+      throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'No PIN found for this account!')
+    }
+
+    // Validate PIN
+    const pinValidation = PINVerificationHelper.validatePIN(existUser.pinVerification, reqBody.pin)
+
+    if (!pinValidation.valid) {
+      // Increment attempts if PIN is wrong
+      if (pinValidation.remainingAttempts !== undefined) {
+        const updatedPINRecord = PINVerificationHelper.incrementPINAttempts(existUser.pinVerification)
+        await userModel.update(existUser._id, {
+          pinVerification: updatedPINRecord
+        })
+      }
+      throw new ApiError(StatusCodes.NOT_ACCEPTABLE, pinValidation.message)
+    }
+
+    // PIN is valid, activate account
+    const updateData = {
+      isActive: true,
+      pinVerification: null,
+      registerVerificationToken: null,
+      verifyToken: null
+    }
+
+    const updatedUser = await userModel.update(existUser._id, updateData)
+    return pickUser(updatedUser)
+  } catch (error) { throw error }
 }
 
 const login = async (reqBody) => {
@@ -199,24 +256,73 @@ const update = async (userId, reqBody, userAvatarFile) => {
       })
     } else if (userAvatarFile) {
       // Handle avatar upload to Cloudinary cloud storage
-      const uploadResult = await CloudinaryProvider.streamUpload(userAvatarFile.buffer, 'users')
-
-      // Store secure URL of uploaded image in database
-      updatedUser = await userModel.update(existUser._id, {
-        avatar: uploadResult.secure_url
-      })
+      try {
+        const uploadResult = await CloudinaryProvider.streamUpload(userAvatarFile.buffer, 'users')
+        // Store secure URL of uploaded image in database
+        updatedUser = await userModel.update(existUser._id, {
+          avatar: uploadResult.secure_url
+        })
+      } catch (uploadErr) {
+        console.error('[userService.update] Cloudinary upload failed:', uploadErr?.message)
+        if (uploadErr?.message?.includes('timeout') || uploadErr?.statusCode === 504) {
+          throw new ApiError(StatusCodes.GATEWAY_TIMEOUT, 'Avatar upload timed out. Please try again with a smaller file.')
+        }
+        if (uploadErr?.message?.includes('ECONNRESET') || uploadErr?.message?.includes('ETIMEDOUT')) {
+          throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, 'Network error during upload. Please check your connection and try again.')
+        }
+        throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, `Upload failed: ${uploadErr?.message || 'Unknown error'}`)
+      }
     } else {
       // Handle general profile information updates
       updatedUser = await userModel.update(existUser._id, reqBody)
     }
 
     return pickUser(updatedUser)
-  } catch (error) { throw error }
+  } catch (error) { 
+    if (error instanceof ApiError) throw error
+    throw error
+  }
+}
+
+const testSendEmail = async (reqBody) => {
+  try {
+    const { email, subject = 'Test Email from Covezi', message = 'This is a test email' } = reqBody
+
+    if (!email) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Email is required')
+    }
+
+    const html = `
+      <h2>Test Email from Covezi</h2>
+      <p>${message}</p>
+      <p>If you receive this email, the SendGrid configuration is working correctly!</p>
+      <p style="color: #999; font-size: 0.9em; margin-top: 2em;">Trân trọng,<br/>Đội ngũ Covezi</p>
+    `
+
+    const result = await SendGridProvider.sendEmail({
+      to: email,
+      toName: email.split('@')[0],
+      subject,
+      html
+    })
+
+    console.log('[Test Email Success]', result)
+    
+    return {
+      success: true,
+      message: `Test email sent to ${email}`,
+      result
+    }
+  } catch (error) {
+    console.error('[Test Email Error]', error)
+    throw error
+  }
 }
 
 export const userService = {
   createNew,
   verifyAccount,
+  verifyPIN,
   login,
   refreshToken,
   update

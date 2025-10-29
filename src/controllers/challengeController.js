@@ -1,6 +1,8 @@
 import { StatusCodes } from 'http-status-codes'
 import { challengeService } from '~/services/challengeService'
 import XpService from '~/services/xpService'
+import GamificationService from '~/services/gamificationService'
+import { emitChallengeCreated, emitChallengeParticipant } from '~/utils/challengeSocketEmitter'
 
 // Create new challenge (post)
 const createNew = async (req, res, next) => {
@@ -9,6 +11,9 @@ const createNew = async (req, res, next) => {
     const imageFile = req.file || null
 
     const challenge = await challengeService.createNew(userId, req.body, imageFile)
+
+    // Emit socket event to notify all users about new challenge
+    emitChallengeCreated(challenge)
 
     res.status(StatusCodes.CREATED).json({
       success: true,
@@ -109,6 +114,16 @@ const addProofComment = async (req, res, next) => {
     const mediaFile = req.file || null
 
     const result = await challengeService.addProofComment(id, userId, req.body, mediaFile)
+
+    // Emit socket event only if this is a new participant
+    if (result.isNewParticipant) {
+      const participant = {
+        userId: result.newComment.userId,
+        userDisplayName: result.newComment.userDisplayName,
+        userAvatar: result.newComment.userAvatar
+      }
+      emitChallengeParticipant(result.challenge, participant, result.challenge.createdBy)
+    }
 
     res.status(StatusCodes.CREATED).json({
       success: true,
@@ -251,22 +266,45 @@ const getLeaderboard = async (req, res, next) => {
 // Join a challenge
 const joinChallenge = async (req, res, next) => {
   try {
-    const userId = req.jwtDecoded._id
+    const userId = req.jwtDecoded._id.toString()
     const { id } = req.params
+    console.log(`🎯 Join challenge request - userId: ${userId}, challengeId: ${id}`)
 
-    // Award XP for joining challenge (+20 XP, once per challenge)
-    let xpReward = null
+    // Fetch challenge to check if user is the creator
+    const challenge = await challengeService.getDetails(id, userId)
+    console.log(`📌 Challenge found - createdBy: ${challenge.createdBy}, userId: ${userId}`)
+    
+    // Only award XP if user is NOT the challenge creator
+    let xpResult = null
+    const creatorIdStr = challenge.createdBy.toString ? challenge.createdBy.toString() : challenge.createdBy
+    
+    if (creatorIdStr !== userId) {
+      console.log(`✅ User is NOT creator - will award XP`)
+      try {
+        xpResult = await GamificationService.awardJoinChallengeXp(userId, id)
+        console.log(`✅ XP awarded to ${userId} for joining challenge ${id}`)
+      } catch (error) {
+        // XP award failed (already joined) but join still counts
+        console.warn('⚠️ XP award failed:', error.message)
+      }
+    } else {
+      console.log(`❌ User IS creator - will NOT award XP`)
+    }
+
+    // Fetch the updated garden to return to frontend
+    let updatedGarden = null
     try {
-      xpReward = await XpService.awardJoinChallengeXp(userId, id)
-    } catch (error) {
-      // XP award failed (already joined) but join still counts
-      console.warn('XP award failed:', error.message)
+      updatedGarden = await GamificationService.getUserGarden(userId)
+      console.log(`🌳 Fetched garden - level: ${updatedGarden.level}, currentXp: ${updatedGarden.currentXp}, treeStage: ${updatedGarden.treeStage}`)
+    } catch (err) {
+      console.error('Error fetching updated garden:', err.message)
     }
 
     res.status(StatusCodes.OK).json({
       success: true,
-      message: xpReward ? `Joined challenge! +${xpReward.xpAmount} XP` : 'Joined challenge!',
-      xpReward
+      message: xpResult ? `Joined challenge! +${xpResult.xpGained} XP` : 'Joined challenge!',
+      data: updatedGarden || null,
+      xpReward: xpResult
     })
   } catch (error) { next(error) }
 }

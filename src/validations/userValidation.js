@@ -32,6 +32,21 @@ const verifyAccount = async (req, res, next) => {
   }
 }
 
+const verifyPIN = async (req, res, next) => {
+  const correctCondition = Joi.object({
+    email: Joi.string().required().pattern(EMAIL_RULE).message(EMAIL_RULE_MESSAGE),
+    pin: Joi.string().required().length(6).pattern(/^\d{6}$/).message('PIN must be exactly 6 digits'),
+    registerVerificationToken: Joi.string().required()
+  })
+
+  try {
+    await correctCondition.validateAsync(req.body, { abortEarly: false })
+    next()
+  } catch (error) {
+    next(new ApiError(StatusCodes.UNPROCESSABLE_ENTITY, new Error(error.message)))
+  }
+}
+
 const login = async (req, res, next) => {
   const correctCondition = Joi.object({
     email: Joi.string().required().pattern(EMAIL_RULE).message(EMAIL_RULE_MESSAGE),
@@ -65,6 +80,7 @@ const update = async (req, res, next) => {
 export const userValidation = {
   createNew,
   verifyAccount,
+  verifyPIN,
   login,
   update
 }

@@ -413,6 +413,9 @@ const addProofComment = async (challengeId, commentData) => {
 
     const isNewParticipant = !challenge.comments.some(c => c.userId === commentData.userId && !c._destroy)
 
+    // Only award points on first participation (first comment by this user)
+    const pointsEarned = isNewParticipant ? POINTS_CONFIG.COMMENT_PROOF : 0
+
     const newComment = {
       _id: new ObjectId().toString(),
       userId: commentData.userId,
@@ -422,34 +425,21 @@ const addProofComment = async (challengeId, commentData) => {
       media: commentData.media || null,
       likes: [],
       likeCount: 0,
-      pointsEarned: POINTS_CONFIG.COMMENT_PROOF,
+      pointsEarned: pointsEarned,
       createdAt: Date.now(),
       updatedAt: null,
       _destroy: false
     }
 
     const newCommentCount = challenge.commentCount + 1
-    // Dynamic trending criteria based on challenge performance compared to average
-    const avgStats = await GET_DB().collection(CHALLENGE_COLLECTION_NAME)
-      .aggregate([
-        { $match: { endDate: { $gt: Date.now() } } },
-        {
-          $group: {
-            _id: null,
-            avgLikes: { $avg: '$likeCount' },
-            avgComments: { $avg: '$commentCount' },
-            avgParticipants: { $avg: '$participantCount' }
-          }
-        }
-      ]).toArray()
-
-    const thresholds = avgStats[0] || { avgLikes: 10, avgComments: 5, avgParticipants: 5 }
-    const shouldBeTrending = (
-      challenge.likeCount > thresholds.avgLikes * 2 && 
-      newCommentCount > thresholds.avgComments * 1.5 &&
-      challenge.participantCount > thresholds.avgParticipants * 1.5 &&
-      !challenge.isTrending
-    )
+    
+    // Calculate new participant count if this is first participation
+    const currentParticipantCount = challenge.participantCount
+    const newParticipantCount = isNewParticipant ? currentParticipantCount + 1 : currentParticipantCount
+    
+    // Check if challenge just reached >10 participants (becomes trending)
+    // Previous: currentParticipantCount, Now: newParticipantCount
+    const justReachedTrendingThreshold = !challenge.isTrending && currentParticipantCount <= 10 && newParticipantCount > 10
 
     const updateData = {
       $push: { comments: newComment },
@@ -461,7 +451,8 @@ const addProofComment = async (challengeId, commentData) => {
       updateData.$inc.participantCount = 1
     }
 
-    if (shouldBeTrending) {
+    // Mark as trending if just reached >10 participants
+    if (justReachedTrendingThreshold) {
       updateData.$set.isTrending = true
       updateData.$set.trendingAt = Date.now()
     }
@@ -475,9 +466,9 @@ const addProofComment = async (challengeId, commentData) => {
     return {
       challenge: result,
       newComment,
-      pointsEarned: POINTS_CONFIG.COMMENT_PROOF,
+      pointsEarned: pointsEarned,
       isNewParticipant,
-      becameTrending: shouldBeTrending
+      becameTrending: justReachedTrendingThreshold
     }
   } catch (error) { throw new Error(error) }
 }

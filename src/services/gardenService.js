@@ -701,50 +701,12 @@ const claimVoucher = async (userId, voucherId) => {
   }
 }
 
-// Initialize garden plots (12 empty plots in 3x4 grid)
+// Initialize garden plots (stub for compatibility)
 const initializeGardenPlots = async (userId) => {
   try {
+    // Garden plots have been removed - this is kept for backward compatibility
     const garden = await getOrCreateGarden(userId)
-    
-    // If plots already exist, return existing garden
-    if (garden.gardenPlots && garden.gardenPlots.length > 0) {
-      return garden
-    }
-    
-    // Create 3x4 grid of empty plots
-    const plots = []
-    const GRID_ROWS = 3
-    const GRID_COLS = 4
-    
-    for (let row = 0; row < GRID_ROWS; row++) {
-      for (let col = 0; col < GRID_COLS; col++) {
-        plots.push({
-          plotId: `plot_${row}_${col}`,
-          position: { row, col },
-          treeId: null,
-          treeName: '',
-          treeCustomization: {},
-          level: 1,
-          currentXp: 0,
-          requiredXp: 100,
-          health: 100,
-          lastWatered: null,
-          lastFertilized: null,
-          plantedAt: Date.now(),
-          updatedAt: Date.now()
-        })
-      }
-    }
-    
-    const updateData = {
-      $set: {
-        gardenPlots: plots,
-        updatedAt: Date.now()
-      }
-    }
-    
-    await updateGarden(garden, updateData)
-    return await getOrCreateGarden(userId)
+    return garden
   } catch (error) {
     throw error
   }
@@ -782,190 +744,6 @@ const customizeTree = async (userId, customization) => {
   }
 }
 
-// Plant tree in garden plot
-const plantTreeInPlot = async (userId, plotId, treeData) => {
-  try {
-    const garden = await getOrCreateGarden(userId)
-    
-    // Initialize plots if not exist
-    if (!garden.gardenPlots || garden.gardenPlots.length === 0) {
-      await initializeGardenPlots(userId)
-      return plantTreeInPlot(userId, plotId, treeData)
-    }
-    
-    // Find the plot
-    const plotIndex = garden.gardenPlots.findIndex(p => p.plotId === plotId)
-    if (plotIndex === -1) {
-      throw new ApiError(StatusCodes.NOT_FOUND, 'Ô trống không tồn tại!')
-    }
-    
-    const plot = garden.gardenPlots[plotIndex]
-    if (plot.treeId) {
-      throw new ApiError(StatusCodes.BAD_REQUEST, 'Ô này đã có cây rồi!')
-    }
-    
-    // Generate tree ID
-    const treeId = `tree_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-    
-    // Update plot with new tree
-    const updateData = {
-      $set: {
-        [`gardenPlots.${plotIndex}`]: {
-          ...plot,
-          treeId,
-          treeName: treeData.treeCustomization?.name || 'Cây của tôi',
-          treeCustomization: treeData.treeCustomization || {},
-          level: 1,
-          currentXp: 0,
-          requiredXp: 100,
-          health: 100,
-          plantedAt: Date.now(),
-          updatedAt: Date.now()
-        },
-        updatedAt: Date.now()
-      }
-    }
-    
-    await updateGarden(garden, updateData)
-    return await getOrCreateGarden(userId)
-  } catch (error) {
-    throw error
-  }
-}
-
-// Care for tree in plot (water/fertilize)
-const performGardenAction = async (userId, plotId, action) => {
-  try {
-    const garden = await getOrCreateGarden(userId)
-    
-    // Find the plot
-    const plotIndex = garden.gardenPlots.findIndex(p => p.plotId === plotId)
-    if (plotIndex === -1) {
-      throw new ApiError(StatusCodes.NOT_FOUND, 'Ô trống không tồn tại!')
-    }
-    
-    const plot = garden.gardenPlots[plotIndex]
-    if (!plot.treeId) {
-      throw new ApiError(StatusCodes.BAD_REQUEST, 'Ô này không có cây!')
-    }
-    
-    let xpGain = 0
-    let healthGain = 0
-    let xpAmount = 0
-    
-    switch (action) {
-      case 'water':
-        xpGain = 15
-        healthGain = 10
-        xpAmount = 10
-        break
-      case 'fertilize':
-        xpGain = 25
-        healthGain = 20
-        xpAmount = 20
-        break
-      default:
-        throw new ApiError(StatusCodes.BAD_REQUEST, 'Hành động không hợp lệ!')
-    }
-    
-    // Calculate new values
-    const newHealth = Math.min(100, plot.health + healthGain)
-    const newXp = plot.currentXp + xpGain
-    let newLevel = plot.level
-    let levelUp = false
-    
-    // Level up if XP threshold reached
-    if (newXp >= plot.requiredXp) {
-      newLevel += 1
-      levelUp = true
-    }
-    
-    const updateData = {
-      $set: {
-        [`gardenPlots.${plotIndex}`]: {
-          ...plot,
-          level: newLevel,
-          currentXp: newXp >= plot.requiredXp ? 0 : newXp,
-          requiredXp: newLevel * 100,
-          health: newHealth,
-          [action === 'water' ? 'lastWatered' : 'lastFertilized']: Date.now(),
-          updatedAt: Date.now()
-        },
-        updatedAt: Date.now()
-      },
-      $inc: {
-        currentXp: xpAmount
-      }
-    }
-    
-    await updateGarden(garden, updateData)
-    
-    return {
-      garden: await getOrCreateGarden(userId),
-      levelUp,
-      rewards: { xp: xpAmount }
-    }
-  } catch (error) {
-    throw error
-  }
-}
-
-// Harvest tree in plot
-const harvestGardenTree = async (userId, plotId) => {
-  try {
-    const garden = await getOrCreateGarden(userId)
-    
-    // Find the plot
-    const plotIndex = garden.gardenPlots.findIndex(p => p.plotId === plotId)
-    if (plotIndex === -1) {
-      throw new ApiError(StatusCodes.NOT_FOUND, 'Ô trống không tồn tại!')
-    }
-    
-    const plot = garden.gardenPlots[plotIndex]
-    if (!plot.treeId) {
-      throw new ApiError(StatusCodes.BAD_REQUEST, 'Ô này không có cây!')
-    }
-    
-    // Calculate rewards based on level
-    const baseXp = 50
-    const xpReward = baseXp * plot.level
-    
-    // Reset plot to empty
-    const updateData = {
-      $set: {
-        [`gardenPlots.${plotIndex}`]: {
-          plotId: plot.plotId,
-          position: plot.position,
-          treeId: null,
-          treeName: '',
-          treeCustomization: {},
-          level: 1,
-          currentXp: 0,
-          requiredXp: 100,
-          health: 100,
-          lastWatered: null,
-          lastFertilized: null,
-          plantedAt: Date.now(),
-          updatedAt: Date.now()
-        },
-        updatedAt: Date.now()
-      },
-      $inc: {
-        currentXp: xpReward
-      }
-    }
-    
-    await updateGarden(garden, updateData)
-    
-    return {
-      garden: await getOrCreateGarden(userId),
-      rewards: { xp: xpReward }
-    }
-  } catch (error) {
-    throw error
-  }
-}
-
 export const gardenService = {
   getOrCreateGarden,
   getGardenDetails,
@@ -978,8 +756,5 @@ export const gardenService = {
   buyItem,
   placeDecoration,
   initializeGardenPlots,
-  customizeTree,
-  plantTreeInPlot,
-  performGardenAction,
-  harvestGardenTree
+  customizeTree
 }

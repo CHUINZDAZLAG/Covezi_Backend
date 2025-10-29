@@ -169,61 +169,13 @@ const userGardenSchema = new mongoose.Schema(
       default: 50,
       description: 'XP needed for next level'
     },
-    // === TREE & CHICKEN PROGRESSION ===
+    // === TREE & PROGRESSION ===
     treeStage: {
       type: Number,
       default: 1,
       min: 1,
-      max: 10,
-      description: '5 growth stages: Sprout → Young → Mature → Epic → Legendary (auto-upgrade with level)'
-    },
-    chickenStage: {
-      type: Number,
-      default: 1,
-      min: 1,
       max: 5,
-      description: 'Unlocked based on level milestones'
-    },
-    // === LAND UNLOCKING ===
-    landUnlocked: {
-      type: Number,
-      default: 1,
-      description: 'Number of plots user can use (unlocked by level milestones)'
-    },
-    landTheme: {
-      type: String,
-      enum: ['starter', 'explorer', 'farmer', 'master', 'premium', 'legendary', 'mythical'],
-      default: 'starter',
-      description: 'Visual theme of farm based on unlock tier'
-    },
-    // === PET (CHICKEN) - ONE PER USER ===
-    pet: {
-      name: { type: String, default: 'My Pet', maxlength: 50 },
-      stage: { type: Number, default: 1, min: 1, max: 5 },
-      bornAt: { type: Date, default: Date.now },
-      lastFedAt: Date,
-      lastEggCollectedAt: Date,
-      nextEggReadyAt: Date,
-      health: { type: Number, default: 100, min: 0, max: 100 },
-      eggs: { type: Number, default: 0, min: 0 },
-      color: {
-        type: String,
-        enum: ['brown', 'white', 'black', 'gold', 'red', 'orange'],
-        default: 'brown'
-      },
-      decorations: {
-        hat: { type: String, enum: ['none', 'farmer', 'crown', 'cowboy', 'party'], default: 'none' },
-        shirt: { type: String, enum: ['none', 'striped', 'polka', 'checkered'], default: 'none' },
-        scarf: { type: String, enum: ['none', 'red', 'blue', 'green'], default: 'none' },
-        wings: { type: String, enum: ['normal', 'sparkle', 'feather', 'flame'], default: 'normal' }
-      }
-    },
-    // === PET CUSTOMIZATION (UI) ===
-    petCustomization: {
-      name: { type: String, default: 'Gà của tôi', maxlength: 50 },
-      style: { type: String, default: 'fonze' },
-      color: { type: String, default: '#ff9800' },
-      decorations: { type: [String], default: [] }
+      description: '5 growth stages: Sprout → Young → Mature → Epic → Legendary (auto-upgrade with level)'
     },
     // === TREE CUSTOMIZATION (UI) ===
     treeCustomization: {
@@ -233,55 +185,6 @@ const userGardenSchema = new mongoose.Schema(
       potType: { type: String, default: 'pot1' },
       potColor: { type: String, default: '#D7CCC8' },
       effects: { type: String, default: 'none' }
-    },
-    // === GARDEN PLOTS (CROPS) ===
-    gardenPlots: [
-      {
-        id: String,
-        cropType: {
-          type: String,
-          enum: ['apple', 'mango', 'tomato', 'carrot', 'strawberry', 'corn', 'pumpkin', 'sunflower', 'lettuce', 'potato']
-        },
-        stage: { type: Number, min: 0, max: 4, description: '0=seed, 1=sprout, 2=growing, 3=flowering, 4=ready' },
-        stageProgress: { type: Number, default: 0, min: 0, max: 100 },
-        plantedAt: Date,
-        harvestedAt: Date,
-        health: { type: Number, default: 100, min: 0, max: 100 },
-        lastWateredAt: Date,
-        lastFertilizedAt: Date,
-        hasBeenHarvested: { type: Boolean, default: false },
-        potType: { type: String, enum: ['ceramic', 'clay', 'plastic', 'wooden', 'golden'], default: 'ceramic' },
-        effect: { type: String, enum: ['none', 'glow', 'sparkle', 'leaves', 'flowers'], default: 'none' }
-      }
-    ],
-    // === INVENTORY ===
-    inventory: {
-      eggs: { type: Number, default: 0, min: 0 },
-      crops: {
-        apple: { type: Number, default: 0 },
-        mango: { type: Number, default: 0 },
-        tomato: { type: Number, default: 0 },
-        carrot: { type: Number, default: 0 },
-        strawberry: { type: Number, default: 0 },
-        corn: { type: Number, default: 0 },
-        pumpkin: { type: Number, default: 0 },
-        sunflower: { type: Number, default: 0 },
-        lettuce: { type: Number, default: 0 },
-        potato: { type: Number, default: 0 }
-      },
-      seeds: {
-        appleSeed: { type: Number, default: 5 },
-        mangoSeed: { type: Number, default: 5 },
-        tomatoSeed: { type: Number, default: 5 },
-        carrotSeed: { type: Number, default: 5 },
-        strawberrySeed: { type: Number, default: 3 },
-        cornSeed: { type: Number, default: 3 },
-        pumpkinSeed: { type: Number, default: 3 },
-        sunflowerSeed: { type: Number, default: 3 },
-        lettuceSeed: { type: Number, default: 5 },
-        potatoSeed: { type: Number, default: 5 }
-      },
-      fertilizers: { type: Number, default: 10 }
     },
     // === VOUCHER TRACKING ===
     voucherMilestonesClaimed: [

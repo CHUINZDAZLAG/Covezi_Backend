@@ -61,6 +61,25 @@ const getMany = async (query) => {
   }
 }
 
+const getMyProducts = async (userId, query) => {
+  try {
+    // Set default values
+    const queryObj = {
+      page: parseInt(query.page) || 1,
+      limit: parseInt(query.limit) || 50,
+      category: query.category,
+      search: query.search,
+      sortBy: query.sortBy || 'newest',
+      createdBy: userId
+    }
+    
+    const results = await productModel.getMany(queryObj, queryObj.limit)
+    return results
+  } catch (error) {
+    throw error
+  }
+}
+
 const getFeatured = async (limit = 8) => {
   try {
     const results = await productModel.getMany(
@@ -114,6 +133,10 @@ const searchProducts = async (searchQuery, filters = {}) => {
 
 const update = async (productId, updateData) => {
   try {
+    console.log('[ProductService.update] productId:', productId)
+    console.log('[ProductService.update] updateData keys:', Object.keys(updateData))
+    console.log('[ProductService.update] updateData.cover:', updateData.cover)
+    
     const existingProduct = await productModel.findOneById(productId)
     if (!existingProduct) {
       throw new ApiError(StatusCodes.NOT_FOUND, 'Product not found!')
@@ -124,9 +147,12 @@ const update = async (productId, updateData) => {
       updateData.slug = slugify(updateData.name)
     }
     
+    console.log('[ProductService.update] About to call productModel.update with:', { productId, updateData })
     const updatedProduct = await productModel.update(productId, updateData)
+    console.log('[ProductService.update] Updated product:', updatedProduct)
     return updatedProduct
   } catch (error) {
+    console.error('[ProductService.update] Error:', error.message)
     throw error
   }
 }
@@ -219,10 +245,20 @@ const getCategoryLabel = (category) => {
   return labels[category] || category
 }
 
+const getStats = async () => {
+  try {
+    const stats = await productModel.getStats()
+    return stats
+  } catch (error) {
+    throw error
+  }
+}
+
 export const productService = {
   createNew,
   getDetails,
   getMany,
+  getMyProducts,
   getFeatured,
   getCategories,
   searchProducts,
@@ -230,5 +266,6 @@ export const productService = {
   deleteItem,
   updateStock,
   incrementView,
-  updateRating
+  updateRating,
+  getStats
 }

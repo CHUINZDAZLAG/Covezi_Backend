@@ -10,6 +10,7 @@ import { voucherRoute } from './voucherRoute'
 import { adminVoucherConfigRoute } from './adminVoucherConfigRoute'
 import { adminChallengeRoute } from './adminChallengeRoute'
 import { adminUserVoucherHistoryRoute } from './adminUserVoucherHistoryRoute'
+import { adminUserManagementRoute } from './adminUserManagementRoute'
 
 const Router = express.Router()
 
@@ -47,5 +48,8 @@ Router.use('/admin/challenges', adminChallengeRoute)
 
 // Admin User Voucher History API
 Router.use('/admin/voucher-history', adminUserVoucherHistoryRoute)
+
+// Admin User Management API
+Router.use('/admin/users', adminUserManagementRoute)
 
 export const APIs_V1 = Router

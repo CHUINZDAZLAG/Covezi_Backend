@@ -11,16 +11,6 @@ Router.use(authMiddleware.isAuthorized, authMiddleware.isAdmin)
 Router.route('/')
   .get(adminVoucherConfigController.getConfig)
 
-// PUT /admin/voucher-config/:level - Update or create voucher milestone
-// DELETE /admin/voucher-config/:level - Delete voucher milestone
-Router.route('/:level')
-  .put(adminVoucherConfigController.updateMilestone)
-  .delete(adminVoucherConfigController.deleteMilestone)
-
-// PUT /admin/voucher-config/validity/days - Update voucher validity period
-Router.route('/validity/days')
-  .put(adminVoucherConfigController.updateValidity)
-
 // GET /admin/voucher-config/stats - Get voucher statistics
 Router.route('/stats')
   .get(adminVoucherConfigController.getStats)

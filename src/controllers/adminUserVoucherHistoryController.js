@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes'
 import { voucherModel } from '~/models/voucherModel'
 import { userModel } from '~/models/userModel'
+import { voucherService } from '~/services/voucherService'
 import ApiError from '~/utils/ApiError'
 
 class AdminUserVoucherHistoryController {
@@ -153,8 +154,34 @@ class AdminUserVoucherHistoryController {
   }
 
   /**
+   * Cancel a voucher (admin cancellation)
+   * POST /admin/voucher-history/users/:userId/vouchers/:voucherId/cancel
+   */
+  static async cancelVoucher(req, res, next) {
+    try {
+      const { userId, voucherId } = req.params
+      const { reason } = req.body
+      const adminId = req.jwtDecoded._id
+
+      // Verify user exists
+      const user = await userModel.findOneById(userId)
+      if (!user) {
+        throw new ApiError(StatusCodes.NOT_FOUND, 'User not found')
+      }
+
+      const updatedVoucher = await voucherService.cancelVoucher(voucherId, adminId, reason || '')
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        message: 'Voucher cancelled successfully',
+        data: updatedVoucher
+      })
+    } catch (error) { next(error) }
+  }
+
+  /**
    * Manually revoke a voucher
-   * POST /admin/users/:userId/vouchers/:voucherId/revoke
+   * POST /admin/voucher-history/users/:userId/vouchers/:voucherId/revoke
    */
   static async revokeVoucher(req, res, next) {
     try {
@@ -169,10 +196,10 @@ class AdminUserVoucherHistoryController {
       }
 
       const updatedVoucher = await voucherModel.update(voucherId, {
-        status: 'expired',
-        revokedAt: Date.now(),
-        revokedBy: adminId,
-        revocationReason: reason || 'Revoked by admin'
+        status: 'cancelled',
+        cancelledAt: Date.now(),
+        cancelledBy: adminId,
+        cancelReason: reason || 'Revoked by admin'
       })
 
       if (!updatedVoucher) {
@@ -198,6 +225,87 @@ class AdminUserVoucherHistoryController {
       res.status(StatusCodes.OK).json({
         success: true,
         data: stats
+      })
+    } catch (error) { next(error) }
+  }
+
+  /**
+   * Delete a voucher permanently
+   * DELETE /admin/voucher-history/users/:userId/vouchers/:voucherId/delete
+   */
+  static async deleteVoucher(req, res, next) {
+    try {
+      const { userId, voucherId } = req.params
+      const adminId = req.jwtDecoded._id
+
+      // Verify user exists
+      const user = await userModel.findOneById(userId)
+      if (!user) {
+        throw new ApiError(StatusCodes.NOT_FOUND, 'User not found')
+      }
+
+      // Soft delete - mark as destroyed
+      const updatedVoucher = await voucherModel.update(voucherId, {
+        _destroy: true,
+        destroyedAt: Date.now(),
+        destroyedBy: adminId
+      })
+
+      if (!updatedVoucher) {
+        throw new ApiError(StatusCodes.NOT_FOUND, 'Voucher not found')
+      }
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        message: 'Voucher deleted successfully',
+        data: updatedVoucher.value
+      })
+    } catch (error) { next(error) }
+  }
+
+  /**
+   * Search users by email, username, or displayName that have vouchers
+   * GET /admin/voucher-history/search?q=search_term
+   */
+  static async searchUsers(req, res, next) {
+    try {
+      const { q } = req.query
+      if (!q || q.trim().length === 0) {
+        throw new ApiError(StatusCodes.BAD_REQUEST, 'Search query is required')
+      }
+
+      // Search for users
+      const searchTerm = q.trim()
+      const users = await userModel.findAll(
+        {
+          $or: [
+            { email: { $regex: searchTerm, $options: 'i' } },
+            { username: { $regex: searchTerm, $options: 'i' } },
+            { displayName: { $regex: searchTerm, $options: 'i' } }
+          ],
+          _destroy: false
+        },
+        { limit: 10 }
+      )
+
+      // Get only users that have vouchers
+      const usersWithVouchers = []
+      for (const user of users) {
+        const vouchers = await voucherModel.findAll({ userId: user._id, _destroy: false })
+        if (vouchers.length > 0) {
+          usersWithVouchers.push({
+            _id: user._id,
+            email: user.email,
+            username: user.username,
+            displayName: user.displayName,
+            voucherCount: vouchers.length
+          })
+        }
+      }
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        data: usersWithVouchers
       })
     } catch (error) { next(error) }
   }

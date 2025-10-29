@@ -23,87 +23,32 @@ class AdminVoucherConfigController {
   }
 
   /**
-   * Update or create a voucher milestone
-   * PUT /admin/voucher-config/:level
-   * Body: { level, discountPercent, description }
+   * DEPRECATED: Update or create a voucher milestone
+   * This endpoint has been disabled. Voucher milestones are now managed automatically.
    */
   static async updateMilestone(req, res, next) {
     try {
-      const { level } = req.params
-      const { discountPercent, description } = req.body
-
-      if (!level || level < 1 || isNaN(level)) {
-        throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid level number')
-      }
-
-      if (discountPercent === undefined || discountPercent < 0 || discountPercent > 100) {
-        throw new ApiError(StatusCodes.BAD_REQUEST, 'Discount must be 0-100%')
-      }
-
-      const config = await GamificationService.updateVoucherMilestone(
-        parseInt(level),
-        parseInt(discountPercent),
-        description
-      )
-
-      res.status(StatusCodes.OK).json({
-        success: true,
-        message: `Voucher milestone at Level ${level} updated to ${discountPercent}%`,
-        data: {
-          voucherMilestones: config.voucherMilestones
-        }
-      })
+      throw new ApiError(StatusCodes.FORBIDDEN, 'Level-based voucher management has been disabled. Vouchers are now managed per user.')
     } catch (error) { next(error) }
   }
 
   /**
-   * Delete a voucher milestone
-   * DELETE /admin/voucher-config/:level
+   * DEPRECATED: Delete a voucher milestone
+   * This endpoint has been disabled. Voucher milestones are now managed automatically.
    */
   static async deleteMilestone(req, res, next) {
     try {
-      const { level } = req.params
-
-      if (!level || level < 1 || isNaN(level)) {
-        throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid level number')
-      }
-
-      const config = await GamificationService.deleteVoucherMilestone(parseInt(level))
-
-      res.status(StatusCodes.OK).json({
-        success: true,
-        message: `Voucher milestone at Level ${level} deleted`,
-        data: {
-          voucherMilestones: config.voucherMilestones
-        }
-      })
+      throw new ApiError(StatusCodes.FORBIDDEN, 'Level-based voucher management has been disabled. Vouchers are now managed per user.')
     } catch (error) { next(error) }
   }
 
   /**
-   * Update voucher validity period (in days)
-   * PUT /admin/voucher-config/validity/days
-   * Body: { voucherValidityDays }
+   * DEPRECATED: Update voucher validity period
+   * This endpoint has been disabled. Voucher validity is managed automatically.
    */
   static async updateValidity(req, res, next) {
     try {
-      const { voucherValidityDays } = req.body
-
-      if (!voucherValidityDays || voucherValidityDays < 1 || isNaN(voucherValidityDays)) {
-        throw new ApiError(StatusCodes.BAD_REQUEST, 'Validity days must be a positive number')
-      }
-
-      const config = await GamificationService.getConfig()
-      config.voucherValidityDays = voucherValidityDays
-      await config.save()
-
-      res.status(StatusCodes.OK).json({
-        success: true,
-        message: `Voucher validity period updated to ${voucherValidityDays} days`,
-        data: {
-          voucherValidityDays: config.voucherValidityDays
-        }
-      })
+      throw new ApiError(StatusCodes.FORBIDDEN, 'Voucher validity management has been disabled. Use voucherService for programmatic updates.')
     } catch (error) { next(error) }
   }
 

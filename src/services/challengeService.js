@@ -1,6 +1,8 @@
 import { challengeModel, POINTS_CONFIG } from '~/models/challengeModel'
 import { gardenModel } from '~/models/gardenModel'
 import { userModel } from '~/models/userModel'
+import { UserGarden } from '~/models/gamificationModel.js'
+import GamificationService from '~/services/gamificationService.js'
 import { CloudinaryProvider } from '~/providers/CloudinaryProvider'
 import { StatusCodes } from 'http-status-codes'
 import ApiError from '~/utils/ApiError'
@@ -16,8 +18,19 @@ const createNew = async (userId, reqBody, imageFile) => {
 
     let imageUrl = ''
     if (imageFile) {
-      const uploadResult = await CloudinaryProvider.streamUpload(imageFile.buffer, 'challenges')
-      imageUrl = uploadResult.secure_url
+      try {
+        const uploadResult = await CloudinaryProvider.streamUpload(imageFile.buffer, 'challenges')
+        imageUrl = uploadResult.secure_url
+      } catch (uploadErr) {
+        console.error('[challengeService.createNew] Cloudinary upload failed:', uploadErr?.message)
+        if (uploadErr?.message?.includes('timeout') || uploadErr?.statusCode === 504) {
+          throw new ApiError(StatusCodes.GATEWAY_TIMEOUT, 'Image upload timed out. Please try again with a smaller file.')
+        }
+        if (uploadErr?.message?.includes('ECONNRESET') || uploadErr?.message?.includes('ETIMEDOUT')) {
+          throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, 'Network error during upload. Please check your connection and try again.')
+        }
+        throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, `Upload failed: ${uploadErr?.message || 'Unknown error'}`)
+      }
     }
 
     const durationDays = parseInt(reqBody.durationDays) || 7
@@ -56,8 +69,11 @@ const createNew = async (userId, reqBody, imageFile) => {
 
     return challenge
   } catch (error) {
+    if (error instanceof ApiError) {
+      throw error
+    }
     console.error('[challengeService.createNew] Error:', error?.message)
-    throw error
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, error?.message || 'Failed to create challenge')
   }
 }
 
@@ -218,13 +234,26 @@ const addProofComment = async (challengeId, userId, reqBody, mediaFile) => {
     // Prepare media data
     let media = null
     if (mediaFile) {
-      // Upload to Cloudinary
-      const uploadResult = await CloudinaryProvider.streamUpload(mediaFile.buffer, 'challenge-proofs')
-      media = {
-        type: 'image',
-        url: uploadResult.secure_url,
-        thumbnailUrl: null,
-        platform: null
+      try {
+        // Upload to Cloudinary with error handling
+        const uploadResult = await CloudinaryProvider.streamUpload(mediaFile.buffer, 'challenge-proofs')
+        media = {
+          type: 'image',
+          url: uploadResult.secure_url,
+          thumbnailUrl: null,
+          platform: null
+        }
+      } catch (uploadErr) {
+        console.error('[challengeService.addProofComment] Cloudinary upload failed:', uploadErr?.message)
+        // Check if it's a timeout error
+        if (uploadErr?.message?.includes('timeout') || uploadErr?.statusCode === 504) {
+          throw new ApiError(StatusCodes.GATEWAY_TIMEOUT, 'Image upload timed out. Please try again with a smaller file.')
+        }
+        // Check for network errors
+        if (uploadErr?.message?.includes('ECONNRESET') || uploadErr?.message?.includes('ETIMEDOUT')) {
+          throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, 'Network error during upload. Please check your connection and try again.')
+        }
+        throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, `Upload failed: ${uploadErr?.message || 'Unknown error'}`)
       }
     } else if (reqBody.videoUrl) {
       // Video embed (TikTok/YouTube)
@@ -255,12 +284,18 @@ const addProofComment = async (challengeId, userId, reqBody, mediaFile) => {
 
     const result = await challengeModel.addProofComment(challengeId, commentData)
 
-    // Add points to user's garden
-    await addGardenPoints(userId, result.pointsEarned, 'submit_proof')
+    // Add points to user's garden (only if points earned > 0, i.e., first participation)
+    if (result.pointsEarned > 0) {
+      console.log(`[addProofComment] User ${userId} earned ${result.pointsEarned} XP for first participation in challenge ${challengeId}`)
+      await addGardenPoints(userId, result.pointsEarned, 'submit_proof')
+    } else {
+      console.log(`[addProofComment] User ${userId} already participated, no XP awarded for this comment on challenge ${challengeId}`)
+    }
 
-    // If became trending, give bonus to challenge creator
+    // If became trending (>10 participants), give bonus to challenge creator
     if (result.becameTrending) {
       const challenge = result.challenge
+      console.log(`[addProofComment] Challenge ${challengeId} reached >10 participants! Creator ${challenge.createdBy} receives ${POINTS_CONFIG.TRENDING_BONUS} XP bonus`)
       await addGardenPoints(challenge.createdBy, POINTS_CONFIG.TRENDING_BONUS, 'trending_bonus')
     }
 
@@ -271,13 +306,18 @@ const addProofComment = async (challengeId, userId, reqBody, mediaFile) => {
       isNewParticipant: result.isNewParticipant
     }
   } catch (error) {
+    if (error instanceof ApiError) {
+      throw error
+    }
     if (error.message.includes('not active')) {
       throw new ApiError(StatusCodes.BAD_REQUEST, 'Challenge is not active')
     }
     if (error.message.includes('has ended')) {
       throw new ApiError(StatusCodes.BAD_REQUEST, 'Challenge has ended')
     }
-    throw error
+    // Log unexpected errors
+    console.error('[challengeService.addProofComment] Unexpected error:', error?.message)
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'Failed to submit proof: ' + (error?.message || 'Unknown error'))
   }
 }
 
@@ -367,8 +407,19 @@ const update = async (challengeId, userId, isAdmin, updateData, imageFile) => {
     }
 
     if (imageFile) {
-      const uploadResult = await CloudinaryProvider.streamUpload(imageFile.buffer, 'challenges')
-      updateData.image = uploadResult.secure_url
+      try {
+        const uploadResult = await CloudinaryProvider.streamUpload(imageFile.buffer, 'challenges')
+        updateData.image = uploadResult.secure_url
+      } catch (uploadErr) {
+        console.error('[challengeService.update] Cloudinary upload failed:', uploadErr?.message)
+        if (uploadErr?.message?.includes('timeout') || uploadErr?.statusCode === 504) {
+          throw new ApiError(StatusCodes.GATEWAY_TIMEOUT, 'Image upload timed out. Please try again with a smaller file.')
+        }
+        if (uploadErr?.message?.includes('ECONNRESET') || uploadErr?.message?.includes('ETIMEDOUT')) {
+          throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, 'Network error during upload. Please check your connection and try again.')
+        }
+        throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, `Upload failed: ${uploadErr?.message || 'Unknown error'}`)
+      }
     }
 
     // Parse tags if provided
@@ -385,7 +436,11 @@ const update = async (challengeId, userId, isAdmin, updateData, imageFile) => {
     const updatedChallenge = await challengeModel.update(challengeId, updateData)
     return updatedChallenge
   } catch (error) {
-    throw error
+    if (error instanceof ApiError) {
+      throw error
+    }
+    console.error('[challengeService.update] Error:', error?.message)
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, error?.message || 'Failed to update challenge')
   }
 }
 
@@ -457,6 +512,14 @@ const getLeaderboard = async (challengeId, limit = 10) => {
 // Helper function to add points to garden
 const addGardenPoints = async (userId, points, action) => {
   try {
+    console.log(`[addGardenPoints] Adding ${points} XP to user ${userId} for action: ${action}`)
+    
+    // Use GamificationService to add XP (Mongoose UserGarden model)
+    // This is what the frontend reads from
+    const result = await GamificationService.addXp(userId, points, action)
+    console.log(`[addGardenPoints] XP added successfully. New level: ${result.newLevel}, Current XP: ${result.currentXp}, Next Level XP: ${result.nextLevelXp}`)
+
+    // ALSO update old garden model for backward compatibility
     let garden = await gardenModel.findByUserId(userId)
     if (!garden) {
       await gardenModel.initializeGarden(userId)

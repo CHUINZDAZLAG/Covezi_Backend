@@ -141,57 +141,6 @@ const customizeTree = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
-// Plant tree in garden plot
-const plantTreeInPlot = async (req, res, next) => {
-  try {
-    const userId = req.jwtDecoded._id
-    const { plotId, treeCustomization } = req.body
-
-    const updatedGarden = await gardenService.plantTreeInPlot(userId, plotId, { treeCustomization })
-
-    res.status(StatusCodes.OK).json({
-      success: true,
-      data: updatedGarden,
-      message: 'Tree planted in plot successfully'
-    })
-  } catch (error) { next(error) }
-}
-
-// Perform action on tree in plot (water/fertilize)
-const performGardenAction = async (req, res, next) => {
-  try {
-    const userId = req.jwtDecoded._id
-    const { plotId, action } = req.body
-
-    const result = await gardenService.performGardenAction(userId, plotId, action)
-
-    res.status(StatusCodes.OK).json({
-      success: true,
-      data: result.garden,
-      rewards: result.rewards,
-      levelUp: result.levelUp,
-      message: `${action === 'water' ? 'Watered' : 'Fertilized'} tree successfully`
-    })
-  } catch (error) { next(error) }
-}
-
-// Harvest tree from plot
-const harvestGardenTree = async (req, res, next) => {
-  try {
-    const userId = req.jwtDecoded._id
-    const { plotId } = req.body
-
-    const result = await gardenService.harvestGardenTree(userId, plotId)
-
-    res.status(StatusCodes.OK).json({
-      success: true,
-      data: result.garden,
-      rewards: result.rewards,
-      message: 'Tree harvested successfully'
-    })
-  } catch (error) { next(error) }
-}
-
 export const gardenController = {
   getGarden,
   getAvailableVouchers,
@@ -202,8 +151,5 @@ export const gardenController = {
   harvestTree,
   buyItem,
   placeDecoration,
-  customizeTree,
-  plantTreeInPlot,
-  performGardenAction,
-  harvestGardenTree
+  customizeTree
 }

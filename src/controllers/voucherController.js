@@ -145,6 +145,59 @@ const getVoucherStats = async (req, res, next) => {
   }
 }
 
+// User shares voucher to social media / other platform
+const shareVoucher = async (req, res, next) => {
+  try {
+    const { voucherId, platform, link } = req.body
+    const userId = req.jwtDecoded._id
+
+    if (!voucherId || !platform) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Voucher ID and platform are required')
+    }
+
+    // Validate platform
+    const validPlatforms = ['facebook', 'whatsapp', 'instagram', 'twitter', 'telegram', 'copy_link', 'other']
+    if (!validPlatforms.includes(platform)) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, `Invalid platform. Allowed: ${validPlatforms.join(', ')}`)
+    }
+
+    const updatedVoucher = await voucherService.shareVoucher(voucherId, userId, platform, link)
+
+    res.status(StatusCodes.OK).json({
+      message: `Voucher shared to ${platform} successfully`,
+      data: updatedVoucher
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// User submits proof when using voucher (screenshot of redemption)
+const submitVoucherProof = async (req, res, next) => {
+  try {
+    const { voucherId } = req.params
+    const userId = req.jwtDecoded._id
+    const proofFile = req.file || null
+
+    if (!voucherId) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Voucher ID is required')
+    }
+
+    if (!proofFile) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Proof image/screenshot is required')
+    }
+
+    const updatedVoucher = await voucherService.submitVoucherProof(voucherId, userId, proofFile)
+
+    res.status(StatusCodes.OK).json({
+      message: 'Proof submitted successfully. Admin will review soon.',
+      data: updatedVoucher
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const voucherController = {
   getUserVouchers,
   getActiveVouchers,
@@ -153,5 +206,7 @@ export const voucherController = {
   rejectVoucherUsage,
   getPendingRequests,
   getVoucherDetails,
-  getVoucherStats
+  getVoucherStats,
+  shareVoucher,
+  submitVoucherProof
 }

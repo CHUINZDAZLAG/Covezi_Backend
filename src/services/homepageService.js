@@ -66,7 +66,7 @@ const getHomepageData = async () => {
           discountPercent: 20,
           code: 'WELCOME20',
           validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-          image: 'https://via.placeholder.com/400x200?text=Welcome+Discount',
+          image: 'https://placehold.co/400x200?text=Welcome+Discount',
           active: true
         },
         {
@@ -76,7 +76,7 @@ const getHomepageData = async () => {
           discountPercent: 15,
           code: 'ECOMONTH',
           validUntil: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), // 15 days
-          image: 'https://via.placeholder.com/400x200?text=Eco+Month',
+          image: 'https://placehold.co/400x200?text=Eco+Month',
           active: true
         }
       ],
@@ -87,7 +87,7 @@ const getHomepageData = async () => {
         {
           id: 1,
           name: 'Nguyễn Thị Mai',
-          avatar: 'https://via.placeholder.com/60x60?text=NTM',
+          avatar: 'https://placehold.co/60x60?text=NTM',
           comment: 'Sản phẩm chất lượng, thân thiện môi trường. Tôi rất thích trò chơi vườn cây!',
           rating: 5,
           location: 'Hà Nội'
@@ -95,7 +95,7 @@ const getHomepageData = async () => {
         {
           id: 2,
           name: 'Trần Văn Nam',
-          avatar: 'https://via.placeholder.com/60x60?text=TVN',
+          avatar: 'https://placehold.co/60x60?text=TVN',
           comment: 'Giao hàng nhanh, đóng gói cẩn thận. Các thử thách rất thú vị.',
           rating: 5,
           location: 'TP. Hồ Chí Minh'
@@ -108,7 +108,7 @@ const getHomepageData = async () => {
           title: 'Covezi ra mắt tính năng vườn cây ảo',
           summary: 'Người dùng có thể trồng và chăm sóc cây ảo, nhận điểm thưởng từ hoạt động xanh.',
           publishedAt: new Date(),
-          image: 'https://via.placeholder.com/300x200?text=Virtual+Garden',
+          image: 'https://placehold.co/300x200?text=Virtual+Garden',
           category: 'Tính năng mới'
         },
         {
@@ -116,7 +116,7 @@ const getHomepageData = async () => {
           title: '1000 cây xanh đầu tiên được trồng thành công',
           summary: 'Covezi đã trồng 1000 cây xanh thật từ hoạt động của người dùng trên nền tảng.',
           publishedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-          image: 'https://via.placeholder.com/300x200?text=Real+Trees',
+          image: 'https://placehold.co/300x200?text=Real+Trees',
           category: 'Môi trường'
         }
       ]

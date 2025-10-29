@@ -17,6 +17,13 @@ const verifyAccount = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+const verifyPIN = async (req, res, next) => {
+  try {
+    const result = await userService.verifyPIN(req.body)
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) { next(error) }
+}
+
 const login = async (req, res, next) => {
   try {
     const result = await userService.login(req.body)
@@ -87,6 +94,7 @@ const update = async (req, res, next) => {
 export const userController = {
   createNew,
   verifyAccount,
+  verifyPIN,
   login,
   logout,
   refreshToken,

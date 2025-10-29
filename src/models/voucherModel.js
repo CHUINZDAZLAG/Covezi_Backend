@@ -15,7 +15,7 @@ export const VOUCHER_STATUS = {
 // Collection name and schema
 const VOUCHER_COLLECTION_NAME = 'vouchers'
 const VOUCHER_COLLECTION_SCHEMA = Joi.object({
-  // Unique voucher code: COV-{userId}-LV{level}-{random4}
+  // Unique voucher code format: {userId}+{createdDate(YYYYMMDD)}+{expiryDate(YYYYMMDD)}
   voucherCode: Joi.string().required().trim(),
   
   // User who owns the voucher
@@ -27,9 +27,9 @@ const VOUCHER_COLLECTION_SCHEMA = Joi.object({
   // Level at which voucher was earned
   levelReward: Joi.number().required().min(1),
   
-  // Voucher status: active, pending, used, rejected, expired
+  // Voucher status: active, pending, used, rejected, expired, cancelled
   status: Joi.string()
-    .valid(...Object.values(VOUCHER_STATUS))
+    .valid(...Object.values(VOUCHER_STATUS), 'cancelled')
     .default(VOUCHER_STATUS.ACTIVE),
   
   // Product ID that voucher can be used for (optional - can be used for any product)
@@ -43,8 +43,22 @@ const VOUCHER_COLLECTION_SCHEMA = Joi.object({
   usageRequest: Joi.object({
     requestId: Joi.string(),
     requestedAt: Joi.date().timestamp('javascript'),
-    status: Joi.string().valid('pending', 'confirmed', 'rejected')
+    status: Joi.string().valid('pending', 'confirmed', 'rejected'),
+    // Proof that voucher was used (screenshot URL, link to social media post, etc)
+    proofUrl: Joi.string().trim().allow('').default(''),
+    // Platform where shared (facebook, whatsapp, instagram, link, etc)
+    sharedOn: Joi.string().trim().allow('').default('')
   }).optional(),
+  
+  // Sharing info - track when user shares voucher to other platforms
+  sharingHistory: Joi.array().items(
+    Joi.object({
+      platform: Joi.string().required(), // facebook, whatsapp, instagram, twitter, telegram, copy_link
+      sharedAt: Joi.date().timestamp('javascript').default(Date.now),
+      shareCount: Joi.number().default(1),
+      link: Joi.string().trim().allow('').default('') // Direct share link or reference
+    })
+  ).default([]),
   
   // When admin confirms usage
   confirmedAt: Joi.date().timestamp('javascript').optional(),
@@ -59,6 +73,14 @@ const VOUCHER_COLLECTION_SCHEMA = Joi.object({
     .pattern(OBJECT_ID_RULE)
     .message(OBJECT_ID_RULE_MESSAGE)
     .optional(),
+
+  // When admin cancels voucher
+  cancelledAt: Joi.date().timestamp('javascript').optional(),
+  cancelledBy: Joi.string()
+    .pattern(OBJECT_ID_RULE)
+    .message(OBJECT_ID_RULE_MESSAGE)
+    .optional(),
+  cancelReason: Joi.string().trim().allow('').default(''),
   
   // Expiry date (180 days from creation by default)
   expiresAt: Joi.date().timestamp('javascript').required(),
@@ -264,6 +286,55 @@ const deleteExpiredVouchers = async (beforeDate = null) => {
   } catch (error) { throw new Error(error) }
 }
 
+// Record when user shares voucher to social media platform
+const recordSharing = async (voucherId, platform, link = '') => {
+  try {
+    const voucher = await findOneById(voucherId)
+    if (!voucher) throw new Error('Voucher not found')
+
+    // Check if already shared to this platform today
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    
+    const existingShare = voucher.sharingHistory?.find(h => {
+      const shareDate = new Date(h.sharedAt)
+      shareDate.setHours(0, 0, 0, 0)
+      return h.platform === platform && shareDate.getTime() === today.getTime()
+    })
+
+    if (existingShare) {
+      // Update share count for same platform on same day
+      const result = await GET_DB().collection(VOUCHER_COLLECTION_NAME).findOneAndUpdate(
+        { _id: new ObjectId(voucherId), 'sharingHistory.platform': platform },
+        { 
+          $inc: { 'sharingHistory.$.shareCount': 1 },
+          $set: { updatedAt: Date.now() }
+        },
+        { returnDocument: 'after' }
+      )
+      return result
+    } else {
+      // Add new sharing record
+      const result = await GET_DB().collection(VOUCHER_COLLECTION_NAME).findOneAndUpdate(
+        { _id: new ObjectId(voucherId) },
+        { 
+          $push: { 
+            sharingHistory: {
+              platform,
+              sharedAt: Date.now(),
+              shareCount: 1,
+              link
+            }
+          },
+          $set: { updatedAt: Date.now() }
+        },
+        { returnDocument: 'after' }
+      )
+      return result
+    }
+  } catch (error) { throw new Error(error) }
+}
+
 export const voucherModel = {
   VOUCHER_COLLECTION_NAME,
   VOUCHER_COLLECTION_SCHEMA,
@@ -278,5 +349,6 @@ export const voucherModel = {
   update,
   deleteOneById,
   deleteExpiredVouchers,
-  getGlobalStats
+  getGlobalStats,
+  recordSharing
 }

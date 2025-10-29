@@ -20,25 +20,7 @@ router.post('/complete-challenge', authMiddleware.isAuthorized, GamificationCont
 router.post('/creator-bonus', authMiddleware.isAuthorized, GamificationController.awardCreatorBonus)
 
 // === GARDEN - CROPS ===
-router.post('/plant-seed', authMiddleware.isAuthorized, GamificationController.plantSeed)
-router.post('/care-plant', authMiddleware.isAuthorized, GamificationController.careForPlant)
-router.post('/harvest-crop', authMiddleware.isAuthorized, GamificationController.harvestCrop)
-router.post('/customize-tree-plot', authMiddleware.isAuthorized, GamificationController.customizeTreePlot)
-
-// === GARDEN GRID - NEW SYSTEM ===
-router.post('/customize-tree', authMiddleware.isAuthorized, GamificationController.customizeTree)
-router.post('/plant-tree-in-plot', authMiddleware.isAuthorized, GamificationController.plantTreeInPlot)
-router.post('/garden-action', authMiddleware.isAuthorized, GamificationController.performGardenAction)
-router.post('/harvest-garden-tree', authMiddleware.isAuthorized, GamificationController.harvestGardenTree)
-
-// === PET (CHICKEN) ===
-router.post('/customize-pet', authMiddleware.isAuthorized, GamificationController.customizePet)
-router.post('/feed-pet', authMiddleware.isAuthorized, GamificationController.feedPet)
-router.post('/collect-egg', authMiddleware.isAuthorized, GamificationController.collectEgg)
-
-// === VOUCHERS ===
-router.get('/vouchers', authMiddleware.isAuthorized, GamificationController.getUserVouchers)
-router.post('/use-voucher', authMiddleware.isAuthorized, GamificationController.useVoucher)
+// Keeping basic endpoints for reference, but simplified
 
 // === LEADERBOARD & RANK ===
 router.get('/leaderboard', GamificationController.getLeaderboard)

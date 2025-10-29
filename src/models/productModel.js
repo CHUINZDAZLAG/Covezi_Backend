@@ -97,6 +97,7 @@ const getMany = async (queryObj, totalProductsPerPage = 10) => {
     if (queryObj.minPrice) query.price = { ...query.price, $gte: parseFloat(queryObj.minPrice) }
     if (queryObj.maxPrice) query.price = { ...query.price, $lte: parseFloat(queryObj.maxPrice) }
     if (queryObj.inStock) query.stock = { $gt: 0 }
+    if (queryObj.createdBy) query.createdBy = queryObj.createdBy
     
     // Search by name or description
     if (queryObj.search) {
@@ -149,7 +150,8 @@ const update = async (productId, updateData) => {
       { $set: { ...updateData, updatedAt: Date.now() } },
       { returnDocument: 'after' }
     )
-    return result
+    // MongoDB returns { value: document, ok: 1 }, so return just the document
+    return result.value || result
   } catch (error) { throw new Error(error) }
 }
 
@@ -160,7 +162,35 @@ const deleteOneById = async (productId) => {
       { $set: { _destroy: true, updatedAt: Date.now() } },
       { returnDocument: 'after' }
     )
-    return result
+    // MongoDB returns { value: document, ok: 1 }, so return just the document
+    return result.value || result
+  } catch (error) { throw new Error(error) }
+}
+
+// Get product statistics
+const getStats = async () => {
+  try {
+    const collection = GET_DB().collection(PRODUCT_COLLECTION_NAME)
+    
+    // Total products count
+    const totalProducts = await collection.countDocuments({ _destroy: false })
+    
+    // Products by category
+    const categoryStats = await collection.aggregate([
+      { $match: { _destroy: false } },
+      { $group: { _id: '$category', count: { $sum: 1 } } },
+      { $sort: { count: -1 } }
+    ]).toArray()
+    
+    const categories = {}
+    categoryStats.forEach(stat => {
+      categories[stat._id] = stat.count
+    })
+    
+    return {
+      totalProducts,
+      categories
+    }
   } catch (error) { throw new Error(error) }
 }
 
@@ -172,5 +202,6 @@ export const productModel = {
   getDetails,
   getMany,
   update,
-  deleteOneById
+  deleteOneById,
+  getStats
 }

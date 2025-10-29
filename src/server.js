@@ -15,6 +15,8 @@ import { Server as SocketIOServer } from 'socket.io'
 import { challengeCronJobs } from './jobs/challengeJobs'
 // Voucher cleanup cron job
 import { scheduleVoucherCleanupJob } from './jobs/voucherCleanupJob'
+// Challenge socket emitter
+import { initializeSocketIO } from './utils/challengeSocketEmitter.js'
 
 const START_SERVER = () => {
   const app = express()
@@ -60,6 +62,9 @@ const START_SERVER = () => {
   const io = new SocketIOServer(httpServer, {
     cors: corsOptions
   })
+
+  // Initialize socket emitter with IO instance
+  initializeSocketIO(io)
 
   // Socket.io connection handler
   io.on('connection', (socket) => {

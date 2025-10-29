@@ -2,8 +2,10 @@ import express from 'express'
 import { voucherController } from '~/controllers/voucherController'
 import { authMiddleware } from '~/middlewares/authMiddleware'
 import { voucherValidation } from '~/validations/voucherValidation'
+import multer from 'multer'
 
 const Router = express.Router()
+const multerUpload = multer()
 
 // User Voucher Routes
 // GET /v1/vouchers - Get all user's vouchers
@@ -17,6 +19,14 @@ Router.route('/active')
 // POST /v1/vouchers/:voucherId/use - Request to use a voucher
 Router.route('/:voucherId/use')
   .post(authMiddleware.isAuthorized, voucherValidation.requestUse, voucherController.requestVoucherUsage)
+
+// POST /v1/vouchers/:voucherId/share - Share voucher to social media platform
+Router.route('/:voucherId/share')
+  .post(authMiddleware.isAuthorized, voucherController.shareVoucher)
+
+// POST /v1/vouchers/:voucherId/proof - Submit proof of voucher usage (screenshot)
+Router.route('/:voucherId/proof')
+  .post(authMiddleware.isAuthorized, multerUpload.single('proof'), voucherController.submitVoucherProof)
 
 // GET /v1/vouchers/:voucherId - Get voucher details
 Router.route('/:voucherId')

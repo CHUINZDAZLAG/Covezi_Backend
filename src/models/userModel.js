@@ -23,6 +23,15 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   isActive: Joi.boolean().default(false),
   verifyToken: Joi.string(),
 
+  // PIN verification fields for registration process
+  pinVerification: Joi.object({
+    pin: Joi.string(),
+    expiryTime: Joi.number(),
+    attempts: Joi.number().default(0),
+    maxAttempts: Joi.number().default(5)
+  }).default(null),
+  registerVerificationToken: Joi.string().default(null),
+
   createdAt: Joi.date().timestamp('javascript').default(Date.now),
   updatedAt: Joi.date().timestamp('javascript').default(null),
   _destroy: Joi.boolean().default(false)
@@ -76,6 +85,45 @@ const update = async (userId, updateData) => {
   } catch (error) { throw new Error(error) }
 }
 
+// Count documents matching a filter
+const countDocuments = async (filter = {}) => {
+  try {
+    const result = await GET_DB().collection(USER_COLLECTION_NAME).countDocuments(filter)
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
+// Find all users matching a filter with pagination and sorting
+const findAll = async (filter = {}, options = {}) => {
+  try {
+    const sort = options.sort || { createdAt: -1 }
+    const limit = options.limit || 0
+    const skip = options.skip || 0
+
+    const result = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit)
+      .toArray()
+
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
+// Aggregate documents (for complex queries)
+const aggregate = async (pipeline = []) => {
+  try {
+    const result = await GET_DB()
+      .collection(USER_COLLECTION_NAME)
+      .aggregate(pipeline)
+      .toArray()
+
+    return result
+  } catch (error) { throw new Error(error) }
+}
+
 const isAdmin = (user) => {
   return user && user.role === USER_ROLES.ADMIN
 }
@@ -88,5 +136,8 @@ export const userModel = {
   findOneById,
   findOneByEmail,
   update,
+  countDocuments,
+  findAll,
+  aggregate,
   isAdmin
 }

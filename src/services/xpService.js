@@ -111,11 +111,15 @@ class XpService {
    * Only award on first join, +20 XP
    */
   static async awardJoinChallengeXp(userId, challengeId) {
+    console.log(`🔍 Checking participation - userId: ${userId}, challengeId: ${challengeId}`)
+    
     // Check if already joined this challenge
     const alreadyJoined = await xpTransactionModel.checkChallengeParticipation(
       userId,
       challengeId
     )
+
+    console.log(`📋 Already joined? ${alreadyJoined}`)
 
     if (alreadyJoined) {
       throw new ApiError(400, 'Already joined this challenge')
@@ -124,6 +128,7 @@ class XpService {
     const xpAmount = 20
 
     // Record transaction
+    console.log(`📝 Creating XP transaction for user ${userId}, amount: ${xpAmount}`)
     await xpTransactionModel.createNew({
       userId,
       eventType: xpTransactionModel.XP_EVENT_TYPES.JOIN_CHALLENGE,
@@ -135,9 +140,27 @@ class XpService {
       }
     })
 
+    // Update garden's current XP
+    let updatedGarden = null
+    try {
+      console.log(`🌳 Finding garden for user ${userId}`)
+      const garden = await UserGarden.findOne({ userId })
+      if (garden) {
+        const oldXp = garden.currentXp || 0
+        garden.currentXp = oldXp + xpAmount
+        updatedGarden = await garden.save()
+        console.log(`✅ Updated XP for user ${userId}: ${oldXp} + ${xpAmount} = ${updatedGarden.currentXp}`)
+      } else {
+        console.warn(`⚠️ Garden not found for user ${userId}`)
+      }
+    } catch (err) {
+      console.error(`❌ Error updating garden for user ${userId}:`, err.message)
+    }
+
     return {
       xpAmount,
-      message: `Joined challenge! +${xpAmount} XP`
+      message: `Joined challenge! +${xpAmount} XP`,
+      updatedGarden: updatedGarden
     }
   }
 

@@ -41,22 +41,8 @@ Router.route('/shop/buy')
 Router.route('/decorations/place')
   .post(authMiddleware.isAuthorized, gardenValidation.placeDecoration, gardenController.placeDecoration)
 
-// ===== NEW GARDEN GRID ROUTES =====
-
 // Route: POST /v1/garden/customize-tree - Customize master tree design
 Router.route('/customize-tree')
   .post(authMiddleware.isAuthorized, gardenController.customizeTree)
-
-// Route: POST /v1/garden/plant-tree-in-plot - Plant tree in specific plot
-Router.route('/plant-tree-in-plot')
-  .post(authMiddleware.isAuthorized, gardenController.plantTreeInPlot)
-
-// Route: POST /v1/garden/garden-action - Perform action on tree in plot (water/fertilize)
-Router.route('/garden-action')
-  .post(authMiddleware.isAuthorized, gardenController.performGardenAction)
-
-// Route: POST /v1/garden/harvest-garden-tree - Harvest tree from plot
-Router.route('/harvest-garden-tree')
-  .post(authMiddleware.isAuthorized, gardenController.harvestGardenTree)
 
 export const gardenRoute = Router

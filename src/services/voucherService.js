@@ -2,10 +2,25 @@ import { voucherModel, VOUCHER_STATUS } from '~/models/voucherModel'
 import { GamificationConfig, UserGarden } from '~/models/gamificationModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
+import { CloudinaryProvider } from '~/providers/CloudinaryProvider'
 
-// Generate unique voucher code: userId+level (e.g., 77150 for userId=77, level=150)
-const generateVoucherCode = (userId, level) => {
-  return `${userId}${level}`.toUpperCase()
+/**
+ * Generate voucher code format: {userId}+{createdDate(YYYYMMDD)}+{expiryDate(YYYYMMDD)}
+ * Example: 507f1f77bcf86cd799439011+20231130+20240228
+ */
+const generateVoucherCode = (userId, createdDate, expiryDate) => {
+  const formatDate = (date) => {
+    const d = new Date(date)
+    const year = d.getFullYear()
+    const month = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${year}${month}${day}`
+  }
+
+  const createdDateStr = formatDate(createdDate)
+  const expiryDateStr = formatDate(expiryDate)
+  
+  return `${userId}+${createdDateStr}+${expiryDateStr}`
 }
 
 /**
@@ -28,10 +43,10 @@ const generateVoucherForLevelMilestone = async (userId, newLevel) => {
     })
     if (existingVoucher) return null
 
-    // Generate voucher
-    const voucherCode = generateVoucherCode(userId, newLevel)
+    // Generate voucher with new format
     const now = new Date()
     const expiresAt = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000) // 3 months
+    const voucherCode = generateVoucherCode(userId, now, expiresAt)
 
     const newVoucher = {
       voucherCode,
@@ -69,7 +84,8 @@ const generateVoucherForLevelMilestone = async (userId, newLevel) => {
 // Create voucher when user levels up
 const createVoucherForLevelUp = async (userId, level, percent, expiresAt) => {
   try {
-    const voucherCode = generateVoucherCode(userId, level)
+    const now = new Date()
+    const voucherCode = generateVoucherCode(userId, now, expiresAt)
 
     const newVoucher = {
       voucherCode,
@@ -243,6 +259,128 @@ const getVoucherStats = async (userId = null) => {
   } catch (error) { throw error }
 }
 
+/**
+ * Record voucher sharing to social media or other platform
+ * Used to track proof of sharing (for marketing/promotion)
+ */
+const shareVoucher = async (voucherId, userId, platform, link = '') => {
+  try {
+    const voucher = await voucherModel.findOneById(voucherId)
+
+    if (!voucher) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Voucher not found')
+    }
+
+    if (voucher.userId.toString() !== userId) {
+      throw new ApiError(StatusCodes.FORBIDDEN, 'Voucher does not belong to user')
+    }
+
+    // Record sharing
+    const updatedVoucher = await voucherModel.recordSharing(voucherId, platform, link)
+
+    return updatedVoucher.value
+  } catch (error) { throw error }
+}
+
+/**
+ * Submit proof when user uses the voucher
+ * Proof can be a screenshot showing the voucher code was used
+ * Or a link to social media post showing the reward
+ */
+const submitVoucherProof = async (voucherId, userId, proofFile) => {
+  try {
+    const voucher = await voucherModel.findOneById(voucherId)
+
+    if (!voucher) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Voucher not found')
+    }
+
+    if (voucher.userId.toString() !== userId) {
+      throw new ApiError(StatusCodes.FORBIDDEN, 'Voucher does not belong to user')
+    }
+
+    if (voucher.status !== VOUCHER_STATUS.ACTIVE) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, `Voucher is ${voucher.status}, cannot submit proof`)
+    }
+
+    // Upload proof image to Cloudinary
+    let proofUrl = ''
+    if (proofFile) {
+      try {
+        const uploadResult = await CloudinaryProvider.streamUpload(proofFile.buffer, 'voucher-proofs')
+        proofUrl = uploadResult.secure_url
+      } catch (uploadErr) {
+        console.error('[voucherService.submitVoucherProof] Cloudinary upload failed:', uploadErr?.message)
+        if (uploadErr?.message?.includes('timeout') || uploadErr?.statusCode === 504) {
+          throw new ApiError(StatusCodes.GATEWAY_TIMEOUT, 'Image upload timed out. Please try again with a smaller file.')
+        }
+        if (uploadErr?.message?.includes('ECONNRESET') || uploadErr?.message?.includes('ETIMEDOUT')) {
+          throw new ApiError(StatusCodes.SERVICE_UNAVAILABLE, 'Network error during upload. Please check your connection and try again.')
+        }
+        throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, `Upload failed: ${uploadErr?.message || 'Unknown error'}`)
+      }
+    }
+
+    // Update voucher with proof and change to PENDING status
+    const usageRequest = {
+      requestId: `REQ-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+      requestedAt: Date.now(),
+      status: 'pending',
+      proofUrl,
+      sharedOn: voucher.sharingHistory && voucher.sharingHistory.length > 0 
+        ? voucher.sharingHistory[voucher.sharingHistory.length - 1].platform 
+        : 'direct'
+    }
+
+    const updatedVoucher = await voucherModel.update(voucherId, {
+      status: VOUCHER_STATUS.PENDING,
+      usageRequest,
+      updatedAt: Date.now()
+    })
+
+    return updatedVoucher.value
+  } catch (error) { 
+    if (error instanceof ApiError) throw error
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, error?.message || 'Failed to submit voucher proof')
+  }
+}
+
+/**
+ * Admin cancels a voucher
+ * @param {string} voucherId - Voucher ID
+ * @param {string} adminId - Admin user ID
+ * @param {string} cancelReason - Reason for cancellation
+ */
+const cancelVoucher = async (voucherId, adminId, cancelReason = '') => {
+  try {
+    const voucher = await voucherModel.findOneById(voucherId)
+    if (!voucher) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Voucher not found')
+    }
+
+    if (voucher.status === 'cancelled') {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Voucher is already cancelled')
+    }
+
+    if (voucher.status === VOUCHER_STATUS.USED) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Cannot cancel a used voucher')
+    }
+
+    const updatedVoucher = await voucherModel.update(voucherId, {
+      status: 'cancelled',
+      cancelledAt: Date.now(),
+      cancelledBy: adminId,
+      cancelReason,
+      updatedAt: Date.now()
+    })
+
+    return updatedVoucher.value
+  } catch (error) {
+    if (error instanceof ApiError) throw error
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, error?.message || 'Failed to cancel voucher')
+  }
+}
+
 export const voucherService = {
   generateVoucherCode,
   generateVoucherForLevelMilestone,
@@ -254,5 +392,8 @@ export const voucherService = {
   confirmVoucherUsage,
   rejectVoucherUsage,
   getPendingRequests,
-  getVoucherStats
+  getVoucherStats,
+  shareVoucher,
+  submitVoucherProof,
+  cancelVoucher
 }

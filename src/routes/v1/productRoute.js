@@ -15,6 +15,14 @@ Router.route('/')
 Router.route('/featured')
   .get(productController.getFeatured)
 
+// Route: GET /v1/products/stats - Get product statistics
+Router.route('/stats')
+  .get(authMiddleware.isAuthorized, authMiddleware.isAdmin, productController.getStats)
+
+// Route: GET /v1/products/my-products - Get products created by current user (admin)
+Router.route('/my-products')
+  .get(authMiddleware.isAuthorized, authMiddleware.isAdmin, productController.getMyProducts)
+
 // Route: GET /v1/products/categories - Get product categories
 Router.route('/categories')
   .get(productController.getCategories)

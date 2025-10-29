@@ -12,6 +12,9 @@ Router.route('/register')
 Router.route('/verify')
   .put(userValidation.verifyAccount, userController.verifyAccount)
 
+Router.route('/verify-pin')
+  .put(userValidation.verifyPIN, userController.verifyPIN)
+
 Router.route('/login')
   .post(userValidation.login, userController.login)
 

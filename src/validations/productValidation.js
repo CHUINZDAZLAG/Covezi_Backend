@@ -68,6 +68,7 @@ const update = async (req, res, next) => {
     price: Joi.number().min(1000).max(10000000),
     discount: Joi.number().min(0).max(100),
     stock: Joi.number().min(0).max(10000),
+    cover: Joi.string().uri().allow('').optional(), // Allow cover URL from Cloudinary
     links: Joi.object({
       shopee: Joi.string().uri().allow('').optional(),
       tiktok: Joi.string().uri().allow('').optional(),

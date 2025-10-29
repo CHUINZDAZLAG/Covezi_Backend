@@ -14,7 +14,7 @@
 ## ✨ Tính năng chính
 
 - 🔐 **Authentication & Authorization**: JWT-based với access/refresh token
-- 📧 **Email Services**: Account verification, invitations với MailerSend
+- 📧 **Email Services**: Account verification, invitations với SendGrid
 - 👥 **User Management**: Registration, profile management, avatar upload
 - 📊 **Board Management**: CRUD operations với role-based permissions
 - 📝 **Cards & Columns**: Quản lý tasks với drag & drop support
@@ -42,7 +42,7 @@
 
 ### Cloud Services
 - ☁️ **Cloudinary** - Image/file storage
-- 📧 **MailerSend** - Email delivery service
+- 📧 **SendGrid** - Email delivery service
 - 🌐 **MongoDB Atlas** - Cloud database
 
 ### Real-time & File Handling
@@ -100,8 +100,8 @@
    WEBSITE_DOMAIN_DEVELOPMENT=http://localhost:5173
    WEBSITE_DOMAIN_PRODUCTION=https://your-domain.com
    
-   # MailerSend
-   MAILERSEND_API_KEY=your_mailersend_api_key
+   # SendGrid Email Configuration
+   SENDGRID_API_KEY=your_sendgrid_api_key
    ADMIN_SENDER_EMAIL=noreply@yourdomain.com
    ADMIN_SENDER_NAME=Trello Clone
    
