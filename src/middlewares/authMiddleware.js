@@ -35,8 +35,11 @@ const isAuthorized = async (req, res, next) => {
   console.log('[AUTH] Token found, verifying...')
   try {
     // Step 1: Verify and decode the JWT access token
+    console.log('[AUTH] Token to verify:', clientAccessToken.substring(0, 50) + '...')
+    console.log('[AUTH] Secret signature length:', env.ACCESS_TOKEN_SECRET_SIGNATURE?.length)
+    
     const accessTokenDecoded = await JwtProvider.verifyToken(clientAccessToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
-    console.log('[AUTH] Token verified successfully:', accessTokenDecoded._id)
+    console.log('[AUTH] ✅ Token verified successfully:', accessTokenDecoded._id)
 
     // Step 2: Attach decoded user info to request object for downstream use
     req.jwtDecoded = accessTokenDecoded
@@ -44,7 +47,10 @@ const isAuthorized = async (req, res, next) => {
     // Step 3: Allow request to proceed to next middleware/route handler
     next()
   } catch (error) {
-    console.log('[AUTH] Token verification failed:', error.message)
+    console.log('[AUTH] ❌ Token verification failed')
+    console.log('[AUTH] Error message:', error.message)
+    console.log('[AUTH] Error name:', error.name)
+    console.log('[AUTH] Error details:', error)
     // Handle expired token: Return 410 GONE to trigger refresh token flow
     if (error?.message?.includes('jwt expired')) {
       next(new ApiError(StatusCodes.GONE, 'Need to refresh token.'))
