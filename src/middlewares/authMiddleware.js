@@ -12,8 +12,11 @@ const isAuthorized = async (req, res, next) => {
   // If no token in cookies, try Authorization header (for cross-origin requests from frontend)
   if (!clientAccessToken) {
     const authHeader = req.headers?.authorization
+    console.log('[AUTH] Full auth header:', authHeader)
+    console.log('[AUTH] Authorization header type:', typeof authHeader)
     if (authHeader && authHeader.startsWith('Bearer ')) {
       clientAccessToken = authHeader.substring(7) // Remove 'Bearer ' prefix
+      console.log('[AUTH] Extracted token from header:', clientAccessToken.substring(0, 20) + '...')
     }
   }
 
@@ -24,9 +27,34 @@ const isAuthorized = async (req, res, next) => {
 
   // Reject request if no token is provided
   if (!clientAccessToken) {
+    console.log('[AUTH] FAILED - No token found')
     next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized! (token not found)'))
     return
   }
+  
+  console.log('[AUTH] Token found, verifying...')
+  try {
+    // Step 1: Verify and decode the JWT access token
+    const accessTokenDecoded = await JwtProvider.verifyToken(clientAccessToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
+    console.log('[AUTH] Token verified successfully:', accessTokenDecoded._id)
+
+    // Step 2: Attach decoded user info to request object for downstream use
+    req.jwtDecoded = accessTokenDecoded
+
+    // Step 3: Allow request to proceed to next middleware/route handler
+    next()
+  } catch (error) {
+    console.log('[AUTH] Token verification failed:', error.message)
+    // Handle expired token: Return 410 GONE to trigger refresh token flow
+    if (error?.message?.includes('jwt expired')) {
+      next(new ApiError(StatusCodes.GONE, 'Need to refresh token.'))
+      return
+    }
+
+    // Handle invalid token: Return 401 UNAUTHORIZED to trigger re-authentication
+    next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized!'))
+  }
+}
   try {
     // Step 1: Verify and decode the JWT access token
     const accessTokenDecoded = await JwtProvider.verifyToken(clientAccessToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
