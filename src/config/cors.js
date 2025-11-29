@@ -24,5 +24,11 @@ export const corsOptions = {
   optionsSuccessStatus: 200,
 
   // Enable credential sharing (cookies, authorization headers) across origins
-  credentials: true
+  credentials: true,
+  
+  // Allow headers needed for cross-origin requests
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  
+  // Include Authorization header in CORS requests
+  exposedHeaders: ['Authorization']
 }
