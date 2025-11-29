@@ -5,8 +5,17 @@ import ApiError from '~/utils/ApiError'
 
 // Critical middleware: Validate JWT access token for protected routes
 const isAuthorized = async (req, res, next) => {
-  // Extract access token from HTTP-only cookies (set by withCredentials in axios)
-  const clientAccessToken = req.cookies?.accessToken
+  // Extract access token from HTTP-only cookies OR Authorization header
+  // First try to get from cookies (for same-origin requests)
+  let clientAccessToken = req.cookies?.accessToken
+  
+  // If no token in cookies, try Authorization header (for cross-origin requests from frontend)
+  if (!clientAccessToken) {
+    const authHeader = req.headers?.authorization
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      clientAccessToken = authHeader.substring(7) // Remove 'Bearer ' prefix
+    }
+  }
 
   // Reject request if no token is provided
   if (!clientAccessToken) {
@@ -36,7 +45,15 @@ const isAuthorized = async (req, res, next) => {
 
 // Optional authorization - doesn't require token but decodes if present
 const isAuthorizedOptional = async (req, res, next) => {
-  const clientAccessToken = req.cookies?.accessToken
+  // Extract access token from cookies OR Authorization header
+  let clientAccessToken = req.cookies?.accessToken
+  
+  if (!clientAccessToken) {
+    const authHeader = req.headers?.authorization
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      clientAccessToken = authHeader.substring(7)
+    }
+  }
 
   // If no token, just continue without user info
   if (!clientAccessToken) {
