@@ -70,8 +70,9 @@ const START_SERVER = () => {
 
   // Production environment configuration (Render.com)
   if (env.BUILD_MODE === 'production') {
-    httpServer.listen(process.env.PORT, () => {
-      console.log(`3. Production: Hi ${env.AUTHOR}, Server is running at ${process.env.PORT}`)
+    const port = process.env.PORT || 10000
+    httpServer.listen(port, '0.0.0.0', () => {
+      console.log(`3. Production: Hi ${env.AUTHOR}, Server is running at 0.0.0.0:${port}`)
     })
   } else {
     // Local development environment
