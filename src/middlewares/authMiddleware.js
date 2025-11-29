@@ -8,38 +8,27 @@ const isAuthorized = async (req, res, next) => {
   // Extract access token from HTTP-only cookies OR Authorization header
   // First try to get from cookies (for same-origin requests)
   let clientAccessToken = req.cookies?.accessToken
+  let tokenSource = 'none'
   
   // If no token in cookies, try Authorization header (for cross-origin requests from frontend)
   if (!clientAccessToken) {
     const authHeader = req.headers?.authorization
-    console.log('[AUTH] Full auth header:', authHeader)
-    console.log('[AUTH] Authorization header type:', typeof authHeader)
     if (authHeader && authHeader.startsWith('Bearer ')) {
       clientAccessToken = authHeader.substring(7) // Remove 'Bearer ' prefix
-      console.log('[AUTH] Extracted token from header:', clientAccessToken.substring(0, 20) + '...')
+      tokenSource = 'header'
     }
+  } else {
+    tokenSource = 'cookie'
   }
-
-  // Debug logging
-  console.log('[AUTH] Authorization header:', req.headers?.authorization?.substring(0, 20) + '...')
-  console.log('[AUTH] Cookie token:', req.cookies?.accessToken?.substring(0, 20) + '...')
-  console.log('[AUTH] Using token source:', clientAccessToken ? (req.cookies?.accessToken ? 'cookie' : 'header') : 'none')
 
   // Reject request if no token is provided
   if (!clientAccessToken) {
-    console.log('[AUTH] FAILED - No token found')
-    next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized! (token not found)'))
-    return
+    return next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized! (token not found)'))
   }
   
-  console.log('[AUTH] Token found, verifying...')
   try {
     // Step 1: Verify and decode the JWT access token
-    console.log('[AUTH] Token to verify:', clientAccessToken.substring(0, 50) + '...')
-    console.log('[AUTH] Secret signature length:', env.ACCESS_TOKEN_SECRET_SIGNATURE?.length)
-    
     const accessTokenDecoded = await JwtProvider.verifyToken(clientAccessToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
-    console.log('[AUTH] ✅ Token verified successfully:', accessTokenDecoded._id)
 
     // Step 2: Attach decoded user info to request object for downstream use
     req.jwtDecoded = accessTokenDecoded
@@ -47,18 +36,13 @@ const isAuthorized = async (req, res, next) => {
     // Step 3: Allow request to proceed to next middleware/route handler
     next()
   } catch (error) {
-    console.log('[AUTH] ❌ Token verification failed')
-    console.log('[AUTH] Error message:', error.message)
-    console.log('[AUTH] Error name:', error.name)
-    console.log('[AUTH] Error details:', error)
     // Handle expired token: Return 410 GONE to trigger refresh token flow
     if (error?.message?.includes('jwt expired')) {
-      next(new ApiError(StatusCodes.GONE, 'Need to refresh token.'))
-      return
+      return next(new ApiError(StatusCodes.GONE, 'Need to refresh token.'))
     }
 
     // Handle invalid token: Return 401 UNAUTHORIZED to trigger re-authentication
-    next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized!'))
+    return next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized!'))
   }
 }
   try {
@@ -97,8 +81,7 @@ const isAuthorizedOptional = async (req, res, next) => {
   // If no token, just continue without user info
   if (!clientAccessToken) {
     req.jwtDecoded = null
-    next()
-    return
+    return next()
   }
 
   try {
