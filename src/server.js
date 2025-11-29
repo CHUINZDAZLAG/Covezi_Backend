@@ -38,6 +38,11 @@ const START_SERVER = () => {
   // Enable URL-encoded form parsing (needed for FormData)
   app.use(express.urlencoded({ extended: true }))
 
+  // Health check endpoint (for Render)
+  app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() })
+  })
+
   // Debug logging middleware - log all requests
   app.use((req, res, next) => {
     console.log(`[${req.method}] ${req.path}`)
@@ -71,13 +76,19 @@ const START_SERVER = () => {
   // Production environment configuration (Render.com)
   if (env.BUILD_MODE === 'production') {
     const port = process.env.PORT || 10000
-    httpServer.listen(port, '0.0.0.0', () => {
-      console.log(`3. Production: Hi ${env.AUTHOR}, Server is running at 0.0.0.0:${port}`)
+    const server = httpServer.listen(port, '0.0.0.0', () => {
+      console.log(`✅ Production: Server running on 0.0.0.0:${port}`)
+    })
+    
+    server.on('error', (err) => {
+      console.error('❌ Server error:', err)
+      process.exit(1)
     })
   } else {
     // Local development environment
-    httpServer.listen(env.LOCAL_DEV_APP_PORT, env.LOCAL_DEV_APP_HOST, () => {
-      console.log(`3. Local dev: Hi ${env.AUTHOR}, Server is running at ${env.LOCAL_DEV_APP_HOST}:${env.LOCAL_DEV_APP_PORT}`)
+    const port = process.env.PORT || env.LOCAL_DEV_APP_PORT || 8017
+    httpServer.listen(port, '0.0.0.0', () => {
+      console.log(`✅ Dev: Server running on 0.0.0.0:${port}`)
     })
   }
 
