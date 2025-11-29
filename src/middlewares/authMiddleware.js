@@ -13,19 +13,24 @@ const isAuthorized = async (req, res, next) => {
   // If no token in cookies, try Authorization header (for cross-origin requests from frontend)
   if (!clientAccessToken) {
     const authHeader = req.headers?.authorization
+    console.log('[AUTH] Auth header value:', authHeader ? 'EXISTS' : 'MISSING')
     if (authHeader && authHeader.startsWith('Bearer ')) {
       clientAccessToken = authHeader.substring(7) // Remove 'Bearer ' prefix
       tokenSource = 'header'
+      console.log('[AUTH] Token extracted from header')
     }
   } else {
     tokenSource = 'cookie'
+    console.log('[AUTH] Token found in cookie')
   }
 
   // Reject request if no token is provided
   if (!clientAccessToken) {
+    console.log('[AUTH] REJECTED - No token found. Source:', tokenSource)
     return next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized! (token not found)'))
   }
   
+  console.log('[AUTH] Token found from:', tokenSource)
   try {
     // Step 1: Verify and decode the JWT access token
     const accessTokenDecoded = await JwtProvider.verifyToken(clientAccessToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
@@ -36,6 +41,7 @@ const isAuthorized = async (req, res, next) => {
     // Step 3: Allow request to proceed to next middleware/route handler
     next()
   } catch (error) {
+    console.log('[AUTH] Verification failed:', error.message)
     // Handle expired token: Return 410 GONE to trigger refresh token flow
     if (error?.message?.includes('jwt expired')) {
       return next(new ApiError(StatusCodes.GONE, 'Need to refresh token.'))
