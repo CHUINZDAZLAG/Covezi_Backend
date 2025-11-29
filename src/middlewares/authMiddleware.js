@@ -17,6 +17,11 @@ const isAuthorized = async (req, res, next) => {
     }
   }
 
+  // Debug logging
+  console.log('[AUTH] Authorization header:', req.headers?.authorization?.substring(0, 20) + '...')
+  console.log('[AUTH] Cookie token:', req.cookies?.accessToken?.substring(0, 20) + '...')
+  console.log('[AUTH] Using token source:', clientAccessToken ? (req.cookies?.accessToken ? 'cookie' : 'header') : 'none')
+
   // Reject request if no token is provided
   if (!clientAccessToken) {
     next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized! (token not found)'))
