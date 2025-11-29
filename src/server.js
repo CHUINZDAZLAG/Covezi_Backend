@@ -73,24 +73,17 @@ const START_SERVER = () => {
   challengeCronJobs.initChallengeJobs()
   scheduleVoucherCleanupJob()
 
-  // Production environment configuration (Render.com)
-  if (env.BUILD_MODE === 'production') {
-    const port = process.env.PORT || 10000
-    const server = httpServer.listen(port, '0.0.0.0', () => {
-      console.log(`✅ Production: Server running on 0.0.0.0:${port}`)
-    })
-    
-    server.on('error', (err) => {
-      console.error('❌ Server error:', err)
-      process.exit(1)
-    })
-  } else {
-    // Local development environment
-    const port = process.env.PORT || env.LOCAL_DEV_APP_PORT || 8017
-    httpServer.listen(port, '0.0.0.0', () => {
-      console.log(`✅ Dev: Server running on 0.0.0.0:${port}`)
-    })
-  }
+  // Start server - bind to PORT environment variable (required for Render)
+  const port = process.env.PORT || env.LOCAL_DEV_APP_PORT || 8017
+  
+  httpServer.listen(port, () => {
+    console.log(`✅ Server running on port ${port}`)
+  })
+  
+  httpServer.on('error', (err) => {
+    console.error('❌ Server error:', err)
+    process.exit(1)
+  })
 
   // Handle uncaught exceptions
   process.on('unhandledRejection', (reason, promise) => {
