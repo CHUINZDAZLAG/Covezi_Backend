@@ -117,9 +117,52 @@ export const emitChallengeCompleted = (challenge, participantName) => {
   })
 }
 
+/**
+ * Emit challenge like notification to challenge creator
+ * @param {Object} challenge - The challenge
+ * @param {Object} liker - The person who liked
+ * @param {String} creatorId - The challenge creator's user ID
+ */
+export const emitChallengeLike = (challenge, liker, creatorId) => {
+  if (!io) {
+    console.warn('[Socket] Socket.IO not initialized yet')
+    return
+  }
+
+  // Don't notify if creator likes their own challenge
+  if (liker.userId === creatorId) {
+    return
+  }
+
+  const notification = {
+    type: 'challenge_like',
+    title: 'Challenge Liked',
+    message: `${liker.userDisplayName} liked your challenge "${challenge.title}"!`,
+    challengeId: challenge._id,
+    challengeTitle: challenge.title,
+    likerName: liker.userDisplayName,
+    likerAvatar: liker.userAvatar,
+    likeCount: challenge.likesCount,
+    timestamp: new Date().toISOString()
+  }
+
+  console.log('[Socket] Emitting CHALLENGE_LIKE:', {
+    challengeId: challenge._id,
+    likerName: liker.userDisplayName,
+    creatorId
+  })
+
+  io.emit('CHALLENGE_LIKE', {
+    notification,
+    challenge,
+    creatorId
+  })
+}
+
 export const challengeSocketEmitter = {
   initializeSocketIO,
   emitChallengeCreated,
   emitChallengeParticipant,
-  emitChallengeCompleted
+  emitChallengeCompleted,
+  emitChallengeLike
 }

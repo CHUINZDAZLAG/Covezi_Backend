@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes'
 import { challengeService } from '~/services/challengeService'
 import XpService from '~/services/xpService'
 import GamificationService from '~/services/gamificationService'
-import { emitChallengeCreated, emitChallengeParticipant } from '~/utils/challengeSocketEmitter'
+import { emitChallengeCreated, emitChallengeParticipant, emitChallengeLike } from '~/utils/challengeSocketEmitter'
 
 // Create new challenge (post)
 const createNew = async (req, res, next) => {
@@ -71,6 +71,17 @@ const likeChallenge = async (req, res, next) => {
     const { id } = req.params
 
     const challenge = await challengeService.likeChallenge(id, userId)
+
+    // Get user info for notification
+    const user = req.jwtDecoded
+    const liker = {
+      userId: user._id,
+      userDisplayName: user.displayName || user.username,
+      userAvatar: user.avatar
+    }
+
+    // Emit socket event to notify challenge creator
+    emitChallengeLike(challenge, liker, challenge.createdBy)
 
     // Award XP for liking challenge (+2 XP, max 5 per day)
     let xpReward = null
