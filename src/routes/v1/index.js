@@ -11,6 +11,7 @@ import { adminVoucherConfigRoute } from './adminVoucherConfigRoute'
 import { adminChallengeRoute } from './adminChallengeRoute'
 import { adminUserVoucherHistoryRoute } from './adminUserVoucherHistoryRoute'
 import { adminUserManagementRoute } from './adminUserManagementRoute'
+import { chatRoute } from './chatRoute'
 
 const Router = express.Router()
 
@@ -51,5 +52,8 @@ Router.use('/admin/voucher-history', adminUserVoucherHistoryRoute)
 
 // Admin User Management API
 Router.use('/admin/users', adminUserManagementRoute)
+
+// Chat API (ZiZi AI)
+Router.use('/chat', chatRoute)
 
 export const APIs_V1 = Router
