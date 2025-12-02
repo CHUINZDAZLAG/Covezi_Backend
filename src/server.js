@@ -74,6 +74,31 @@ const START_SERVER = () => {
     })
   })
 
+  // 🐱 Chat namespace for ZiZi chatbot streaming
+  const chatNamespace = io.of('/chat')
+  chatNamespace.on('connection', (socket) => {
+    console.log('🐱 [Chat] New connection:', socket.id)
+    
+    // Join session room when client provides sessionId
+    socket.on('join_session', (sessionId) => {
+      socket.join(sessionId)
+      console.log(`🐱 [Chat] Socket ${socket.id} joined session: ${sessionId}`)
+    })
+    
+    // Leave session room
+    socket.on('leave_session', (sessionId) => {
+      socket.leave(sessionId)
+      console.log(`🐱 [Chat] Socket ${socket.id} left session: ${sessionId}`)
+    })
+    
+    socket.on('disconnect', () => {
+      console.log('🐱 [Chat] Disconnected:', socket.id)
+    })
+  })
+  
+  // Store chat namespace in app for use in controllers
+  app.set('chatIO', chatNamespace)
+
   // Schedule cron jobs
   challengeCronJobs.initChallengeJobs()
   scheduleVoucherCleanupJob()
