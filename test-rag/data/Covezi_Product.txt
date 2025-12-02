@@ -1,0 +1,3343 @@
+ID: LP0001
+Tên sản phẩm: Laptop ASUS TUF Gaming F15 FX507VU i7 (LP197W)
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 27.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: ASUS TUF Gaming F15 FX507VU sử dụng Intel Core i7-13620H, RAM 16GB, SSD 512GB và GPU RTX 4050 6GB. Màn hình 15.6 inch 144Hz cho trải nghiệm gaming mượt mà. Thiết kế chuẩn quân đội, tản nhiệt tốt, phù hợp game thủ và làm đồ họa.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13620H
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 56 Wh
+- Cổng kết nối: 1x USB-C, 2x USB-A, 1x USB 2.0, 1x HDMI 2.1, 1x LAN RJ45, 1x Jack 3.5mm, 1x DC-in
+- Trọng lượng: 2.2kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0002
+Tên sản phẩm: Laptop ASUS VivoBook Go 14 E1404FA-NK177W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 11.890.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop Asus Vivobook Go 14 E1404FA-NK177W mang đến thiết kế mỏng nhẹ, hiệu năng ổn định với RAM 16GB, ổ SSD PCIe 512GB và CPU AMD Ryzen 5 7520U. Màn hình 14 inch Full HD chống chói, pin 42Wh đủ dùng cho học tập và làm việc cả ngày.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: AMD Ryzen 5 7520U
+- GPU: AMD Radeon Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch IPS 60Hz FHD
+- Hệ điều hành: Windows 11
+- Pin: 42 Wh
+- Cổng kết nối: 1x USB 2.0 Type-A, 1x USB 3.2 Gen 1 Type-A, 1x USB 3.2 Gen 1 Type-C, 1x HDMI 1.4, 1x Jack cắm tai nghe 3.5 mm, 1x Đầu vào DC
+- Trọng lượng: 1.38kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0003
+Tên sản phẩm: Apple MacBook Air 13 inch M2 2022
+Thương hiệu: apple
+Danh mục: laptop
+Giá: 24.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: MacBook Air M2 thiết kế hoàn toàn mới, mỏng nhẹ thời thượng. Chip M2 mạnh mẽ, màn hình Liquid Retina tuyệt đẹp và cổng sạc MagSafe tiện lợi.
+Thẻ: cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: Apple M2 8-core
+- GPU: Apple Silicon M2
+- RAM: 8GB
+- Ổ cứng: 256GB SSD
+- Màn hình: 13.6 inch Liquid Retina 60Hz 2.5K, 500 nits
+- Hệ điều hành: macOS
+- Pin: 52.6 Wh
+- Cổng kết nối: 1x MagSafe 3, 2x Thunderbolt / USB 4, 1x Jack 3.5mm
+- Trọng lượng: 1.24kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0004
+Tên sản phẩm: Asus TUF Gaming A15 FA507NU-LP034W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 26.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop gaming bền bỉ chuẩn quân đội. Hiệu năng vượt trội với Ryzen 7 7000 series và RTX 4050, màn hình 144Hz mượt mà.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: AMD Ryzen 7 7735HS
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 90 Wh
+- Cổng kết nối: 1x RJ45, 1x USB 4 Type-C, 1x USB 3.2 Gen 2 Type-C, 2x USB 3.2 Gen 1 Type-A, 1x HDMI 2.1
+- Trọng lượng: 2.2kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0005
+Tên sản phẩm: Dell Inspiron 15 3520 N5I5122W1
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 14.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Laptop văn phòng Dell bền bỉ, màn hình 120Hz mượt mà hiếm thấy trong phân khúc. Cấu hình Core i5 đáp ứng tốt mọi tác vụ học tập.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1135G7
+- GPU: Intel Iris Xe Graphics
+- RAM: 8GB
+- Ổ cứng: 256GB SSD
+- Màn hình: 15.6 inch IPS 120Hz FHD, Anti-Glare
+- Hệ điều hành: Windows 11 Home + Office HS
+- Pin: 41 Wh
+- Cổng kết nối: 2x USB 3.2 Gen 1, 1x USB 2.0, 1x HDMI 1.4, 1x SD Card slot
+- Trọng lượng: 1.9kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0006
+Tên sản phẩm: HP Victus 15-fa1139TX 95U61PA
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 18.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: HP Victus 15 thiết kế thanh lịch nhưng mang sức mạnh gaming. Card đồ họa RTX 2050 cùng chip H-series hiệu năng cao.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-12450H
+- GPU: NVIDIA GeForce RTX 2050 4GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 52.5 Wh
+- Cổng kết nối: 1x USB Type-C, 2x USB Type-A, 1x HDMI 2.1, 1x RJ45, 1x SD Card
+- Trọng lượng: 2.29kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0007
+Tên sản phẩm: Lenovo LOQ 15IAX9 83GS001RVN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 19.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Lenovo LOQ - Bản dupe hoàn hảo của Legion. Tản nhiệt cực tốt, thiết kế chuẩn gaming, màn hình 144Hz chuẩn màu.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-12450HX
+- GPU: NVIDIA GeForce RTX 2050 4GB
+- RAM: 12GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 60 Wh
+- Cổng kết nối: 1x USB-C (PD + DP), 3x USB-A, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 2.38kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0008
+Tên sản phẩm: Acer Nitro V ANV15-51-55CA
+Thương hiệu: acer
+Danh mục: laptop
+Giá: 21.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Acer Nitro V phiên bản mới với thiết kế logo mới lạ. Cấu hình mạnh mẽ chiến game mượt mà với RTX 4050.
+Thẻ: gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-13420H
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 57 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 3x USB 3.2, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 2.1kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0009
+Tên sản phẩm: MSI Thin GF63 12UC-887VN
+Thương hiệu: msi
+Danh mục: laptop
+Giá: 16.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop gaming mỏng nhẹ nhất phân khúc giá rẻ. Hiệu năng ổn định với Core i7 thế hệ 12 và RTX 3050.
+Thẻ: gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-12650H
+- GPU: NVIDIA GeForce RTX 3050 4GB
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 52.4 Wh
+- Cổng kết nối: 1x Type-C, 3x Type-A, 1x HDMI, 1x RJ45, 1x Mic-in, 1x Headphone-out
+- Trọng lượng: 1.86kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0010
+Tên sản phẩm: Gigabyte G5 MF-F2VN313SH
+Thương hiệu: gigabyte
+Danh mục: laptop
+Giá: 20.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Gigabyte G5 - Chiến binh gaming hiệu năng cao giá tốt. Màn hình 144Hz, hệ thống tản nhiệt Windforce hiệu quả.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-12450H
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 54 Wh
+- Cổng kết nối: 1x USB 2.0, 1x USB 3.2 Gen 1, 2x USB 3.2 Gen 2 Type-C, 1x HDMI, 1x Mini DP
+- Trọng lượng: 1.9kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0011
+Tên sản phẩm: Apple MacBook Pro 14 M3
+Thương hiệu: apple
+Danh mục: laptop
+Giá: 39.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: MacBook Pro 14 inch với chip M3 thế hệ mới. Thời lượng pin lên đến 22 giờ, màn hình Liquid Retina XDR đỉnh cao.
+Thẻ: cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Apple M3 8-core
+- GPU: Apple Silicon M3
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14.2 inch Liquid Retina 120Hz 4K, ProMotion
+- Hệ điều hành: macOS
+- Pin: 70 Wh
+- Cổng kết nối: 2x Thunderbolt / USB 4, 1x HDMI, 1x SDXC, 1x MagSafe 3
+- Trọng lượng: 1.55kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0012
+Tên sản phẩm: Asus Zenbook 14 OLED UX3405MA-PP151W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 28.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Tuyệt phẩm AI Laptop mỏng nhẹ. Chip Intel Core Ultra tích hợp NPU AI, màn hình OLED 3K 120Hz rực rỡ.
+Thẻ: cao-cap, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core Ultra 5 125H
+- GPU: Intel Arc Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch OLED 120Hz 3K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 75 Wh
+- Cổng kết nối: 1x USB 3.2 Gen 1 Type-A, 2x Thunderbolt 4, 1x HDMI 2.1
+- Trọng lượng: 1.2kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0013
+Tên sản phẩm: Dell Vostro 15 3520 V5I3614W1
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 9.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Dell Vostro giá rẻ cho sinh viên. Thiết kế thực dụng, màn hình 120Hz, đầy đủ cổng kết nối.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i3-1215U
+- GPU: Intel UHD Graphics
+- RAM: 8GB
+- Ổ cứng: 256GB SSD
+- Màn hình: 15.6 inch IPS 120Hz FHD, Anti-Glare
+- Hệ điều hành: Windows 11 Home + Office HS
+- Pin: 41 Wh
+- Cổng kết nối: 2x USB 3.2 Gen 1, 1x USB 2.0, 1x HDMI 1.4, 1x RJ45
+- Trọng lượng: 1.66kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0014
+Tên sản phẩm: HP Pavilion 15-eg3093TU 8C5L4PA
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 17.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: HP Pavilion thiết kế nắp lưng kim loại sang trọng. Cấu hình mạnh mẽ với RAM 16GB sẵn sàng đa nhiệm.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1335U
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD, Anti-glare
+- Hệ điều hành: Windows 11 Home
+- Pin: 41 Wh
+- Cổng kết nối: 1x USB Type-C, 2x USB Type-A, 1x HDMI 2.1
+- Trọng lượng: 1.74kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0015
+Tên sản phẩm: Lenovo IdeaPad Slim 5 14IMH9 83DA001NVN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 22.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop AI mỏng nhẹ thời trang. Màn hình OLED rực rỡ chuẩn 100% DCI-P3, chip Core Ultra mới nhất.
+Thẻ: van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core Ultra 5 125H
+- GPU: Intel Arc Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch OLED 60Hz FHD, 400nits, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 57 Wh
+- Cổng kết nối: 1x USB-A, 2x USB-C (Thunderbolt 4 / PD), 1x HDMI 1.4b, 1x microSD card reader
+- Trọng lượng: 1.46kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0016
+Tên sản phẩm: Acer Swift Go 14 SFG14-73-53X9
+Thương hiệu: acer
+Danh mục: laptop
+Giá: 23.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Ultrabook AI cao cấp. Màn hình OLED 2.8K siêu nét, đạt chuẩn Intel Evo cho trải nghiệm toàn diện.
+Thẻ: cao-cap, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core Ultra 5 125H
+- GPU: Intel Arc Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch OLED 90Hz 2.8K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 65 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 2x USB 3.2, 1x HDMI 2.1, 1x microSD
+- Trọng lượng: 1.32kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0017
+Tên sản phẩm: MSI Modern 14 C11M-011VN
+Thương hiệu: msi
+Danh mục: laptop
+Giá: 8.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Lựa chọn tiết kiệm cho học sinh. Thiết kế nhỏ gọn, đầy đủ chức năng cơ bản cho việc học tập và văn phòng.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i3-1115G4
+- GPU: Intel UHD Graphics
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch IPS 60Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 39.3 Wh
+- Cổng kết nối: 1x Type-C USB 3.2 Gen 2, 1x Type-A USB 3.2 Gen 2, 2x Type-A USB 2.0, 1x HDMI, 1x Micro SD
+- Trọng lượng: 1.4kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0018
+Tên sản phẩm: Apple MacBook Air 15 inch M3 2024
+Thương hiệu: apple
+Danh mục: laptop
+Giá: 32.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: MacBook Air màn hình lớn 15 inch. Chip M3 mạnh mẽ, hỗ trợ xuất 2 màn hình rời khi gập máy, thiết kế siêu mỏng.
+Thẻ: cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: Apple M3 8-core
+- GPU: Apple Silicon M3
+- RAM: 8GB
+- Ổ cứng: 256GB SSD
+- Màn hình: 15.3 inch Liquid Retina 60Hz 3K, 500 nits
+- Hệ điều hành: macOS
+- Pin: 66.5 Wh
+- Cổng kết nối: 1x MagSafe 3, 2x Thunderbolt / USB 4, 1x Jack 3.5mm
+- Trọng lượng: 1.51kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0019
+Tên sản phẩm: Asus Vivobook Go 15 E1504FA-NJ776W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 10.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Vivobook trẻ trung, màn hình sắc nét bảo vệ mắt. Bản lề 180 độ linh hoạt chia sẻ nội dung.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: AMD Ryzen 5 7520U
+- GPU: AMD Radeon 610M
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD,  TÜV Rheinland-certified
+- Hệ điều hành: Windows 11 Home
+- Pin: 42 Wh
+- Cổng kết nối: 1x USB 2.0 Type-A, 1x USB 3.2 Gen 1 Type-A, 1x USB 3.2 Gen 1 Type-C, 1x HDMI 1.4
+- Trọng lượng: 1.63kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0020
+Tên sản phẩm: Dell Inspiron 16 5630 i5 1340P
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 20.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Dell Inspiron màn hình lớn 16 inch tỷ lệ vàng 16:10. Âm thanh nổi sống động, thiết kế kim loại chắc chắn.
+Thẻ: van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1340P
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 16 inch IPS 60Hz FHD, Anti-Glare, WVA
+- Hệ điều hành: Windows 11 Home + Office HS
+- Pin: 54 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 2x USB 3.2 Gen 1 Type A, 1x HDMI 1.4, 1x SD Card reader
+- Trọng lượng: 1.85kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0021
+Tên sản phẩm: HP Envy X360 13-bf0090TU 76B13PA
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 24.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Laptop 2-in-1 cao cấp xoay gập 360 độ. Màn hình cảm ứng OLED 2.8K chuẩn điện ảnh, kèm bút cảm ứng tiện lợi.
+Thẻ: cao-cap, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-1250U
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 13.3 inch OLED 60Hz 2.8K, Cảm ứng, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 66 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 2x USB Type-A, 1x microSD
+- Trọng lượng: 1.34kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0022
+Tên sản phẩm: Gigabyte Aorus 15 9KF-E3VN583SH
+Thương hiệu: gigabyte
+Danh mục: laptop
+Giá: 29.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Cỗ máy gaming siêu mỏng. Màn hình tần số quét cực cao 360Hz, pin khủng 99Wh cho thời gian chiến game dài lâu.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-12500H
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 165Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 99 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 1x HDMI 2.1, 1x Mini DP, 2x USB 3.2 Gen 2, 1x USB 3.2 Gen 1
+- Trọng lượng: 2.25kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0023
+Tên sản phẩm: Apple MacBook Pro 16 inch M3 Pro 2023
+Thương hiệu: apple
+Danh mục: laptop
+Giá: 64.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: MacBook Pro 16 inch mạnh mẽ nhất. Chip M3 Pro xử lý tác vụ nặng mượt mà, thời lượng pin ấn tượng lên đến 22 giờ.
+Thẻ: cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Apple M3 Pro 12-core
+- GPU: Apple Silicon M3 Pro
+- RAM: 18GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 16.2 inch Liquid Retina 120Hz 4K, ProMotion
+- Hệ điều hành: macOS
+- Pin: 100 Wh
+- Cổng kết nối: 3x Thunderbolt 4, 1x HDMI, 1x SDXC, 1x MagSafe 3
+- Trọng lượng: 2.14kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0024
+Tên sản phẩm: Apple MacBook Air 13 inch M1 2020
+Thương hiệu: apple
+Danh mục: laptop
+Giá: 18.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chiếc MacBook quốc dân với chip M1 huyền thoại. Hiệu năng vẫn rất tốt, pin trâu và thiết kế mỏng nhẹ không quạt tản nhiệt yên tĩnh.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Apple M1 8-core
+- GPU: Apple Silicon M1
+- RAM: 8GB
+- Ổ cứng: 256GB SSD
+- Màn hình: 13.3 inch Retina 60Hz 2K, IPS
+- Hệ điều hành: macOS
+- Pin: 49.9 Wh
+- Cổng kết nối: 2x Thunderbolt / USB 4, 1x Jack 3.5mm
+- Trọng lượng: 1.29kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0025
+Tên sản phẩm: Asus ROG Strix G16 G614JU-N3135W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 35.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: ROG Strix G16 đậm chất Esport. Hệ thống tản nhiệt 3 quạt, màn hình 16 inch 165Hz chuẩn ROG Nebula.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13650HX
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 16 inch IPS 165Hz FHD, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 90 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 1x USB 3.2 Gen 2 Type-C, 2x USB 3.2 Gen 2 Type-A, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 2.5kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0026
+Tên sản phẩm: Dell Gaming G15 5530 i7 13650HX
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 29.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Dell G15 phiên bản 2023 với thiết kế lấy cảm hứng từ Alienware. Chip HX hiệu năng cao và card RTX 4060 cân mọi game AAA.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13650HX
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 165Hz FHD, 100% sRGB
+- Hệ điều hành: Windows 11 Home + Office HS
+- Pin: 86 Wh
+- Cổng kết nối: 1x USB-C 3.2 Gen 2 (DP), 3x USB-A 3.2 Gen 1, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 2.81kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0027
+Tên sản phẩm: HP 15s-fq5078TU 6K798PA
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 12.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Laptop HP 15s mỏng nhẹ, màu bạc sang trọng. Cấu hình Core i5 đáp ứng tốt nhu cầu học tập và làm việc văn phòng cơ bản.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1235U
+- GPU: Intel Iris Xe Graphics
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD, Micro-edge
+- Hệ điều hành: Windows 11 Home
+- Pin: 41 Wh
+- Cổng kết nối: 1x USB Type-C, 2x USB Type-A, 1x HDMI 1.4b, 1x SD Card
+- Trọng lượng: 1.69kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0028
+Tên sản phẩm: Lenovo ThinkPad E14 Gen 5 21JK0069VN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 18.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: ThinkPad dòng E thế hệ mới. Bàn phím trứ danh, độ bền chuẩn quân đội và khả năng nâng cấp linh hoạt.
+Thẻ: van-phong, cao-cap
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1335U
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch IPS 60Hz FHD, 300nits
+- Hệ điều hành: Windows 11 Home
+- Pin: 47 Wh
+- Cổng kết nối: 1x USB 2.0, 1x USB 3.2 Gen 1, 1x Thunderbolt 4, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 1.41kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0029
+Tên sản phẩm: Acer Aspire 7 A715-76-57CY
+Thương hiệu: acer
+Danh mục: laptop
+Giá: 14.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Laptop gaming phổ thông thiết kế tối giản như văn phòng. Hiệu năng tốt trong tầm giá với chip dòng H.
+Thẻ: gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-12450H
+- GPU: Intel UHD Graphics (Hỗ trợ nâng cấp RAM để chạy Iris Xe)
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 50 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 3x USB 3.2, 1x HDMI, 1x RJ45
+- Trọng lượng: 2.1kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0030
+Tên sản phẩm: MSI Katana 15 B13VFK-676VN
+Thương hiệu: msi
+Danh mục: laptop
+Giá: 27.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: MSI Katana 15 với bàn phím RGB 4 vùng đẹp mắt. Cấu hình mạnh mẽ chiến tốt các tựa game nặng.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13620H
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 53.5 Wh
+- Cổng kết nối: 1x Type-C, 2x Type-A 3.2, 1x Type-A 2.0, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 2.25kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0031
+Tên sản phẩm: Gigabyte AERO 14 OLED BMF-72VNBB4SH
+Thương hiệu: gigabyte
+Danh mục: laptop
+Giá: 34.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop dành cho sáng tạo nội dung. Màn hình OLED 2.8K chuẩn màu, vỏ nhôm CNC trắng tinh khôi siêu nhẹ.
+Thẻ: cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13700H
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 14 inch OLED 90Hz 2.8K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 63 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 1x USB 3.2 Gen 1 Type-A, 1x HDMI 2.1, 1x microSD
+- Trọng lượng: 1.49kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0032
+Tên sản phẩm: Lenovo Legion Pro 5 16IRX9 83DF0046VN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 44.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Legion Pro 5 - Cỗ máy gaming hoàn hảo. Chip i9 thế hệ 14, màn hình 240Hz chuẩn màu, tản nhiệt Coldfront huyền thoại.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i9-14900HX
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 16 inch IPS 240Hz FHD, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 80 Wh
+- Cổng kết nối: 1x USB-C (PD 140W), 1x USB-C (DP), 4x USB-A, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 2.5kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0033
+Tên sản phẩm: Asus Vivobook 15 OLED A1505VA-L1114W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 17.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Vivobook màn hình OLED rực rỡ trong tầm giá phổ thông. Chip dòng H hiệu năng cao xử lý mượt mà tác vụ nặng.
+Thẻ: van-phong, do-hoa, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-13500H
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch OLED 60Hz FHD, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 50 Wh
+- Cổng kết nối: 1x USB 2.0, 1x USB 3.2 Gen 1 Type-C, 2x USB 3.2 Gen 1 Type-A, 1x HDMI 1.4
+- Trọng lượng: 1.7kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0034
+Tên sản phẩm: Dell XPS 13 9315 i5
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 26.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Biểu tượng của sự sang trọng và mỏng nhẹ. Vỏ nhôm nguyên khối cắt CNC tinh xảo, màn hình sắc nét.
+Thẻ: cao-cap, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1230U
+- GPU: Intel Iris Xe Graphics
+- RAM: 8GB
+- Ổ cứng: 256GB SSD
+- Màn hình: 13.4 inch IPS 60Hz FHD, InfinityEdge, 500 nits
+- Hệ điều hành: Windows 11 Home
+- Pin: 51 Wh
+- Cổng kết nối: 2x Thunderbolt 4 (USB Type-C)
+- Trọng lượng: 1.17kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0035
+Tên sản phẩm: HP OMEN 16-wf0131TX 8W945PA
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 38.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: HP OMEN cao cấp, thiết kế tối giản nhưng hiệu năng khủng khiếp. Công nghệ tản nhiệt OMEN Tempest Cooling độc quyền.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13700HX
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 32GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 16.1 inch IPS 165Hz FHD, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 83 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 2x USB Type-A, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 2.35kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0036
+Tên sản phẩm: Lenovo Yoga Slim 7 14IMH9 83CV001UVN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 29.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Yoga Slim 7 thời thượng với chip Core Ultra AI. Màn hình OLED tuyệt đẹp, thiết kế siêu mỏng nhẹ chuẩn Intel Evo.
+Thẻ: cao-cap, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core Ultra 7 155H
+- GPU: Intel Arc Graphics
+- RAM: 32GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 14 inch OLED 60Hz 3K, 400nits, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 65 Wh
+- Cổng kết nối: 1x USB-A, 2x Thunderbolt 4, 1x HDMI 2.1
+- Trọng lượng: 1.39kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0037
+Tên sản phẩm: Acer Predator Helios 16 PH16-71-94N1
+Thương hiệu: acer
+Danh mục: laptop
+Giá: 58.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Vua hiệu năng Helios 16. Cấu hình cực khủng i9 và RTX 4080, màn hình 240Hz, dải đèn LED RGB vô cực phía sau.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i9-13900HX
+- GPU: NVIDIA GeForce RTX 4080 12GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 16 inch IPS 240Hz 2K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 90 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 3x USB 3.2, 1x HDMI 2.1, 1x RJ45, 1x MicroSD
+- Trọng lượng: 2.7kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0038
+Tên sản phẩm: MSI Raider GE78 HX 13VI-077VN
+Thương hiệu: msi
+Danh mục: laptop
+Giá: 99.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Quái vật Gaming đỉnh cao nhất của MSI. Dải đèn Matrix Light bar độc đáo, hiệu năng không đối thủ với RTX 4090.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i9-13980HX
+- GPU: NVIDIA GeForce RTX 4090 16GB
+- RAM: 64GB
+- Ổ cứng: 2TB SSD
+- Màn hình: 17 inch IPS 240Hz 2K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 99.9 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 1x USB Type-C, 2x USB Type-A, 1x HDMI 2.1, 1x RJ45, 1x SD Express
+- Trọng lượng: 3.1kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0039
+Tên sản phẩm: Gigabyte G6 KF-H3VN853SH
+Thương hiệu: gigabyte
+Danh mục: laptop
+Giá: 25.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Gigabyte G6 màn hình lớn 16 inch 165Hz. Cân bằng hoàn hảo giữa hiệu năng chơi game và làm việc đa nhiệm.
+Thẻ: gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13620H
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 16 inch IPS 165Hz FHD, Anti-glare
+- Hệ điều hành: Windows 11 Home
+- Pin: 54 Wh
+- Cổng kết nối: 2x USB 3.2 Gen 2 Type-C, 1x USB 3.2 Gen 1 Type-A, 1x USB 2.0, 1x HDMI, 1x RJ45
+- Trọng lượng: 2.3kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0040
+Tên sản phẩm: Asus ExpertBook B1 B1402CBA-NK0450W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 13.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop doanh nghiệp bền bỉ, bảo mật vân tay. Thiết kế gọn nhẹ, đầy đủ cổng kết nối cho môi trường công sở.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1235U
+- GPU: Intel UHD Graphics
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch IPS 60Hz FHD, Anti-glare
+- Hệ điều hành: Windows 11 Home
+- Pin: 42 Wh
+- Cổng kết nối: 1x USB 2.0, 1x USB 3.2 Gen 1, 1x USB-C (PD), 1x USB-C (Thunderbolt 4), 1x HDMI, 1x RJ45
+- Trọng lượng: 1.49kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0041
+Tên sản phẩm: Acer Aspire 5 A515-58-52SP
+Thương hiệu: acer
+Danh mục: laptop
+Giá: 15.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Aspire 5 phiên bản mới, vỏ nhôm sang trọng. Hiệu năng ổn định, tản nhiệt 2 quạt mát mẻ cho công việc hàng ngày.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1335U
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD
+- Hệ điều hành: Windows 11 Home
+- Pin: 50 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 2x USB 3.2, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 1.7kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0042
+Tên sản phẩm: Lenovo IdeaPad 1 15AMN7 82VG0061VN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 9.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop giá rẻ cho học sinh sinh viên. Cấu hình Ryzen 7000 series mới nhất, mỏng nhẹ dễ dàng di chuyển.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: AMD Ryzen 5 7520U
+- GPU: AMD Radeon 610M
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD, Anti-glare
+- Hệ điều hành: Windows 11 Home
+- Pin: 42 Wh
+- Cổng kết nối: 1x USB 2.0, 1x USB 3.2 Gen 1, 1x USB-C 3.2 Gen 1, 1x HDMI 1.4b, 1x Card reader
+- Trọng lượng: 1.58kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0043
+Tên sản phẩm: Asus ROG Flow Z13 GZ301VU-MU001W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 44.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop Gaming lai Tablet mạnh nhất thế giới. Thiết kế độc dị, bàn phím tháo rời, hiệu năng khủng trong thân hình máy tính bảng.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i9-13900H
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 13.4 inch IPS 165Hz QHD, Cảm ứng, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 56 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 1x USB 3.2 Gen 1 Type-A, 1x ROG XG Mobile Interface, 1x MicroSD
+- Trọng lượng: 1.18kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0044
+Tên sản phẩm: Dell Alienware m16 R1
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 54.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Quái thú ngoài hành tinh Alienware. Thiết kế Legend 3.0 mới, hệ thống tản nhiệt Cryo-tech xịn sò, hiệu năng đỉnh cao.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i9-13900HX
+- GPU: NVIDIA GeForce RTX 4070 8GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 16 inch IPS 165Hz QHD, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 86 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 1x USB 3.2 Gen 1, 1x HDMI 2.1, 1x Mini DP, 1x RJ45, 1x SD Card
+- Trọng lượng: 3.25kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0045
+Tên sản phẩm: HP ProBook 450 G10 873K3PA
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 20.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Dòng laptop doanh nhân bền bỉ, bảo mật cao. Thiết kế vỏ nhôm sang trọng, đạt chuẩn độ bền quân đội MIL-STD.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1340P
+- GPU: Intel UHD Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD, Anti-glare
+- Hệ điều hành: Windows 11 Home
+- Pin: 51 Wh
+- Cổng kết nối: 2x USB Type-A, 2x USB Type-C (PD + DP), 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 1.79kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0046
+Tên sản phẩm: Lenovo ThinkBook 14 G6+ IMH 21MX003YVN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 26.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: ThinkBook thế hệ mới tích hợp chip Core Ultra AI. Màn hình 3K 120Hz sắc nét, thiết kế trẻ trung cho dân văn phòng hiện đại.
+Thẻ: van-phong, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core Ultra 5 125H
+- GPU: Intel Arc Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14.5 inch IPS 120Hz 3K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 73 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 1x USB-C 3.2 Gen 2, 2x USB-A 3.2, 1x HDMI 2.1, 1x RJ45, 1x SD Card
+- Trọng lượng: 1.5kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0047
+Tên sản phẩm: MSI Cyborg 15 A12VE-240VN
+Thương hiệu: msi
+Danh mục: laptop
+Giá: 22.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: MSI Cyborg thiết kế Cyberpunk độc đáo với vỏ trong suốt. Cấu hình RTX 40 series giá mềm nhất phân khúc.
+Thẻ: gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-12650H
+- GPU: NVIDIA GeForce RTX 4050 6GB
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 144Hz FHD, Anti-glare
+- Hệ điều hành: Windows 11 Home
+- Pin: 53.5 Wh
+- Cổng kết nối: 1x Type-C (DP), 2x Type-A USB 3.2, 1x HDMI 2.1, 1x RJ45
+- Trọng lượng: 1.98kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0048
+Tên sản phẩm: Acer TravelMate P2 TMP215-54-58MH
+Thương hiệu: acer
+Danh mục: laptop
+Giá: 12.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Laptop bền bỉ dành cho công việc. Đầy đủ cổng kết nối truyền thống như VGA, LAN, phù hợp môi trường doanh nghiệp.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1235U
+- GPU: Intel Iris Xe Graphics
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD, SlimBezel
+- Hệ điều hành: Windows 11 Home
+- Pin: 50 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 3x USB 3.2, 1x HDMI, 1x VGA, 1x RJ45, 1x SD Card
+- Trọng lượng: 1.8kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0049
+Tên sản phẩm: Gigabyte AORUS 17 9KF-E3VN583SH
+Thương hiệu: gigabyte
+Danh mục: laptop
+Giá: 40.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Gaming màn hình lớn 17 inch. Tần số quét 360Hz siêu thực, không viền, tối ưu cho game bắn súng.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-12500H
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 17.3 inch IPS 165Hz 2K, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 99 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 1x HDMI 2.1, 1x Mini DP, 2x USB 3.2, 1x RJ45
+- Trọng lượng: 2.7kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0050
+Tên sản phẩm: Asus Zenbook Duo 2024 UX8406MA-QL146W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 49.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop 2 màn hình OLED đột phá. Hai màn hình 14 inch 3K 120Hz, bàn phím tháo rời, tăng đôi không gian làm việc.
+Thẻ: cao-cap, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core Ultra 7 155H
+- GPU: Intel Arc Graphics
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 14 inch OLED 120Hz 3K, Cảm ứng, TÜV Rheinland
+- Hệ điều hành: Windows 11 Home
+- Pin: 75 Wh
+- Cổng kết nối: 1x USB 3.2 Gen 1 Type-A, 2x Thunderbolt 4, 1x HDMI 2.1
+- Trọng lượng: 1.35kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0051
+Tên sản phẩm: Dell Latitude 3540 71021487
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 16.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Latitude phiên bản mới thiết kế gọn gàng hơn. Tập trung vào độ bền và tính ổn định cho công việc lâu dài.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1335U
+- GPU: Intel Iris Xe Graphics
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch IPS 60Hz FHD, 250 nits
+- Hệ điều hành: Fedora (Linux)
+- Pin: 54 Wh
+- Cổng kết nối: 1x USB 3.2 Gen 2 Type-C, 3x USB 3.2 Gen 1, 1x HDMI 1.4, 1x RJ45
+- Trọng lượng: 1.81kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0052
+Tên sản phẩm: HP Dragonfly G4 873E4PA
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 53.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Đỉnh cao doanh nhân HP. Siêu nhẹ dưới 1kg, camera 5MP hỗ trợ AI, bảo mật tối tân HP Wolf Security.
+Thẻ: cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-1355U
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 13.5 inch IPS 60Hz FHD, Anti-glare, 1000 nits, Sure View
+- Hệ điều hành: Windows 11 Pro
+- Pin: 68 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 1x USB Type-A, 1x HDMI 2.1, 1x Nano SIM
+- Trọng lượng: 0.99kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0053
+Tên sản phẩm: Lenovo Legion Slim 5 16APH8 82Y9002WVN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 34.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Phiên bản mỏng nhẹ của dòng Legion. Sức mạnh từ AMD Ryzen 7 và thiết kế thanh lịch không quá hầm hố.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: AMD Ryzen 7 7840HS
+- GPU: NVIDIA GeForce RTX 4060 8GB
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 16 inch IPS 165Hz 2K, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 80 Wh
+- Cổng kết nối: 1x USB-C (PD 140W), 1x USB-C (DP), 2x USB-A, 1x HDMI 2.1, 1x RJ45, 1x SD Card
+- Trọng lượng: 2.4kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0054
+Tên sản phẩm: MSI Stealth 16 Studio A13VG-285VN
+Thương hiệu: msi
+Danh mục: laptop
+Giá: 59.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop gaming lai Studio màu trắng tinh khôi tuyệt đẹp. Mỏng nhẹ nhưng hiệu năng khủng khiếp cho Creator và Gamer.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13700H
+- GPU: NVIDIA GeForce RTX 4070 8GB
+- RAM: 32GB
+- Ổ cứng: 2TB SSD
+- Màn hình: 16 inch IPS 240Hz QHD, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 99.9 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 1x USB-C (PD), 1x USB-A, 1x HDMI 2.1, 1x RJ45, 1x SD Express
+- Trọng lượng: 1.99kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0055
+Tên sản phẩm: Acer Predator Triton 14 PT14-51-75B1
+Thương hiệu: acer
+Danh mục: laptop
+Giá: 44.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Gaming 14 inch nhỏ gọn nhưng có võ. Màn hình Mini-LED 250Hz siêu sáng, vỏ kim loại bạc sang trọng.
+Thẻ: gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13700H
+- GPU: NVIDIA GeForce RTX 4070 8GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 14 inch IPS 250Hz 2K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 76 Wh
+- Cổng kết nối: 1x Thunderbolt 4, 2x USB 3.2, 1x HDMI 2.1, 1x MicroSD
+- Trọng lượng: 1.7kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0056
+Tên sản phẩm: Asus Vivobook S 15 OLED S5506MA-NU052W
+Thương hiệu: asus
+Danh mục: laptop
+Giá: 24.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Vivobook dòng S cao cấp nhất. Vỏ kim loại siêu mỏng, đèn nền RGB bàn phím, màn hình Lumina OLED rực rỡ.
+Thẻ: van-phong, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core Ultra 5 125H
+- GPU: Intel Arc Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 15.6 inch OLED 120Hz 3K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 75 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 2x USB 3.2 Gen 1 Type-A, 1x HDMI 2.1, 1x MicroSD
+- Trọng lượng: 1.5kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0057
+Tên sản phẩm: Dell Inspiron 14 7430 2-in-1 i5
+Thương hiệu: dell
+Danh mục: laptop
+Giá: 19.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Laptop lai máy tính bảng linh hoạt. Màn hình cảm ứng xoay gập 360 độ, vỏ nhôm màu bạc tinh tế.
+Thẻ: van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i5-1335U
+- GPU: Intel Iris Xe Graphics
+- RAM: 8GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 14 inch IPS 60Hz FHD, Cảm ứng, Anti-glare
+- Hệ điều hành: Windows 11 Home + Office HS
+- Pin: 54 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 1x USB 3.2 Gen 1 Type-A, 1x HDMI 1.4, 1x SD Card
+- Trọng lượng: 1.58kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0058
+Tên sản phẩm: HP Pavilion Aero 13-be2099AU
+Thương hiệu: hp
+Danh mục: laptop
+Giá: 18.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Laptop HP nhẹ nhất thị trường, dưới 1kg. Vỏ hợp kim Magie bền bỉ, màu vàng hồng thời trang, màn hình 100% sRGB.
+Thẻ: van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: AMD Ryzen 5 7535U
+- GPU: AMD Radeon Graphics
+- RAM: 16GB
+- Ổ cứng: 512GB SSD
+- Màn hình: 13.3 inch IPS 60Hz 2K, 400 nits, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 43 Wh
+- Cổng kết nối: 1x USB Type-C (PD + DP), 2x USB Type-A, 1x HDMI 2.1
+- Trọng lượng: 0.97kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0059
+Tên sản phẩm: Lenovo Yoga Book 9i 13IRU8 82YQ000QVN
+Thương hiệu: lenovo
+Danh mục: laptop
+Giá: 49.990.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Laptop 2 màn hình OLED full size đầu tiên. Thiết kế sang trọng như trang sức, đi kèm bút, bàn phím rời và bao da.
+Thẻ: cao-cap, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-1355U
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 13.3 inch OLED 60Hz 2.8K, Cảm ứng, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 80 Wh
+- Cổng kết nối: 3x Thunderbolt 4
+- Trọng lượng: 1.34kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0060
+Tên sản phẩm: MSI Prestige 13 Evo A13M-081VN
+Thương hiệu: msi
+Danh mục: laptop
+Giá: 26.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Siêu phẩm doanh nhân siêu nhẹ chỉ 990g. Đạt chuẩn Intel Evo, pin trâu và vỏ hợp kim nhôm-magie cao cấp.
+Thẻ: cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-1360P
+- GPU: Intel Iris Xe Graphics
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 13.3 inch IPS 60Hz FHD, 100% sRGB
+- Hệ điều hành: Windows 11 Home
+- Pin: 75 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 1x USB Type-A, 1x HDMI 2.1, 1x MicroSD
+- Trọng lượng: 0.99kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0061
+Tên sản phẩm: Gigabyte AERO 16 OLED BSF-73VN994SH
+Thương hiệu: gigabyte
+Danh mục: laptop
+Giá: 54.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Laptop trạm dành cho Creator. Màn hình OLED 4K tuyệt mỹ, thiết kế nhôm nguyên khối, hiệu năng xử lý đồ họa chuyên nghiệp.
+Thẻ: cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Intel Core i7-13700H
+- GPU: NVIDIA GeForce RTX 4070 8GB
+- RAM: 16GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 16 inch OLED 60Hz 4K, 100% DCI-P3
+- Hệ điều hành: Windows 11 Home
+- Pin: 88 Wh
+- Cổng kết nối: 2x Thunderbolt 4, 1x USB-C 3.2 Gen 2, 1x HDMI 2.1, 1x MicroSD
+- Trọng lượng: 1.9kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0062
+Tên sản phẩm: Apple MacBook Pro 14 inch M3 Max 2023
+Thương hiệu: apple
+Danh mục: laptop
+Giá: 79.990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Cỗ máy trạm di động mạnh nhất của Apple. Chip M3 Max xử lý render 3D, dựng phim 8K dễ dàng, màu đen Space Black mới.
+Thẻ: cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: Apple M3 Max 14-core
+- GPU: Apple Silicon M3 Max
+- RAM: 36GB
+- Ổ cứng: 1TB SSD
+- Màn hình: 14.2 inch Liquid Retina XDR 120Hz 3K, ProMotion
+- Hệ điều hành: macOS
+- Pin: 72.4 Wh
+- Cổng kết nối: 3x Thunderbolt 4, 1x HDMI, 1x SDXC, 1x MagSafe 3
+- Trọng lượng: 1.62kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0063
+Tên sản phẩm: Chuột Logitech M331 Silent Plus
+Thương hiệu: logitech
+Danh mục: mouse
+Giá: 390.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột không dây Logitech M331 Silent Plus, click êm, phù hợp văn phòng.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 91kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0064
+Tên sản phẩm: Chuột Logitech M650 L Wireless
+Thương hiệu: logitech
+Danh mục: mouse
+Giá: 690.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Chuột không dây Logitech M650 L, hỗ trợ nhiều thiết bị, cuộn SmartWheel.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 111kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0065
+Tên sản phẩm: Chuột Logitech G102 Lightsync
+Thương hiệu: logitech
+Danh mục: mouse
+Giá: 390.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Chuột gaming Logitech G102 Lightsync RGB, cảm biến chính xác.
+Thẻ: phu-kien, gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 85kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0066
+Tên sản phẩm: Chuột Logitech G304 Lightspeed
+Thương hiệu: logitech
+Danh mục: mouse
+Giá: 790.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Chuột gaming không dây Logitech G304 Lightspeed, pin lâu, siêu nhạy.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 99kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0067
+Tên sản phẩm: Chuột Logitech POP Mouse
+Thương hiệu: logitech
+Danh mục: mouse
+Giá: 890.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Chuột Logitech POP Mouse nhiều màu trẻ trung, hỗ trợ đa thiết bị.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 82kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0068
+Tên sản phẩm: Chuột Dell WM126 Wireless Mouse
+Thương hiệu: dell
+Danh mục: mouse
+Giá: 290.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột không dây Dell WM126 nhỏ gọn, dễ mang theo.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 65kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0069
+Tên sản phẩm: Chuột HP Z3700 Wireless Mouse
+Thương hiệu: hp
+Danh mục: mouse
+Giá: 350.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột không dây HP Z3700 thiết kế mỏng, phù hợp laptop mỏng nhẹ.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 80kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0070
+Tên sản phẩm: Chuột ASUS WT425 Wireless Mouse
+Thương hiệu: asus
+Danh mục: mouse
+Giá: 420.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột không dây ASUS WT425, DPI điều chỉnh được, chống trượt.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 88kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0071
+Tên sản phẩm: Chuột Acer Wireless Mouse M501
+Thương hiệu: acer
+Danh mục: mouse
+Giá: 320.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột không dây Acer M501, thiết kế đối xứng, dễ sử dụng.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 90kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0072
+Tên sản phẩm: Chuột Lenovo 400 Wireless Mouse
+Thương hiệu: lenovo
+Danh mục: mouse
+Giá: 310.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột không dây Lenovo 400, cỡ nhỏ gọn, phù hợp mang đi lại.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 65kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0073
+Tên sản phẩm: Chuột MSI Clutch GM20 Elite
+Thương hiệu: msi
+Danh mục: mouse
+Giá: 790.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Chuột gaming MSI Clutch GM20 Elite, LED RGB, cảm biến chính xác.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 98kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0074
+Tên sản phẩm: Chuột Gigabyte AORUS M5 Gaming Mouse
+Thương hiệu: gigabyte
+Danh mục: mouse
+Giá: 890.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Chuột gaming Gigabyte AORUS M5, hỗ trợ điều chỉnh trọng lượng.
+Thẻ: phu-kien, gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 130kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0075
+Tên sản phẩm: Chuột Apple Magic Mouse 2
+Thương hiệu: apple
+Danh mục: mouse
+Giá: 1.890.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột Apple Magic Mouse 2 cảm ứng đa điểm, tối ưu cho macOS.
+Thẻ: phu-kien, cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 99kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0076
+Tên sản phẩm: Chuột Logitech MX Anywhere 3S
+Thương hiệu: logitech
+Danh mục: mouse
+Giá: 1.590.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Chuột Logitech MX Anywhere 3S, cuộn MagSpeed, làm việc mọi bề mặt.
+Thẻ: phu-kien, cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 99kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0077
+Tên sản phẩm: Chuột Lenovo Yoga Wireless Mouse
+Thương hiệu: lenovo
+Danh mục: mouse
+Giá: 990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Chuột Lenovo Yoga Wireless, có thể gập thành presenter điều khiển slide.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: 65kg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0078
+Tên sản phẩm: Tai nghe Sony WH-CH520
+Thương hiệu: sony
+Danh mục: headphone
+Giá: 1.490.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Tai nghe Bluetooth Sony WH-CH520, pin ấn tượng, âm thanh cân bằng.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0079
+Tên sản phẩm: Tai nghe Sony WH-XB910N Extra Bass
+Thương hiệu: sony
+Danh mục: headphone
+Giá: 3.990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Tai nghe Sony WH-XB910N, chống ồn chủ động, bass mạnh.
+Thẻ: phu-kien, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0080
+Tên sản phẩm: Tai nghe Anker Soundcore Space Q45
+Thương hiệu: anker
+Danh mục: headphone
+Giá: 3.290.000 VNĐ
+Bảo hành: 18 tháng
+Mô tả: Tai nghe Anker Soundcore Space Q45, ANC chủ động, pin cực lâu.
+Thẻ: phu-kien, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0081
+Tên sản phẩm: Tai nghe Anker Soundcore Life P3
+Thương hiệu: anker
+Danh mục: headphone
+Giá: 1.790.000 VNĐ
+Bảo hành: 18 tháng
+Mô tả: Tai nghe true wireless Anker Soundcore Life P3, ANC, nhiều chế độ EQ.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0082
+Tên sản phẩm: Tai nghe Logitech G435 Lightspeed
+Thương hiệu: logitech
+Danh mục: headphone
+Giá: 1.690.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Tai nghe gaming không dây Logitech G435, siêu nhẹ, nhiều màu trẻ trung.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0083
+Tên sản phẩm: Tai nghe Logitech Zone Vibe 100
+Thương hiệu: logitech
+Danh mục: headphone
+Giá: 2.590.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Tai nghe Logitech Zone Vibe 100, tối ưu họp online, đeo thoải mái.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0084
+Tên sản phẩm: Tai nghe Apple EarPods USB-C
+Thương hiệu: apple
+Danh mục: headphone
+Giá: 590.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Tai nghe Apple EarPods cổng USB-C, âm thanh cân bằng, dễ dùng.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0085
+Tên sản phẩm: Tai nghe HP HyperX Cloud Alpha
+Thương hiệu: hp
+Danh mục: headphone
+Giá: 2.190.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Tai nghe gaming HyperX Cloud Alpha, khung nhôm, đệm tai êm.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0086
+Tên sản phẩm: Tai nghe MSI Immerse GH30
+Thương hiệu: msi
+Danh mục: headphone
+Giá: 1.090.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Tai nghe MSI Immerse GH30, gập gọn, đi kèm túi đựng.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0087
+Tên sản phẩm: Tai nghe Acer Predator Galea 350
+Thương hiệu: acer
+Danh mục: headphone
+Giá: 1.890.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Tai nghe Acer Predator Galea 350, âm thanh vòm 7.1 ảo.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0088
+Tên sản phẩm: Tai nghe Lenovo Legion H300
+Thương hiệu: lenovo
+Danh mục: headphone
+Giá: 1.090.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Tai nghe Lenovo Legion H300, thiết kế gaming, âm trầm khỏe.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0089
+Tên sản phẩm: Tai nghe Gigabyte AORUS H1
+Thương hiệu: gigabyte
+Danh mục: headphone
+Giá: 1.590.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Tai nghe Gigabyte AORUS H1, hỗ trợ giả lập 7.1 cho game.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0090
+Tên sản phẩm: Tai nghe Sony WI-C310
+Thương hiệu: sony
+Danh mục: headphone
+Giá: 790.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Tai nghe không dây Sony WI-C310, đeo cổ, pin 15 giờ.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0091
+Tên sản phẩm: Tai nghe Anker Soundcore A20i
+Thương hiệu: anker
+Danh mục: headphone
+Giá: 690.000 VNĐ
+Bảo hành: 18 tháng
+Mô tả: Tai nghe true wireless Anker Soundcore A20i, nhiều màu, giá dễ tiếp cận.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0092
+Tên sản phẩm: Tai nghe Logitech H390 USB Headset
+Thương hiệu: logitech
+Danh mục: headphone
+Giá: 990.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Tai nghe Logitech H390 USB, micro chống ồn, phù hợp làm việc online.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0093
+Tên sản phẩm: Bàn phím Logitech K120
+Thương hiệu: logitech
+Danh mục: keyboard
+Giá: 190.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Bàn phím Logitech K120 dây, full-size, gõ êm, bền bỉ cho văn phòng.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0094
+Tên sản phẩm: Bàn phím Logitech K380 Multi-Device
+Thương hiệu: logitech
+Danh mục: keyboard
+Giá: 690.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím Logitech K380 nhỏ gọn, kết nối cùng lúc nhiều thiết bị.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0095
+Tên sản phẩm: Bàn phím Logitech MX Keys Mini
+Thương hiệu: logitech
+Danh mục: keyboard
+Giá: 2.790.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím Logitech MX Keys Mini cao cấp, có đèn nền, tối ưu cho làm việc.
+Thẻ: phu-kien, cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0096
+Tên sản phẩm: Bàn phím Logitech POP Keys
+Thương hiệu: logitech
+Danh mục: keyboard
+Giá: 2.290.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím Logitech POP Keys thiết kế retro nhiều màu, phím emoji tiện lợi.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0097
+Tên sản phẩm: Bàn phím Dell KB216
+Thương hiệu: dell
+Danh mục: keyboard
+Giá: 220.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Bàn phím Dell KB216 full-size, gõ êm, phù hợp cho văn phòng.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0098
+Tên sản phẩm: Bàn phím Dell KM636 Wireless
+Thương hiệu: dell
+Danh mục: keyboard
+Giá: 650.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Bàn phím không dây Dell KM636, đi kèm receiver, gọn gàng bàn làm việc.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0099
+Tên sản phẩm: Bàn phím HP 150 Wired Keyboard
+Thương hiệu: hp
+Danh mục: keyboard
+Giá: 250.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Bàn phím HP 150 đơn giản, dễ dùng, phù hợp làm việc cơ bản.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0100
+Tên sản phẩm: Bàn phím HP 230 Wireless Keyboard
+Thương hiệu: hp
+Danh mục: keyboard
+Giá: 490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Bàn phím không dây HP 230, độ ồn thấp, thao tác thoải mái.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0101
+Tên sản phẩm: Bàn phím Asus TUF Gaming K3
+Thương hiệu: asus
+Danh mục: keyboard
+Giá: 1.790.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím cơ Asus TUF Gaming K3, switch mượt, đèn RGB nổi bật.
+Thẻ: phu-kien, gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0102
+Tên sản phẩm: Bàn phím Asus ROG Strix Scope RX
+Thương hiệu: asus
+Danh mục: keyboard
+Giá: 2.890.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím Asus ROG Strix Scope RX, switch quang, RGB từng phím cho game thủ.
+Thẻ: phu-kien, gaming, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0103
+Tên sản phẩm: Bàn phím Acer Nitro Gaming Keyboard
+Thương hiệu: acer
+Danh mục: keyboard
+Giá: 990.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Bàn phím Acer Nitro gaming có đèn nền nhiều màu, phù hợp game thủ mới.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0104
+Tên sản phẩm: Bàn phím Lenovo Legion K500
+Thương hiệu: lenovo
+Danh mục: keyboard
+Giá: 1.690.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím cơ Lenovo Legion K500, thiết kế gaming, đèn RGB 16.8 triệu màu.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0105
+Tên sản phẩm: Bàn phím MSI Vigor GK30
+Thương hiệu: msi
+Danh mục: keyboard
+Giá: 1.090.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím MSI Vigor GK30, thiết kế gaming, hỗ trợ hiệu ứng ánh sáng đa dạng.
+Thẻ: phu-kien, gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0106
+Tên sản phẩm: Bàn phím Gigabyte AORUS K1
+Thương hiệu: gigabyte
+Danh mục: keyboard
+Giá: 2.190.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Bàn phím cơ Gigabyte AORUS K1, switch Cherry MX, độ bền cao cho game thủ.
+Thẻ: phu-kien, gaming, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0107
+Tên sản phẩm: Bàn phím Apple Magic Keyboard
+Thương hiệu: apple
+Danh mục: keyboard
+Giá: 2.690.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Bàn phím Apple Magic Keyboard mỏng nhẹ, tối ưu cho hệ sinh thái Apple.
+Thẻ: phu-kien, cao-cap, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0108
+Tên sản phẩm: RAM Kingston Fury Beast 8GB DDR4 3200MHz
+Thương hiệu: kingston
+Danh mục: ram
+Giá: 650.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: RAM Kingston Fury Beast 8GB DDR4 bus 3200MHz phù hợp nâng cấp cho PC gaming tầm trung.
+Thẻ: phu-kien, gaming, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0109
+Tên sản phẩm: RAM Kingston Fury Beast RGB 8GB DDR4 3200MHz
+Thương hiệu: kingston
+Danh mục: ram
+Giá: 1.120.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: RAM Kingston Fury Beast RGB 8GB DDR4 3200MHz với dải đèn RGB đẹp mắt cho dàn PC.
+Thẻ: phu-kien, gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0110
+Tên sản phẩm: RAM Kingston Fury Beast 16GB DDR4 3200MHz
+Thương hiệu: kingston
+Danh mục: ram
+Giá: 1.250.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: RAM Kingston Fury Beast 16GB DDR4 3200MHz cho khả năng đa nhiệm mượt mà.
+Thẻ: phu-kien, gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0111
+Tên sản phẩm: RAM Kingston Fury Beast 16GB DDR5 5600MHz
+Thương hiệu: kingston
+Danh mục: ram
+Giá: 2.150.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: RAM Kingston Fury Beast 16GB DDR5 5600MHz thế hệ mới, băng thông cao cho cấu hình cao cấp.
+Thẻ: phu-kien, gaming, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0112
+Tên sản phẩm: RAM Kingston Fury Beast RGB 16GB DDR5 6000MHz
+Thương hiệu: kingston
+Danh mục: ram
+Giá: 2.650.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: RAM Kingston Fury Beast RGB 16GB DDR5 6000MHz với đèn RGB và hiệu năng mạnh mẽ.
+Thẻ: phu-kien, gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0113
+Tên sản phẩm: RAM Laptop Kingston 8GB DDR4 3200MHz KCP432SS8
+Thương hiệu: kingston
+Danh mục: ram
+Giá: 890.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: RAM Laptop Kingston 8GB DDR4 3200MHz KCP432SS8 giúp laptop chạy đa nhiệm ổn định.
+Thẻ: phu-kien, van-phong, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0114
+Tên sản phẩm: RAM Laptop Kingston 8GB DDR4 3200MHz KVR32S22S8
+Thương hiệu: kingston
+Danh mục: ram
+Giá: 990.000 VNĐ
+Bảo hành: 60 tháng
+Mô tả: RAM Laptop Kingston 8GB DDR4 3200MHz KVR32S22S8 tương thích tốt với nhiều dòng laptop.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0115
+Tên sản phẩm: RAM Laptop HP 8GB DDR4 3200MHz
+Thương hiệu: hp
+Danh mục: ram
+Giá: 950.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Laptop HP 8GB DDR4 3200MHz chính hãng, phù hợp các laptop HP phổ thông.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0116
+Tên sản phẩm: RAM Laptop Dell 8GB DDR4 3200MHz
+Thương hiệu: dell
+Danh mục: ram
+Giá: 950.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Laptop Dell 8GB DDR4 3200MHz tối ưu cho các dòng Inspiron và Vostro.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0117
+Tên sản phẩm: RAM Laptop Lenovo 16GB DDR4 3200MHz
+Thương hiệu: lenovo
+Danh mục: ram
+Giá: 1.750.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Laptop Lenovo 16GB DDR4 3200MHz phù hợp cho người dùng làm việc nặng.
+Thẻ: phu-kien, van-phong, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0118
+Tên sản phẩm: RAM Laptop Acer 8GB DDR4 2666MHz
+Thương hiệu: acer
+Danh mục: ram
+Giá: 820.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Laptop Acer 8GB DDR4 2666MHz giúp nâng cấp hiệu năng cơ bản cho laptop Acer.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0119
+Tên sản phẩm: RAM Laptop ASUS 8GB DDR4 3200MHz
+Thương hiệu: asus
+Danh mục: ram
+Giá: 920.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Laptop ASUS 8GB DDR4 3200MHz dành cho các mẫu Vivobook và TUF Gaming.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0120
+Tên sản phẩm: RAM Laptop MSI 16GB DDR4 3200MHz
+Thương hiệu: msi
+Danh mục: ram
+Giá: 1.850.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Laptop MSI 16GB DDR4 3200MHz nâng cao hiệu năng laptop gaming MSI.
+Thẻ: phu-kien, gaming, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0121
+Tên sản phẩm: RAM Gigabyte AORUS RGB 16GB DDR4 3600MHz
+Thương hiệu: gigabyte
+Danh mục: ram
+Giá: 2.050.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Gigabyte AORUS RGB 16GB DDR4 3600MHz với thiết kế tản nhiệt đẹp cho PC gaming.
+Thẻ: phu-kien, gaming, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0122
+Tên sản phẩm: RAM Gigabyte AORUS 32GB DDR5 6000MHz
+Thương hiệu: gigabyte
+Danh mục: ram
+Giá: 3.850.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: RAM Gigabyte AORUS 32GB DDR5 6000MHz dành cho dàn PC hiệu năng cao.
+Thẻ: phu-kien, gaming, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0123
+Tên sản phẩm: Ổ cứng Kingston NV2 500GB NVMe PCIe 4.0
+Thương hiệu: kingston
+Danh mục: disk
+Giá: 1.090.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Kingston NV2 500GB – SSD phổ biến nhất phân khúc giá rẻ PCIe Gen4.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0124
+Tên sản phẩm: Ổ cứng Kingston NV2 1TB NVMe PCIe 4.0
+Thương hiệu: kingston
+Danh mục: disk
+Giá: 1.690.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Kingston NV2 1TB – lựa chọn nâng cấp SSD Gen4 giá tốt nhất hiện nay.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0125
+Tên sản phẩm: Ổ cứng Kingston A400 240GB SATA III
+Thương hiệu: kingston
+Danh mục: disk
+Giá: 490.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Kingston A400 240GB – SSD kinh điển giúp tăng tốc máy tính cũ.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0126
+Tên sản phẩm: Ổ cứng Kingston A400 480GB SATA III
+Thương hiệu: kingston
+Danh mục: disk
+Giá: 790.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Kingston A400 480GB – ổ SSD quốc dân, giá mềm, bền bỉ.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0127
+Tên sản phẩm: Ổ cứng Kingston Fury Renegade 1TB PCIe 4.0
+Thương hiệu: kingston
+Danh mục: disk
+Giá: 2.890.000 VNĐ
+Bảo hành: 60 tháng
+Mô tả: Kingston Fury Renegade – SSD Gen4 cao cấp dành cho game thủ/đồ họa.
+Thẻ: phu-kien, cao-cap, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0128
+Tên sản phẩm: Ổ cứng HP EX900 Plus 512GB NVMe
+Thương hiệu: hp
+Danh mục: disk
+Giá: 1.190.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: HP EX900 Plus 512GB – SSD phổ biến trong phân khúc laptop văn phòng.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0129
+Tên sản phẩm: Ổ cứng HP EX900 Plus 1TB NVMe
+Thương hiệu: hp
+Danh mục: disk
+Giá: 1.890.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: HP EX900 Plus 1TB – tốc độ ổn định, tương thích nhiều laptop/PC.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0130
+Tên sản phẩm: Ổ cứng Dell 1TB HDD 2.5-inch 5400RPM
+Thương hiệu: dell
+Danh mục: disk
+Giá: 1.090.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Ổ cứng Dell 1TB – HDD tiêu chuẩn cho laptop văn phòng.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0131
+Tên sản phẩm: Ổ cứng Acer SA100 480GB SATA III
+Thương hiệu: acer
+Danh mục: disk
+Giá: 790.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Acer SA100 480GB – lựa chọn phổ biến để thay thế HDD truyền thống.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0132
+Tên sản phẩm: Ổ cứng Acer FA100 1TB NVMe PCIe 3.0
+Thương hiệu: acer
+Danh mục: disk
+Giá: 1.790.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Acer FA100 1TB – SSD giá/hiệu năng cực tốt cho gaming.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0133
+Tên sản phẩm: Ổ cứng Lenovo SL700 480GB SATA III
+Thương hiệu: lenovo
+Danh mục: disk
+Giá: 690.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: SSD Lenovo SL700 – dòng SSD giá rẻ, độ bền cao.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0134
+Tên sản phẩm: Ổ cứng Lenovo Portable HDD 1TB USB 3.0
+Thương hiệu: lenovo
+Danh mục: disk
+Giá: 1.290.000 VNĐ
+Bảo hành: 24 tháng
+Mô tả: Ổ cứng di động Lenovo 1TB – nhỏ gọn, bền bỉ cho lưu trữ cá nhân.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0135
+Tên sản phẩm: Ổ cứng MSI SPATIUM M371 500GB NVMe
+Thương hiệu: msi
+Danh mục: disk
+Giá: 1.190.000 VNĐ
+Bảo hành: 60 tháng
+Mô tả: MSI SPATIUM M371 – SSD dành cho game thủ giá mềm.
+Thẻ: phu-kien, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0136
+Tên sản phẩm: Ổ cứng Gigabyte 256GB SSD SATA III
+Thương hiệu: gigabyte
+Danh mục: disk
+Giá: 550.000 VNĐ
+Bảo hành: 36 tháng
+Mô tả: Gigabyte 256GB SATA – SSD giá rẻ nâng cấp cho PC văn phòng.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0137
+Tên sản phẩm: Ổ cứng Gigabyte AORUS Gen4 1TB NVMe
+Thương hiệu: gigabyte
+Danh mục: disk
+Giá: 2.490.000 VNĐ
+Bảo hành: 60 tháng
+Mô tả: Gigabyte AORUS Gen4 – SSD cao cấp dành cho dàn PC mạnh.
+Thẻ: phu-kien, cao-cap, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0138
+Tên sản phẩm: Củ sạc Anker 737 GaNPrime A2148 2C1A 120W
+Thương hiệu: anker
+Danh mục: charger
+Giá: 1.890.000 VNĐ
+Bảo hành: 18 tháng
+Mô tả: Củ sạc Anker 737 GaNPrime A2148 2C1A 120W hỗ trợ sạc nhanh nhiều thiết bị cùng lúc.
+Thẻ: phu-kien, cao-cap, gaming
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0139
+Tên sản phẩm: Củ sạc Anker 735 GaNPrime 65W 3 cổng
+Thương hiệu: anker
+Danh mục: charger
+Giá: 1.390.000 VNĐ
+Bảo hành: 18 tháng
+Mô tả: Củ sạc Anker 735 GaNPrime 65W 3 cổng nhỏ gọn, hỗ trợ sạc nhanh Power Delivery.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0140
+Tên sản phẩm: Củ sạc nhanh Anker 312 20W USB-C
+Thương hiệu: anker
+Danh mục: charger
+Giá: 250.000 VNĐ
+Bảo hành: 18 tháng
+Mô tả: Củ sạc nhanh Anker 312 20W USB-C hỗ trợ sạc nhanh cho iPhone và smartphone.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0141
+Tên sản phẩm: Củ sạc nhanh Anker 323 33W USB-C
+Thương hiệu: anker
+Danh mục: charger
+Giá: 390.000 VNĐ
+Bảo hành: 18 tháng
+Mô tả: Củ sạc nhanh Anker 323 33W USB-C hỗ trợ Power Delivery phù hợp nhiều thiết bị.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0142
+Tên sản phẩm: Củ sạc Apple 20W USB-C Power Adapter
+Thương hiệu: apple
+Danh mục: charger
+Giá: 538.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Apple 20W USB-C Power Adapter chính hãng, hỗ trợ sạc nhanh cho iPhone.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0143
+Tên sản phẩm: Củ sạc Apple 2 cổng Type-C 35W MNWP3ZA-A
+Thương hiệu: apple
+Danh mục: charger
+Giá: 1.355.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Apple 2 cổng Type-C 35W MNWP3ZA-A hỗ trợ sạc 2 thiết bị cùng lúc.
+Thẻ: phu-kien, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0144
+Tên sản phẩm: Củ sạc Apple 67W USB-C Power Adapter
+Thương hiệu: apple
+Danh mục: charger
+Giá: 1.890.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Apple 67W USB-C Power Adapter dành cho MacBook Air/MacBook Pro.
+Thẻ: phu-kien, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0145
+Tên sản phẩm: Củ sạc Apple 96W USB-C Power Adapter cho MacBook Pro
+Thương hiệu: apple
+Danh mục: charger
+Giá: 2.490.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Apple 96W USB-C Power Adapter cho MacBook Pro hiệu năng cao.
+Thẻ: phu-kien, cao-cap, do-hoa
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0146
+Tên sản phẩm: Củ sạc ASUS 65W USB-C Adapter
+Thương hiệu: asus
+Danh mục: charger
+Giá: 890.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc ASUS 65W USB-C Adapter dành cho laptop ASUS hỗ trợ sạc USB-C.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0147
+Tên sản phẩm: Củ sạc Acer 65W USB-C Laptop Charger
+Thương hiệu: acer
+Danh mục: charger
+Giá: 790.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Acer 65W USB-C tương thích nhiều dòng laptop Acer hiện đại.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0148
+Tên sản phẩm: Củ sạc Dell 65W USB-C AC Adapter
+Thương hiệu: dell
+Danh mục: charger
+Giá: 950.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Dell 65W USB-C AC Adapter cho các dòng laptop Dell hỗ trợ USB-C.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0149
+Tên sản phẩm: Củ sạc HP 65W Smart USB-C Adapter
+Thương hiệu: hp
+Danh mục: charger
+Giá: 920.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc HP 65W Smart USB-C Adapter cho laptop HP hỗ trợ sạc nhanh.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0150
+Tên sản phẩm: Củ sạc Lenovo 65W USB-C AC Travel Adapter
+Thương hiệu: lenovo
+Danh mục: charger
+Giá: 879.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Lenovo 65W USB-C AC Travel Adapter nhỏ gọn cho người hay di chuyển.
+Thẻ: phu-kien, van-phong
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0151
+Tên sản phẩm: Củ sạc MSI 120W AC Adapter cho laptop gaming
+Thương hiệu: msi
+Danh mục: charger
+Giá: 1.590.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc MSI 120W AC Adapter cung cấp đủ công suất cho laptop gaming MSI.
+Thẻ: phu-kien, gaming, cao-cap
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ID: LP0152
+Tên sản phẩm: Củ sạc Sony 30W USB-C Charger
+Thương hiệu: sony
+Danh mục: charger
+Giá: 590.000 VNĐ
+Bảo hành: 12 tháng
+Mô tả: Củ sạc Sony 30W USB-C Charger hỗ trợ sạc nhanh cho điện thoại Xperia.
+Thẻ: phu-kien, hot-sale
+
+Thông số kỹ thuật:
+- CPU: undefined
+- GPU: undefined
+- RAM: undefinedGB
+- Ổ cứng: undefined
+- Màn hình: undefined inch undefined
+- Hệ điều hành: undefined
+- Pin: undefined
+- Cổng kết nối: undefined
+- Trọng lượng: undefinedkg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
