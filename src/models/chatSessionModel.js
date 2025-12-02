@@ -3,6 +3,16 @@ import { GET_DB } from '~/config/mongodb'
 
 const CHAT_SESSION_COLLECTION = 'chat_sessions'
 
+// Helper to validate ObjectId
+const isValidObjectId = (id) => {
+  if (!id) return false
+  try {
+    return ObjectId.isValid(id) && String(new ObjectId(id)) === String(id)
+  } catch {
+    return false
+  }
+}
+
 const chatSessionModel = {
   /**
    * Create a new chat session
@@ -50,6 +60,9 @@ const chatSessionModel = {
    */
   findById: async (sessionId) => {
     try {
+      if (!isValidObjectId(sessionId)) {
+        return null
+      }
       const session = await GET_DB()
         .collection(CHAT_SESSION_COLLECTION)
         .findOne({ _id: new ObjectId(sessionId) })
