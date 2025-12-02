@@ -24,7 +24,7 @@ const createNew = async (reqBody) => {
     const pinRecord = PINVerificationHelper.createPINRecord(pin)
     const registerVerificationToken = uuidv4()
 
-    // Extract username from email (e.g., 'trander@gmail.com' → 'trander')
+    // Extract username from email (e.g., 'user@gmail.com' → 'user')
     const nameFromEmail = reqBody.email.split('@')[0]
 
     let newUser

@@ -111,9 +111,9 @@ class GeminiProvider {
       // eslint-disable-next-line no-console
       console.error('Gemini API Error:', error)
       
-      // Handle rate limit error (429)
+      // Handle rate limit error (429) with retry suggestion
       if (error.message && error.message.includes('429')) {
-        throw new Error('ZiZi is taking a short nap 😴 Please try again in a minute! (Rate limit)')
+        throw new Error('ZiZi is taking a short nap 😴 Please try again in 30 seconds! (Rate limit - Google Gemini)')
       }
       
       // Handle model not found

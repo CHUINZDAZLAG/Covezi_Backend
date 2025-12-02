@@ -1,9 +1,9 @@
 {
-  "name": "trello-server",
+  "name": "covezi-backend",
   "private": true,
   "version": "1.0.0",
-  "author": "Trander",
-  "description": "Trello Server",
+  "author": "ChauCuteandHoang",
+  "description": "Covezi Backend Server",
   "engines": {
     "node": ">=18.x"
   },
