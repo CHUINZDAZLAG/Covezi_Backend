@@ -1,0 +1,4344 @@
+import express from 'express'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { adminChallengeController } from '~/controllers/adminChallengeController'
+
+const Router = express.Router()
+
+// All routes require authentication + admin role
+Router.use(authMiddleware.isAuthorized, authMiddleware.isAdmin)
+
+// GET /admin/challenges - Get all challenges (with stats)
+Router.route('/')
+  .get(adminChallengeController.getAll)
+
+// GET /admin/challenges/stats - Get overall challenge statistics
+Router.route('/stats')
+  .get(adminChallengeController.getStats)
+
+// GET /admin/challenges/low-participation - Get challenges needing promotion
+Router.route('/low-participation')
+  .get(adminChallengeController.getChallengesWithLowParticipation)
+
+// GET /admin/challenges/creator/:creatorId - Get challenges by creator
+Router.route('/creator/:creatorId')
+  .get(adminChallengeController.getChallengesByCreator)
+
+// GET /admin/challenges/:id - Get challenge details
+// DELETE /admin/challenges/:id - Delete challenge
+Router.route('/:id')
+  .get(adminChallengeController.getDetails)
+  .delete(adminChallengeController.deleteChallenge)
+
+export const adminChallengeRoute = Router
+/**
+ * @swagger
+ * tags:
+ *   - name: Admin - User Management
+ *     description: 👥 Admin user management, statistics, and moderation
+ */
+
+import express from 'express'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { adminUserManagementController } from '~/controllers/adminUserManagementController'
+
+const Router = express.Router()
+
+// All routes require authentication + admin role
+Router.use(authMiddleware.isAuthorized, authMiddleware.isAdmin)
+
+/**
+ * @swagger
+ * /v1/admin/users/stats:
+ *   get:
+ *     tags: [Admin - User Management]
+ *     summary: 📈 Get user statistics
+ *     description: Get comprehensive user statistics and metrics
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ User statistics retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     totalUsers:
+ *                       type: number
+ *                       example: 12547
+ *                     activeUsers:
+ *                       type: number
+ *                       example: 11203
+ *                     newUsersThisMonth:
+ *                       type: number
+ *                       example: 342
+ *                     averageLevel:
+ *                       type: number
+ *                       example: 8.5
+ *                     topLevelUsers:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           username:
+ *                             type: string
+ *                           level:
+ *                             type: number
+ *                           totalXP:
+ *                             type: number
+ *                     usersByLevel:
+ *                       type: object
+ *                       properties:
+ *                         "1-5":
+ *                           type: number
+ *                         "6-10":
+ *                           type: number
+ *                         "11-20":
+ *                           type: number
+ *                         "20+":
+ *                           type: number
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
+Router.route('/stats')
+  .get(adminUserManagementController.getUserStats)
+
+/**
+ * @swagger
+ * /v1/admin/users/signup/stats:
+ *   get:
+ *     tags: [Admin - User Management]
+ *     summary: 📊 Get signup statistics
+ *     description: Get user registration statistics over time
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: timeframe
+ *         schema:
+ *           type: string
+ *           enum: [7d, 30d, 90d, 1y]
+ *           default: 30d
+ *         description: Time period for statistics
+ *     responses:
+ *       200:
+ *         description: ✅ Signup statistics retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     totalSignups:
+ *                       type: number
+ *                     dailySignups:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           date:
+ *                             type: string
+ *                           count:
+ *                             type: number
+ *                     growthRate:
+ *                       type: number
+ *                       description: "Percentage growth compared to previous period"
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
+Router.route('/signup/stats')
+  .get(adminUserManagementController.getSignupStats)
+
+// GET /admin/users/login/stats - Get login statistics
+Router.route('/login/stats')
+  .get(adminUserManagementController.getLoginStats)
+
+// PUT /admin/users/:userId/status - Update user status (activate/deactivate)
+Router.route('/:userId/status')
+  .put(adminUserManagementController.updateUserStatus)
+
+// PUT /admin/users/:userId/role - Update user role
+Router.route('/:userId/role')
+  .put(adminUserManagementController.updateUserRole)
+
+// DELETE /admin/users/:userId - Delete user
+Router.route('/:userId')
+  .delete(adminUserManagementController.deleteUser)
+
+/**
+ * @swagger
+ * /v1/admin/users:
+ *   get:
+ *     tags: [Admin - User Management]
+ *     summary: 📋 Get all users
+ *     description: Get paginated list of users with search, filter, and sorting options
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: number
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: number
+ *           default: 20
+ *           maximum: 100
+ *         description: Number of users per page
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search by username, email, or display name
+ *       - in: query
+ *         name: role
+ *         schema:
+ *           type: string
+ *           enum: [user, admin]
+ *         description: Filter by user role
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [active, inactive]
+ *         description: Filter by account status
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [createdAt, lastLogin, level, totalXP]
+ *           default: createdAt
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: desc
+ *     responses:
+ *       200:
+ *         description: ✅ Users retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     users:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/User'
+ *                     pagination:
+ *                       type: object
+ *                       properties:
+ *                         currentPage:
+ *                           type: number
+ *                         totalPages:
+ *                           type: number
+ *                         totalUsers:
+ *                           type: number
+ *                         hasNext:
+ *                           type: boolean
+ *                         hasPrev:
+ *                           type: boolean
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
+Router.route('/')
+  .get(adminUserManagementController.getAllUsers)
+
+export const adminUserManagementRoute = Router
+import express from 'express'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { adminUserVoucherHistoryController } from '~/controllers/adminUserVoucherHistoryController'
+
+const Router = express.Router()
+
+// All routes require authentication + admin role
+Router.use(authMiddleware.isAuthorized, authMiddleware.isAdmin)
+
+// GET /admin/voucher-history/stats - Get global voucher statistics
+Router.route('/stats')
+  .get(adminUserVoucherHistoryController.getGlobalVoucherStats)
+
+// GET /admin/voucher-history/search - Search users by email/username with vouchers
+Router.route('/search')
+  .get(adminUserVoucherHistoryController.searchUsers)
+
+// GET /admin/voucher-history/users/:userId - Get user's voucher history
+Router.route('/users/:userId')
+  .get(adminUserVoucherHistoryController.getUserVoucherHistory)
+
+// GET /admin/voucher-history/users/:userId/:status - Get vouchers by status
+Router.route('/users/:userId/:status')
+  .get(adminUserVoucherHistoryController.getUserVouchersByStatus)
+
+// POST /admin/voucher-history/users/:userId/vouchers/:voucherId/confirm - Confirm voucher usage
+Router.route('/users/:userId/vouchers/:voucherId/confirm')
+  .post(adminUserVoucherHistoryController.confirmVoucherUsage)
+
+// POST /admin/voucher-history/users/:userId/vouchers/:voucherId/cancel - Cancel voucher
+Router.route('/users/:userId/vouchers/:voucherId/cancel')
+  .post(adminUserVoucherHistoryController.cancelVoucher)
+
+// POST /admin/voucher-history/users/:userId/vouchers/:voucherId/reject - Reject voucher usage
+Router.route('/users/:userId/vouchers/:voucherId/reject')
+  .post(adminUserVoucherHistoryController.rejectVoucherUsage)
+
+// POST /admin/voucher-history/users/:userId/vouchers/:voucherId/revoke - Revoke voucher
+Router.route('/users/:userId/vouchers/:voucherId/revoke')
+  .post(adminUserVoucherHistoryController.revokeVoucher)
+
+// DELETE /admin/voucher-history/users/:userId/vouchers/:voucherId/delete - Delete voucher permanently
+Router.route('/users/:userId/vouchers/:voucherId/delete')
+  .delete(adminUserVoucherHistoryController.deleteVoucher)
+
+export const adminUserVoucherHistoryRoute = Router
+/**
+ * @swagger
+ * tags:
+ *   - name: Admin - Voucher Config
+ *     description: 🔑 Admin voucher configuration management
+ */
+
+import express from 'express'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { adminVoucherConfigController } from '~/controllers/adminVoucherConfigController'
+
+const Router = express.Router()
+
+// All routes require authentication + admin role
+Router.use(authMiddleware.isAuthorized, authMiddleware.isAdmin)
+
+/**
+ * @swagger
+ * /v1/admin/voucher-config:
+ *   get:
+ *     tags: [Admin - Voucher Config]
+ *     summary: 📈 Get voucher configuration
+ *     description: Get current voucher system configuration and level milestones
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ Voucher config retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     levelMilestones:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           level:
+ *                             type: number
+ *                             example: 5
+ *                           voucherType:
+ *                             type: string
+ *                             example: "discount_percentage"
+ *                           value:
+ *                             type: number
+ *                             example: 10
+ *                           description:
+ *                             type: string
+ *                             example: "10% off for reaching level 5"
+ *                     globalSettings:
+ *                       type: object
+ *                       properties:
+ *                         maxActiveVouchers:
+ *                           type: number
+ *                           example: 5
+ *                         defaultExpiryDays:
+ *                           type: number
+ *                           example: 30
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
+Router.route('/')
+  .get(adminVoucherConfigController.getConfig)
+
+/**
+ * @swagger
+ * /v1/admin/voucher-config/stats:
+ *   get:
+ *     tags: [Admin - Voucher Config]
+ *     summary: 📊 Get voucher statistics
+ *     description: Get comprehensive statistics about voucher usage and performance
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ Voucher statistics retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     totalIssued:
+ *                       type: number
+ *                       example: 1247
+ *                     totalUsed:
+ *                       type: number
+ *                       example: 856
+ *                     totalExpired:
+ *                       type: number
+ *                       example: 123
+ *                     usageRate:
+ *                       type: number
+ *                       example: 68.7
+ *                       description: "Percentage of vouchers used"
+ *                     byLevel:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           level:
+ *                             type: number
+ *                           issued:
+ *                             type: number
+ *                           used:
+ *                             type: number
+ *                     byType:
+ *                       type: object
+ *                       properties:
+ *                         discount_percentage:
+ *                           type: object
+ *                           properties:
+ *                             issued:
+ *                               type: number
+ *                             used:
+ *                               type: number
+ *                         discount_fixed:
+ *                           type: object
+ *                         free_shipping:
+ *                           type: object
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
+Router.route('/stats')
+  .get(adminVoucherConfigController.getStats)
+
+export const adminVoucherConfigRoute = Router
+import express from 'express'
+import { challengeController } from '~/controllers/challengeController'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { multerUploadMiddleware } from '~/middlewares/multerUploadMiddleware'
+
+const Router = express.Router()
+
+/**
+ * @swagger
+ * tags:
+ *   name: Challenges
+ *   description: Environmental challenges and gamification endpoints
+ */
+
+// ==================== DEBUG ROUTE ====================
+/**
+ * @swagger
+ * /v1/challenges/debug/count:
+ *   get:
+ *     summary: Debug - Get total challenge count
+ *     tags: [Challenges]
+ *     responses:
+ *       200:
+ *         description: Challenge count retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalChallenges:
+ *                   type: integer
+ *                   example: 25
+ *                 timestamp:
+ *                   type: string
+ *                   example: "2023-12-03T10:00:00.000Z"
+ */
+Router.route('/debug/count')
+  .get(async (req, res) => {
+    try {
+      const { GET_DB } = await import('~/config/mongodb')
+      const count = await GET_DB().collection('challenges').countDocuments({ _destroy: false })
+      res.json({ totalChallenges: count, timestamp: new Date() })
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
+  })
+
+// ==================== CHALLENGE ROUTES ====================
+
+/**
+ * @swagger
+ * /v1/challenges/featured:
+ *   get:
+ *     summary: Get featured challenges
+ *     tags: [Challenges]
+ *     responses:
+ *       200:
+ *         description: Featured challenges retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/Challenge'
+ */
+// GET /v1/challenges/featured - Get featured challenges (MUST be before /:id)
+Router.route('/featured')
+  .get(challengeController.getFeatured)
+
+/**
+ * @swagger
+ * /v1/challenges:
+ *   get:
+ *     summary: Get all challenges with filtering and pagination
+ *     tags: [Challenges]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of challenges per page
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [ACTIVE, EXPIRED, DRAFT]
+ *         description: Filter by status
+ *       - in: query
+ *         name: type
+ *         schema:
+ *           type: string
+ *           enum: [ECO_ACTION, AWARENESS, COMMUNITY]
+ *         description: Filter by type
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [newest, popular, ending_soon, trending]
+ *         description: Sort challenges
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search in challenge titles
+ *     responses:
+ *       200:
+ *         description: Challenges retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         challenges:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Challenge'
+ *                         totalChallenges:
+ *                           type: integer
+ *                         totalPages:
+ *                           type: integer
+ *                         currentPage:
+ *                           type: integer
+ *   post:
+ *     summary: Create new challenge
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - description
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 minLength: 5
+ *                 maxLength: 100
+ *                 example: Plant 5 Trees Challenge
+ *               description:
+ *                 type: string
+ *                 minLength: 10
+ *                 maxLength: 2000
+ *                 example: Plant 5 trees in your local area and share photos as proof
+ *               type:
+ *                 type: string
+ *                 enum: [ECO_ACTION, AWARENESS, COMMUNITY]
+ *                 default: ECO_ACTION
+ *               durationDays:
+ *                 type: integer
+ *                 minimum: 3
+ *                 maximum: 30
+ *                 default: 7
+ *               tags:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: ["planting", "environment", "trees"]
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: Challenge cover image
+ *     responses:
+ *       201:
+ *         description: Challenge created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/Challenge'
+ */
+// GET /v1/challenges - Get all challenges (feed)
+// POST /v1/challenges - Create new challenge (auth required)
+Router.route('/')
+  .get(authMiddleware.isAuthorizedOptional, challengeController.getMany)
+  .post(
+    authMiddleware.isAuthorized,
+    multerUploadMiddleware.uploadSingle('image'),
+    challengeController.createNew
+  )
+
+/**
+ * @swagger
+ * /v1/challenges/my:
+ *   get:
+ *     summary: Get challenges user participated in
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *     responses:
+ *       200:
+ *         description: User participations retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         challenges:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Challenge'
+ */
+// GET /v1/challenges/my - Get user's participated challenges (MUST be before /:id)
+Router.route('/my')
+  .get(authMiddleware.isAuthorized, challengeController.getUserParticipations)
+
+/**
+ * @swagger
+ * /v1/challenges/created:
+ *   get:
+ *     summary: Get challenges created by current user
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Created challenges retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/Challenge'
+ */
+// GET /v1/challenges/created - Get challenges created by current user (MUST be before /:id)
+Router.route('/created')
+  .get(authMiddleware.isAuthorized, challengeController.getMyCreatedChallenges)
+
+/**
+ * @swagger
+ * /v1/challenges/{id}:
+ *   get:
+ *     summary: Get challenge details by ID
+ *     tags: [Challenges]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Challenge ID
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Comments page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Comments per page
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [newest, popular]
+ *         description: Sort comments
+ *     responses:
+ *       200:
+ *         description: Challenge details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       allOf:
+ *                         - $ref: '#/components/schemas/Challenge'
+ *                         - type: object
+ *                           properties:
+ *                             comments:
+ *                               type: array
+ *                               description: Paginated proof comments
+ *                             totalComments:
+ *                               type: integer
+ *                             totalPages:
+ *                               type: integer
+ *                             currentPage:
+ *                               type: integer
+ *   put:
+ *     summary: Update challenge (Creator only)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Challenge updated successfully
+ *   delete:
+ *     summary: Delete challenge (Creator only)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Challenge deleted successfully
+ */
+// GET /v1/challenges/:id - Get challenge details
+// PUT /v1/challenges/:id - Update challenge
+// DELETE /v1/challenges/:id - Delete challenge
+Router.route('/:id')
+  .get(authMiddleware.isAuthorizedOptional, challengeController.getDetails)
+  .put(
+    authMiddleware.isAuthorized,
+    multerUploadMiddleware.uploadSingle('image'),
+    challengeController.update
+  )
+  .delete(authMiddleware.isAuthorized, challengeController.deleteItem)
+
+// ==================== LIKE ROUTES ====================
+
+/**
+ * @swagger
+ * /v1/challenges/{id}/like:
+ *   post:
+ *     summary: Like a challenge (Earns +5 XP, max 5 likes per day)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Challenge ID
+ *     responses:
+ *       200:
+ *         description: Challenge liked successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         challenge:
+ *                           $ref: '#/components/schemas/Challenge'
+ *                         pointsEarned:
+ *                           type: integer
+ *                           example: 5
+ *                         becameTrending:
+ *                           type: boolean
+ *   delete:
+ *     summary: Unlike a challenge
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Challenge unliked successfully
+ */
+// POST /v1/challenges/:id/like - Like a challenge
+// DELETE /v1/challenges/:id/like - Unlike a challenge
+Router.route('/:id/like')
+  .post(authMiddleware.isAuthorized, challengeController.likeChallenge)
+  .delete(authMiddleware.isAuthorized, challengeController.unlikeChallenge)
+
+// ==================== COMMENT (PROOF) ROUTES ====================
+
+/**
+ * @swagger
+ * /v1/challenges/{id}/comments:
+ *   post:
+ *     summary: Add proof comment to participate in challenge (Earns +30 XP)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Challenge ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 maxLength: 2000
+ *                 example: I planted 3 oak trees in the local park today!
+ *               media:
+ *                 type: string
+ *                 format: binary
+ *                 description: Proof image/video
+ *               mediaType:
+ *                 type: string
+ *                 enum: [image, video_embed]
+ *                 default: image
+ *               platform:
+ *                 type: string
+ *                 enum: [tiktok, youtube]
+ *                 description: Video platform (for video_embed)
+ *     responses:
+ *       201:
+ *         description: Proof comment added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         challenge:
+ *                           $ref: '#/components/schemas/Challenge'
+ *                         pointsEarned:
+ *                           type: integer
+ *                           example: 30
+ *                         isNewParticipant:
+ *                           type: boolean
+ *                         becameTrending:
+ *                           type: boolean
+ */
+// POST /v1/challenges/:id/comments - Add proof comment (participate)
+Router.route('/:id/comments')
+  .post(
+    authMiddleware.isAuthorized,
+    multerUploadMiddleware.uploadSingle('media'),
+    challengeController.addProofComment
+  )
+
+/**
+ * @swagger
+ * /v1/challenges/{id}/comments/{commentId}:
+ *   delete:
+ *     summary: Delete proof comment (Comment owner only)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Challenge ID
+ *       - in: path
+ *         name: commentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Comment ID
+ *     responses:
+ *       200:
+ *         description: Comment deleted successfully
+ */
+// DELETE /v1/challenges/:id/comments/:commentId - Delete proof comment
+Router.route('/:id/comments/:commentId')
+  .delete(authMiddleware.isAuthorized, challengeController.deleteProofComment)
+
+/**
+ * @swagger
+ * /v1/challenges/{id}/comments/{commentId}/like:
+ *   post:
+ *     summary: Like a proof comment (Comment owner earns +1 XP)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Challenge ID
+ *       - in: path
+ *         name: commentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Comment ID
+ *     responses:
+ *       200:
+ *         description: Comment liked successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         challenge:
+ *                           $ref: '#/components/schemas/Challenge'
+ *                         pointsForOwner:
+ *                           type: integer
+ *                           example: 1
+ *   delete:
+ *     summary: Unlike a proof comment
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: commentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Comment unliked successfully
+ */
+// POST /v1/challenges/:id/comments/:commentId/like - Like a comment
+// DELETE /v1/challenges/:id/comments/:commentId/like - Unlike a comment
+Router.route('/:id/comments/:commentId/like')
+  .post(authMiddleware.isAuthorized, challengeController.likeComment)
+  .delete(authMiddleware.isAuthorized, challengeController.unlikeComment)
+
+// ==================== LEADERBOARD ====================
+
+/**
+ * @swagger
+ * /v1/challenges/{id}/leaderboard:
+ *   get:
+ *     summary: Get challenge leaderboard (Top participants by points)
+ *     tags: [Challenges]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Challenge ID
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of top participants
+ *     responses:
+ *       200:
+ *         description: Leaderboard retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           userId:
+ *                             type: string
+ *                           userDisplayName:
+ *                             type: string
+ *                           userAvatar:
+ *                             type: string
+ *                           totalPoints:
+ *                             type: integer
+ *                           commentsCount:
+ *                             type: integer
+ *                           rank:
+ *                             type: integer
+ */
+// GET /v1/challenges/:id/leaderboard - Get challenge leaderboard
+Router.route('/:id/leaderboard')
+  .get(challengeController.getLeaderboard)
+
+// ==================== XP REWARD ROUTES ====================
+
+/**
+ * @swagger
+ * /v1/challenges/daily-login:
+ *   post:
+ *     summary: Claim daily login reward (Earns +5 XP, once per day)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Daily login reward claimed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         xpEarned:
+ *                           type: integer
+ *                           example: 5
+ *                         streak:
+ *                           type: integer
+ *                           example: 3
+ *                         leveledUp:
+ *                           type: boolean
+ *                         newLevel:
+ *                           type: integer
+ *       400:
+ *         description: Already claimed today
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// POST /v1/challenges/daily-login - Claim daily login reward
+Router.route('/daily-login')
+  .post(authMiddleware.isAuthorized, challengeController.claimDailyLogin)
+
+/**
+ * @swagger
+ * /v1/challenges/{id}/join:
+ *   post:
+ *     summary: Join a challenge (Award +20 XP, once per challenge)
+ *     tags: [Challenges]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Challenge ID
+ *     responses:
+ *       200:
+ *         description: Challenge joined successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         xpEarned:
+ *                           type: integer
+ *                           example: 20
+ *                         leveledUp:
+ *                           type: boolean
+ *                         newLevel:
+ *                           type: integer
+ *       400:
+ *         description: Already joined or challenge ended
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// POST /v1/challenges/:id/join - Join a challenge (award +20 XP)
+Router.route('/:id/join')
+  .post(authMiddleware.isAuthorized, challengeController.joinChallenge)
+
+export const challengeRoute = Router
+import { Router } from 'express'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { chatController } from '~/controllers/chatController'
+import { validationMiddleware } from '~/middlewares/validationMiddleware'
+import { createSessionSchema, updateSessionSchema, sendMessageSchema } from '~/validations/chatValidation'
+
+const router = Router()
+
+/**
+ * @swagger
+ * tags:
+ *   name: Chat
+ *   description: AI Chat with ZiZi chatbot (Google Gemini + RAG)
+ */
+
+/**
+ * @swagger
+ * /v1/chat/sessions:
+ *   post:
+ *     summary: Create a new chat session
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: Eco Products Chat
+ *                 default: New Chat
+ *     responses:
+ *       201:
+ *         description: Chat session created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/ChatSession'
+ *   get:
+ *     summary: Get all chat sessions for current user
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *     responses:
+ *       200:
+ *         description: Chat sessions retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         sessions:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/ChatSession'
+ *                         total:
+ *                           type: integer
+ */
+/**
+ * @route POST /v1/chat/sessions
+ * @desc Create a new chat session
+ * @access Private
+ */
+router.post('/sessions', authMiddleware.isAuthorized, validationMiddleware(createSessionSchema), chatController.createSession)
+
+/**
+ * @route GET /v1/chat/sessions
+ * @desc Get all chat sessions for current user
+ * @access Private
+ */
+router.get('/sessions', authMiddleware.isAuthorized, chatController.getSessions)
+
+/**
+ * @swagger
+ * /v1/chat/sessions/{sessionId}:
+ *   get:
+ *     summary: Get a specific chat session with messages
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Chat session ID
+ *     responses:
+ *       200:
+ *         description: Chat session retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       allOf:
+ *                         - $ref: '#/components/schemas/ChatSession'
+ *                         - type: object
+ *                           properties:
+ *                             messages:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 properties:
+ *                                   _id:
+ *                                     type: string
+ *                                   role:
+ *                                     type: string
+ *                                     enum: [user, assistant]
+ *                                   content:
+ *                                     type: string
+ *                                   createdAt:
+ *                                     type: string
+ *       404:
+ *         description: Session not found
+ *   put:
+ *     summary: Update session title
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: Updated Chat Title
+ *     responses:
+ *       200:
+ *         description: Session updated successfully
+ *   delete:
+ *     summary: Delete a chat session
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Session deleted successfully
+ */
+/**
+ * @route GET /v1/chat/sessions/:sessionId
+ * @desc Get a specific chat session with messages
+ * @access Private
+ */
+router.get('/sessions/:sessionId', authMiddleware.isAuthorized, chatController.getSession)
+
+/**
+ * @swagger
+ * /v1/chat/messages:
+ *   post:
+ *     summary: Send a message and get AI response via Socket.IO streaming
+ *     description: Send a message to ZiZi AI chatbot. The response is streamed in real-time via Socket.IO on the /chat namespace. Connect to socket and join session room to receive streaming responses.
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - sessionId
+ *               - message
+ *             properties:
+ *               sessionId:
+ *                 type: string
+ *                 description: Chat session ID
+ *                 example: 507f1f77bcf86cd799439011
+ *               message:
+ *                 type: string
+ *                 description: User message
+ *                 example: What eco-friendly products do you recommend for kitchen?
+ *     responses:
+ *       200:
+ *         description: Message sent successfully, AI response streaming via Socket.IO
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         message:
+ *                           type: string
+ *                           example: Message sent, response streaming...
+ *                         sessionId:
+ *                           type: string
+ *                         userMessage:
+ *                           type: object
+ *                           properties:
+ *                             _id:
+ *                               type: string
+ *                             role:
+ *                               type: string
+ *                               example: user
+ *                             content:
+ *                               type: string
+ *                             createdAt:
+ *                               type: string
+ *       400:
+ *         description: Validation error or session not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+/**
+ * @route POST /v1/chat/messages
+ * @desc Send a message and get AI response via Socket.IO
+ * @access Private
+ */
+router.post('/messages', authMiddleware.isAuthorized, validationMiddleware(sendMessageSchema), chatController.sendMessage)
+
+/**
+ * @swagger
+ * /v1/chat/sessions/{sessionId}/messages:
+ *   get:
+ *     summary: Get messages in a session
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 20
+ *     responses:
+ *       200:
+ *         description: Messages retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         messages:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               _id:
+ *                                 type: string
+ *                               role:
+ *                                 type: string
+ *                                 enum: [user, assistant]
+ *                               content:
+ *                                 type: string
+ *                               createdAt:
+ *                                 type: string
+ *                         total:
+ *                           type: integer
+ */
+/**
+ * @route GET /v1/chat/sessions/:sessionId/messages
+ * @desc Get messages in a session
+ * @access Private
+ */
+router.get('/sessions/:sessionId/messages', authMiddleware.isAuthorized, chatController.getMessages)
+
+/**
+ * @route PUT /v1/chat/sessions/:sessionId
+ * @desc Update session title
+ * @access Private
+ */
+router.put('/sessions/:sessionId', authMiddleware.isAuthorized, validationMiddleware(updateSessionSchema), chatController.updateSession)
+
+/**
+ * @route DELETE /v1/chat/sessions/:sessionId
+ * @desc Delete a chat session
+ * @access Private
+ */
+router.delete('/sessions/:sessionId', authMiddleware.isAuthorized, chatController.deleteSession)
+
+/**
+ * @swagger
+ * /v1/chat/sessions/{sessionId}/generate-title:
+ *   post:
+ *     summary: Auto-generate session title based on conversation
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Title generated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         title:
+ *                           type: string
+ *                           example: Eco Kitchen Products Discussion
+ */
+/**
+ * @route POST /v1/chat/sessions/:sessionId/generate-title
+ * @desc Auto-generate session title
+ * @access Private
+ */
+router.post('/sessions/:sessionId/generate-title', authMiddleware.isAuthorized, chatController.generateTitle)
+
+/**
+ * @swagger
+ * /v1/chat/sessions/{sessionId}/clear:
+ *   put:
+ *     summary: Clear chat history (delete all messages in session)
+ *     tags: [Chat]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Chat history cleared successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ */
+/**
+ * @route PUT /v1/chat/sessions/:sessionId/clear
+ * @desc Clear chat history (soft delete all messages in session)
+ * @access Private
+ */
+router.put('/sessions/:sessionId/clear', authMiddleware.isAuthorized, chatController.clearChat)
+
+export const chatRoute = router
+/**
+ * @swagger
+ * tags:
+ *   - name: Gamification
+ *     description: 🎮 XP system, garden management, leaderboard, and achievement rewards
+ */
+
+import { Router } from 'express'
+import GamificationController from '~/controllers/gamificationController.js'
+import { authMiddleware } from '~/middlewares/authMiddleware.js'
+
+const router = Router()
+
+/**
+ * @swagger
+ * /v1/gamification/user-garden:
+ *   get:
+ *     tags: [Gamification]
+ *     summary: 🌳 Get user's complete garden
+ *     description: Get comprehensive garden data - level, XP, trees, crops, pets, inventory, vouchers all in one call
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ Garden data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     level:
+ *                       type: number
+ *                       example: 12
+ *                     currentXP:
+ *                       type: number
+ *                       example: 2450
+ *                     xpToNextLevel:
+ *                       type: number
+ *                       example: 550
+ *                     totalXPForNextLevel:
+ *                       type: number
+ *                       example: 3000
+ *                     rank:
+ *                       type: number
+ *                       example: 147
+ *                     garden:
+ *                       type: object
+ *                       properties:
+ *                         plots:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               plotId:
+ *                                 type: number
+ *                               cropType:
+ *                                 type: string
+ *                               plantedAt:
+ *                                 type: number
+ *                               harvestableAt:
+ *                                 type: number
+ *                               stage:
+ *                                 type: string
+ *                                 enum: [seed, sprout, growing, ready, harvested]
+ *                         pets:
+ *                           type: array
+ *                         decorations:
+ *                           type: array
+ *                     vouchers:
+ *                       type: object
+ *                       properties:
+ *                         available:
+ *                           type: number
+ *                         totalEarned:
+ *                           type: number
+ *                     achievements:
+ *                       type: array
+ *             example:
+ *               success: true
+ *               data:
+ *                 level: 12
+ *                 currentXP: 2450
+ *                 xpToNextLevel: 550
+ *                 rank: 147
+ *                 garden:
+ *                   plots:
+ *                     - plotId: 1
+ *                       cropType: "tomato"
+ *                       stage: "ready"
+ *                       harvestableAt: 1733097600000
+ *                 vouchers:
+ *                   available: 3
+ *                   totalEarned: 15
+ *       401:
+ *         description: ❌ Authentication required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Authentication required. Please login."
+ */
+router.get('/user-garden', authMiddleware.isAuthorized, GamificationController.getUserGarden)
+
+/**
+ * @swagger
+ * /v1/gamification/daily-login:
+ *   post:
+ *     tags: [Gamification]
+ *     summary: 🎯 Claim daily login reward
+ *     description: Claim daily login bonus (+5 XP). Can only be claimed once per day.
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ Daily login reward claimed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Daily login reward claimed! +5 XP"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpGained:
+ *                       type: number
+ *                       example: 5
+ *                     newXP:
+ *                       type: number
+ *                       example: 2455
+ *                     levelUp:
+ *                       type: boolean
+ *                     newLevel:
+ *                       type: number
+ *                     nextClaimTime:
+ *                       type: number
+ *       400:
+ *         description: ❌ Already claimed today
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Daily reward already claimed. Next claim in 8 hours."
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+router.post('/daily-login', authMiddleware.isAuthorized, GamificationController.claimDailyLoginReward)
+
+/**
+ * @swagger
+ * /v1/gamification/join-challenge:
+ *   post:
+ *     tags: [Gamification]
+ *     summary: 🎯 Join environmental challenge
+ *     description: Join a challenge to earn +10 XP bonus
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - challengeId
+ *             properties:
+ *               challengeId:
+ *                 type: string
+ *                 description: ID of challenge to join
+ *                 example: "674f1234567890abcdef1234"
+ *     responses:
+ *       200:
+ *         description: ✅ Challenge joined successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Challenge joined! +10 XP earned"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpGained:
+ *                       type: number
+ *                       example: 10
+ *                     newTotalXP:
+ *                       type: number
+ *                       example: 2460
+ *                     challengeInfo:
+ *                       type: object
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+router.post('/join-challenge', authMiddleware.isAuthorized, GamificationController.joinChallenge)
+
+/**
+ * @swagger
+ * /v1/gamification/complete-challenge:
+ *   post:
+ *     tags: [Gamification]
+ *     summary: 🏆 Complete challenge
+ *     description: Mark challenge as completed to earn +20 XP reward
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - challengeId
+ *             properties:
+ *               challengeId:
+ *                 type: string
+ *                 example: "674f1234567890abcdef1234"
+ *               proof:
+ *                 type: string
+ *                 description: Optional completion proof/description
+ *                 example: "Completed 7 days of zero waste living!"
+ *     responses:
+ *       200:
+ *         description: ✅ Challenge completed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Challenge completed! +20 XP earned"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpGained:
+ *                       type: number
+ *                       example: 20
+ *                     bonusXP:
+ *                       type: number
+ *                       example: 5
+ *                     newLevel:
+ *                       type: number
+ *                     achievements:
+ *                       type: array
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+router.post('/complete-challenge', authMiddleware.isAuthorized, GamificationController.completeChallenge)
+
+/**
+ * @swagger
+ * /v1/gamification/creator-bonus:
+ *   post:
+ *     tags: [Gamification]
+ *     summary: 🌟 Award creator bonus
+ *     description: Award +30 XP bonus to challenge creator when challenge has >10 participants
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - challengeId
+ *             properties:
+ *               challengeId:
+ *                 type: string
+ *                 example: "674f1234567890abcdef1234"
+ *     responses:
+ *       200:
+ *         description: ✅ Creator bonus awarded
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Creator bonus awarded! +30 XP for popular challenge"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpGained:
+ *                       type: number
+ *                       example: 30
+ *                     participantCount:
+ *                       type: number
+ *                       example: 15
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+router.post('/creator-bonus', authMiddleware.isAuthorized, GamificationController.awardCreatorBonus)
+
+// === GARDEN - CROPS ===
+// Keeping basic endpoints for reference, but simplified
+
+/**
+ * @swagger
+ * /v1/gamification/leaderboard:
+ *   get:
+ *     tags: [Gamification]
+ *     summary: 🏆 Get global leaderboard
+ *     description: Get top players by XP/level with rankings and achievements
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: number
+ *           default: 50
+ *           maximum: 100
+ *         description: Number of top players to return
+ *       - in: query
+ *         name: timeframe
+ *         schema:
+ *           type: string
+ *           enum: [all, weekly, monthly]
+ *           default: all
+ *     responses:
+ *       200:
+ *         description: ✅ Leaderboard retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     leaderboard:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           rank:
+ *                             type: number
+ *                           user:
+ *                             type: object
+ *                             properties:
+ *                               username:
+ *                                 type: string
+ *                               avatar:
+ *                                 type: string
+ *                               level:
+ *                                 type: number
+ *                               totalXP:
+ *                                 type: number
+ *                               joinedDate:
+ *                                 type: number
+ *                     myRank:
+ *                       type: object
+ *                       nullable: true
+ *                       properties:
+ *                         rank:
+ *                           type: number
+ *                         level:
+ *                           type: number
+ *                         xp:
+ *                           type: number
+ *             example:
+ *               success: true
+ *               data:
+ *                 leaderboard:
+ *                   - rank: 1
+ *                     user:
+ *                       username: "EcoWarrior2024"
+ *                       level: 25
+ *                       totalXP: 15750
+ *                       avatar: "https://cloudinary.../avatar.jpg"
+ *                 myRank:
+ *                   rank: 147
+ *                   level: 12
+ *                   xp: 2450
+ */
+router.get('/leaderboard', GamificationController.getLeaderboard)
+
+/**
+ * @swagger
+ * /v1/gamification/user-rank:
+ *   get:
+ *     tags: [Gamification]
+ *     summary: 📈 Get current user's rank
+ *     description: Get authenticated user's current ranking and position in leaderboard
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ User rank retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     rank:
+ *                       type: number
+ *                       example: 147
+ *                     level:
+ *                       type: number
+ *                       example: 12
+ *                     totalXP:
+ *                       type: number
+ *                       example: 2450
+ *                     percentile:
+ *                       type: number
+ *                       example: 78.5
+ *                       description: "Percentage of users with lower XP"
+ *                     nearbyRanks:
+ *                       type: array
+ *                       description: "Players ranked around current user"
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+router.get('/user-rank', authMiddleware.isAuthorized, GamificationController.getUserRank)
+
+/**
+ * @swagger
+ * /v1/gamification/admin/config:
+ *   get:
+ *     tags: [Gamification]
+ *     summary: 🔧 Get gamification config (Admin)
+ *     description: Get current gamification system configuration
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ Config retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpRates:
+ *                       type: object
+ *                       properties:
+ *                         dailyLogin:
+ *                           type: number
+ *                           example: 5
+ *                         challengeJoin:
+ *                           type: number
+ *                           example: 10
+ *                         challengeComplete:
+ *                           type: number
+ *                           example: 20
+ *                     levelRequirements:
+ *                       type: array
+ *                       items:
+ *                         type: number
+ *                     voucherTiers:
+ *                       type: array
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ *   put:
+ *     tags: [Gamification]
+ *     summary: 🛠️ Update gamification config (Admin)
+ *     description: Update system configuration settings
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               xpRates:
+ *                 type: object
+ *                 properties:
+ *                   dailyLogin:
+ *                     type: number
+ *                     example: 5
+ *                   challengeJoin:
+ *                     type: number
+ *                     example: 10
+ *                   challengeComplete:
+ *                     type: number
+ *                     example: 25
+ *               levelRequirements:
+ *                 type: array
+ *                 items:
+ *                   type: number
+ *                 example: [100, 250, 500, 1000, 2000]
+ *     responses:
+ *       200:
+ *         description: ✅ Config updated
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
+router.get('/admin/config', authMiddleware.isAuthorized, GamificationController.getConfig)
+router.put('/admin/config', authMiddleware.isAuthorized, GamificationController.updateConfig)
+
+/**
+ * @swagger
+ * /v1/gamification/admin/voucher-tier:
+ *   put:
+ *     tags: [Gamification]
+ *     summary: 🎁 Update voucher tier (Admin)
+ *     description: Update voucher tier configuration for level rewards
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - level
+ *               - voucherType
+ *               - value
+ *             properties:
+ *               level:
+ *                 type: number
+ *                 example: 10
+ *               voucherType:
+ *                 type: string
+ *                 enum: [discount_percentage, discount_fixed, free_shipping]
+ *                 example: "discount_percentage"
+ *               value:
+ *                 type: number
+ *                 example: 15
+ *               description:
+ *                 type: string
+ *                 example: "15% discount for reaching level 10"
+ *     responses:
+ *       200:
+ *         description: ✅ Voucher tier updated
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
+router.put('/admin/voucher-tier', authMiddleware.isAuthorized, GamificationController.updateVoucherTier)
+
+// NEW: Admin voucher milestone management
+router.get('/admin/voucher-milestones', authMiddleware.isAuthorized, GamificationController.getVoucherMilestones)
+router.post('/admin/voucher-milestones', authMiddleware.isAuthorized, GamificationController.addVoucherMilestone)
+router.put('/admin/voucher-milestones/:level', authMiddleware.isAuthorized, GamificationController.updateVoucherMilestone)
+router.delete('/admin/voucher-milestones/:level', authMiddleware.isAuthorized, GamificationController.deleteVoucherMilestone)
+
+// NEW: Admin tree growth stage management
+router.get('/admin/tree-stages', authMiddleware.isAuthorized, GamificationController.getTreeGrowthStages)
+router.put('/admin/tree-stages', authMiddleware.isAuthorized, GamificationController.updateTreeGrowthStages)
+
+// NEW: Admin land unlock tiers management
+router.get('/admin/land-tiers', authMiddleware.isAuthorized, GamificationController.getLandUnlockTiers)
+router.put('/admin/land-tiers', authMiddleware.isAuthorized, GamificationController.updateLandUnlockTiers)
+
+export const gamificationRoutes = router
+import express from 'express'
+import { gardenController } from '~/controllers/gardenController'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { gardenValidation } from '~/validations/gardenValidation'
+
+const Router = express.Router()
+
+/**
+ * @swagger
+ * tags:
+ *   name: Garden
+ *   description: Virtual garden gamification and tree growing system
+ */
+
+/**
+ * @swagger
+ * /v1/garden:
+ *   get:
+ *     summary: Get user's virtual garden
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Garden retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       allOf:
+ *                         - $ref: '#/components/schemas/UserGarden'
+ *                         - type: object
+ *                           properties:
+ *                             gardenPlots:
+ *                               type: array
+ *                               description: Active garden plots with crops
+ *                             inventory:
+ *                               type: object
+ *                               properties:
+ *                                 seeds:
+ *                                   type: object
+ *                                   example: { oak: 5, bamboo: 3, flower: 10 }
+ *                                 water:
+ *                                   type: integer
+ *                                   example: 85
+ *                                 fertilizer:
+ *                                   type: integer
+ *                                   example: 12
+ *                                 tools:
+ *                                   type: array
+ *                                   example: [{ id: "basic_shovel", name: "Basic Shovel", durability: 95 }]
+ *       404:
+ *         description: Garden not initialized (will auto-create on first access)
+ */
+// Route: GET /v1/garden - Get user's garden
+Router.route('/')
+  .get(authMiddleware.isAuthorized, gardenController.getGarden)
+
+/**
+ * @swagger
+ * /v1/garden/vouchers:
+ *   get:
+ *     summary: Get available vouchers for user's level
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Available vouchers retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           unlockLevel:
+ *                             type: integer
+ *                             example: 20
+ *                           code:
+ *                             type: string
+ *                             example: ECO20
+ *                           discount:
+ *                             type: integer
+ *                             example: 20
+ *                           description:
+ *                             type: string
+ *                             example: "20% off eco products"
+ */
+// Route: GET /v1/garden/vouchers - Get available vouchers for user
+Router.route('/vouchers')
+  .get(authMiddleware.isAuthorized, gardenController.getAvailableVouchers)
+
+/**
+ * @swagger
+ * /v1/garden/vouchers/{voucherId}/claim:
+ *   post:
+ *     summary: Claim a voucher reward
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: voucherId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Voucher ID to claim
+ *     responses:
+ *       200:
+ *         description: Voucher claimed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/Voucher'
+ *       400:
+ *         description: Voucher already claimed or not eligible
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// Route: POST /v1/garden/vouchers/:voucherId/claim - Claim a voucher
+Router.route('/vouchers/:voucherId/claim')
+  .post(authMiddleware.isAuthorized, gardenController.claimVoucher)
+
+/**
+ * @swagger
+ * /v1/garden/plant:
+ *   post:
+ *     summary: Plant a tree in garden plot
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - type
+ *               - position
+ *             properties:
+ *               type:
+ *                 type: string
+ *                 enum: [oak, pine, bamboo, flower]
+ *                 example: oak
+ *               position:
+ *                 type: object
+ *                 properties:
+ *                   row:
+ *                     type: integer
+ *                     example: 0
+ *                   col:
+ *                     type: integer
+ *                     example: 1
+ *               name:
+ *                 type: string
+ *                 example: My Oak Tree
+ *                 default: Auto-generated
+ *     responses:
+ *       201:
+ *         description: Tree planted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         garden:
+ *                           $ref: '#/components/schemas/UserGarden'
+ *                         treeId:
+ *                           type: string
+ *                           example: 507f1f77bcf86cd799439011
+ *                         experienceGained:
+ *                           type: integer
+ *                           example: 10
+ *       400:
+ *         description: Not enough seeds or position occupied
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// Route: POST /v1/garden/plant - Plant a tree
+Router.route('/plant')
+  .post(authMiddleware.isAuthorized, gardenValidation.plantTree, gardenController.plantTree)
+
+/**
+ * @swagger
+ * /v1/garden/trees/{treeId}/water:
+ *   put:
+ *     summary: Water a tree (Improves growth +15%, health +10%)
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: treeId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Tree ID
+ *     responses:
+ *       200:
+ *         description: Tree watered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         garden:
+ *                           $ref: '#/components/schemas/UserGarden'
+ *                         experienceGained:
+ *                           type: integer
+ *                           example: 5
+ *                         growthImproved:
+ *                           type: integer
+ *                           example: 15
+ *       400:
+ *         description: Not enough water or tree not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// Route: PUT /v1/garden/trees/:treeId/water - Water a tree
+Router.route('/trees/:treeId/water')
+  .put(authMiddleware.isAuthorized, gardenController.waterTree)
+
+/**
+ * @swagger
+ * /v1/garden/trees/{treeId}/fertilize:
+ *   put:
+ *     summary: Fertilize a tree (Improves growth +25%, health +20%)
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: treeId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Tree ID
+ *     responses:
+ *       200:
+ *         description: Tree fertilized successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         garden:
+ *                           $ref: '#/components/schemas/UserGarden'
+ *                         experienceGained:
+ *                           type: integer
+ *                           example: 10
+ *                         growthImproved:
+ *                           type: integer
+ *                           example: 25
+ *       400:
+ *         description: Not enough fertilizer or tree not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// Route: PUT /v1/garden/trees/:treeId/fertilize - Fertilize a tree
+Router.route('/trees/:treeId/fertilize')
+  .put(authMiddleware.isAuthorized, gardenController.fertilizeTree)
+
+/**
+ * @swagger
+ * /v1/garden/trees/{treeId}/harvest:
+ *   post:
+ *     summary: Harvest a mature tree (Earns +50 XP, resets growth)
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: treeId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Tree ID
+ *     responses:
+ *       200:
+ *         description: Tree harvested successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         garden:
+ *                           $ref: '#/components/schemas/UserGarden'
+ *                         experienceGained:
+ *                           type: integer
+ *                           example: 50
+ *                         fruitsHarvested:
+ *                           type: integer
+ *                           example: 3
+ *                         leveledUp:
+ *                           type: boolean
+ *       400:
+ *         description: Tree not mature or not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// Route: POST /v1/garden/trees/:treeId/harvest - Harvest a tree
+Router.route('/trees/:treeId/harvest')
+  .post(authMiddleware.isAuthorized, gardenController.harvestTree)
+
+/**
+ * @swagger
+ * /v1/garden/shop/buy:
+ *   post:
+ *     summary: Buy items from garden shop (seeds, tools, decorations)
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - itemType
+ *               - itemId
+ *               - quantity
+ *             properties:
+ *               itemType:
+ *                 type: string
+ *                 enum: [seed, tool, decoration, water, fertilizer]
+ *                 example: seed
+ *               itemId:
+ *                 type: string
+ *                 example: oak
+ *               quantity:
+ *                 type: integer
+ *                 minimum: 1
+ *                 example: 5
+ *     responses:
+ *       200:
+ *         description: Items purchased successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         garden:
+ *                           $ref: '#/components/schemas/UserGarden'
+ *                         totalCost:
+ *                           type: integer
+ *                           example: 50
+ *                         itemsPurchased:
+ *                           type: object
+ *                           example: { "oak_seeds": 5 }
+ *       400:
+ *         description: Not enough coins or invalid item
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// Route: POST /v1/garden/shop/buy - Buy items (seeds, tools, decorations)
+Router.route('/shop/buy')
+  .post(authMiddleware.isAuthorized, gardenValidation.buyItem, gardenController.buyItem)
+
+/**
+ * @swagger
+ * /v1/garden/decorations/place:
+ *   post:
+ *     summary: Place decoration in garden
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - decorationId
+ *               - position
+ *             properties:
+ *               decorationId:
+ *                 type: string
+ *                 example: garden_fountain
+ *               position:
+ *                 type: object
+ *                 properties:
+ *                   x:
+ *                     type: number
+ *                     example: 150
+ *                   y:
+ *                     type: number
+ *                     example: 200
+ *     responses:
+ *       200:
+ *         description: Decoration placed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/UserGarden'
+ */
+// Route: POST /v1/garden/decorations/place - Place decoration
+Router.route('/decorations/place')
+  .post(authMiddleware.isAuthorized, gardenValidation.placeDecoration, gardenController.placeDecoration)
+
+/**
+ * @swagger
+ * /v1/garden/customize-tree:
+ *   post:
+ *     summary: Customize master tree design (name, color, pot, effects)
+ *     tags: [Garden]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 maxLength: 50
+ *                 example: My Eco Tree
+ *               treeType:
+ *                 type: string
+ *                 enum: [oak, pine, bamboo, rose, cherry]
+ *                 example: oak
+ *               color:
+ *                 type: string
+ *                 pattern: '^#[0-9A-Fa-f]{6}$'
+ *                 example: '#4CAF50'
+ *               potType:
+ *                 type: string
+ *                 enum: [ceramic, clay, plastic, wooden, golden]
+ *                 example: ceramic
+ *               potColor:
+ *                 type: string
+ *                 pattern: '^#[0-9A-Fa-f]{6}$'
+ *                 example: '#D7CCC8'
+ *               effects:
+ *                 type: string
+ *                 enum: [none, glow, sparkle, leaves, flowers]
+ *                 example: sparkle
+ *     responses:
+ *       200:
+ *         description: Tree customized successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/UserGarden'
+ */
+// Route: POST /v1/garden/customize-tree - Customize master tree design
+Router.route('/customize-tree')
+  .post(authMiddleware.isAuthorized, gardenController.customizeTree)
+
+export const gardenRoute = Router
+/**
+ * @swagger
+ * tags:
+ *   - name: Homepage
+ *     description: 🏠 Homepage data, company info, features, and public content
+ */
+
+import express from 'express'
+import { homepageController } from '~/controllers/homepageController'
+
+const Router = express.Router()
+
+/**
+ * @swagger
+ * /v1/homepage:
+ *   get:
+ *     tags: [Homepage]
+ *     summary: 🏠 Get complete homepage data
+ *     description: Retrieve all homepage sections - hero, features, stats, testimonials, promotions in one call
+ *     responses:
+ *       200:
+ *         description: ✅ Homepage data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     hero:
+ *                       type: object
+ *                       properties:
+ *                         title:
+ *                           type: string
+ *                           example: "Shop Eco-Friendly, Live Sustainably"
+ *                         subtitle:
+ *                           type: string
+ *                         ctaText:
+ *                           type: string
+ *                         backgroundImage:
+ *                           type: string
+ *                     stats:
+ *                       type: object
+ *                       properties:
+ *                         totalUsers:
+ *                           type: number
+ *                         totalOrders:
+ *                           type: number
+ *                         totalProducts:
+ *                           type: number
+ *                         co2Saved:
+ *                           type: string
+ *                     featuredProducts:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                     promotions:
+ *                       type: array
+ *                     testimonials:
+ *                       type: array
+ *       500:
+ *         $ref: '#/components/responses/ServerError'
+ */
+Router.route('/')
+  .get(homepageController.getHomepageData)
+
+/**
+ * @swagger
+ * /v1/homepage/company:
+ *   get:
+ *     tags: [Homepage]
+ *     summary: 🏢 Get company information
+ *     description: Retrieve company details, mission, vision, team info, and contact details
+ *     responses:
+ *       200:
+ *         description: ✅ Company info retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                       example: "Covezi"
+ *                     mission:
+ *                       type: string
+ *                     vision:
+ *                       type: string
+ *                     foundedYear:
+ *                       type: number
+ *                     teamSize:
+ *                       type: number
+ *                     headquarters:
+ *                       type: string
+ *                     contact:
+ *                       type: object
+ *                       properties:
+ *                         email:
+ *                           type: string
+ *                         phone:
+ *                           type: string
+ *                         address:
+ *                           type: string
+ */
+Router.route('/company')
+  .get(homepageController.getCompanyInfo)
+
+/**
+ * @swagger
+ * /v1/homepage/features:
+ *   get:
+ *     tags: [Homepage]
+ *     summary: ✨ Get platform features
+ *     description: Get list of key features and capabilities of the Covezi platform
+ *     responses:
+ *       200:
+ *         description: ✅ Features retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       title:
+ *                         type: string
+ *                         example: "AI-Powered Eco Recommendations"
+ *                       description:
+ *                         type: string
+ *                       icon:
+ *                         type: string
+ *                       category:
+ *                         type: string
+ *                         example: "AI & Technology"
+
+ * /v1/homepage/promotions:
+ *   get:
+ *     tags: [Homepage]
+ *     summary: 🎁 Get current promotions
+ *     description: Get active promotions, sales, and special offers
+ *     responses:
+ *       200:
+ *         description: ✅ Promotions retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       title:
+ *                         type: string
+ *                       discountPercent:
+ *                         type: number
+ *                       validUntil:
+ *                         type: number
+ *                       bannerImage:
+ *                         type: string
+
+ * /v1/homepage/stats:
+ *   get:
+ *     tags: [Homepage]
+ *     summary: 📈 Get platform statistics
+ *     description: Get real-time platform metrics and impact data
+ *     responses:
+ *       200:
+ *         description: ✅ Stats retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     users:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: number
+ *                           example: 12547
+ *                         activeThisMonth:
+ *                           type: number
+ *                     orders:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: number
+ *                         totalValue:
+ *                           type: number
+ *                     environmental:
+ *                       type: object
+ *                       properties:
+ *                         co2Saved:
+ *                           type: string
+ *                           example: "2.4 tons"
+ *                         treesPlanted:
+ *                           type: number
+ *                           example: 1247
+ */
+Router.route('/features')
+  .get(homepageController.getFeatures)
+
+Router.route('/promotions')
+  .get(homepageController.getPromotions)
+
+Router.route('/testimonials')
+  .get(homepageController.getTestimonials)
+
+Router.route('/stats')
+  .get(homepageController.getStats)
+
+Router.route('/news')
+  .get(homepageController.getNews)
+
+export const homepageRoute = Router
+import express from 'express'
+import { StatusCodes } from 'http-status-codes'
+import { userRoute } from './userRoute'
+import { homepageRoute } from './homepageRoute'
+import { productRoute } from './productRoute'
+import { challengeRoute } from './challengeRoute'
+import { gardenRoute } from './gardenRoute'
+import { gamificationRoutes } from './gamificationRoutes'
+import { voucherRoute } from './voucherRoute'
+import { adminVoucherConfigRoute } from './adminVoucherConfigRoute'
+import { adminChallengeRoute } from './adminChallengeRoute'
+import { adminUserVoucherHistoryRoute } from './adminUserVoucherHistoryRoute'
+import { adminUserManagementRoute } from './adminUserManagementRoute'
+import { chatRoute } from './chatRoute'
+
+const Router = express.Router()
+
+Router.get('/status', (req, res) => {
+  res.status(StatusCodes.OK).json({ message: 'APIs V1 are ready to use' })
+})
+
+// User API
+Router.use('/users', userRoute)
+
+// Covezi Platform APIs
+// Homepage API
+Router.use('/homepage', homepageRoute)
+
+// Product API
+Router.use('/products', productRoute)
+
+// Challenge API (with likes and proof comments)
+Router.use('/challenges', challengeRoute)
+
+// Garden API
+Router.use('/garden', gardenRoute)
+
+// Gamification API
+Router.use('/gamification', gamificationRoutes)
+
+// Voucher API
+Router.use('/vouchers', voucherRoute)
+
+// Admin Voucher Config API
+Router.use('/admin/voucher-config', adminVoucherConfigRoute)
+
+// Admin Challenge API
+Router.use('/admin/challenges', adminChallengeRoute)
+
+// Admin User Voucher History API
+Router.use('/admin/voucher-history', adminUserVoucherHistoryRoute)
+
+// Admin User Management API
+Router.use('/admin/users', adminUserManagementRoute)
+
+// Chat API (ZiZi AI)
+Router.use('/chat', chatRoute)
+
+export const APIs_V1 = Router
+import express from 'express'
+import { productController } from '~/controllers/productController'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { multerUploadMiddleware } from '~/middlewares/multerUploadMiddleware'
+import { productValidation } from '~/validations/productValidation'
+
+const Router = express.Router()
+
+/**
+ * @swagger
+ * tags:
+ *   name: Products
+ *   description: Product management and e-commerce endpoints
+ */
+
+/**
+ * @swagger
+ * /v1/products:
+ *   get:
+ *     summary: Get products with filtering and pagination
+ *     tags: [Products]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of products per page
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: Filter by category
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search in product name and description
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [price_asc, price_desc, newest, popular, rating]
+ *         description: Sort products by field
+ *       - in: query
+ *         name: minPrice
+ *         schema:
+ *           type: number
+ *         description: Minimum price filter
+ *       - in: query
+ *         name: maxPrice
+ *         schema:
+ *           type: number
+ *         description: Maximum price filter
+ *       - in: query
+ *         name: inStock
+ *         schema:
+ *           type: boolean
+ *         description: Filter products in stock only
+ *     responses:
+ *       200:
+ *         description: Products retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         products:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Product'
+ *                         totalProducts:
+ *                           type: integer
+ *                           example: 150
+ *                         totalPages:
+ *                           type: integer
+ *                           example: 15
+ *                         currentPage:
+ *                           type: integer
+ *                           example: 1
+ *   post:
+ *     summary: Create new product (Admin only)
+ *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - description
+ *               - category
+ *               - price
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Eco Bamboo Water Bottle
+ *               description:
+ *                 type: string
+ *                 example: Sustainable bamboo water bottle with leak-proof design
+ *               shortDescription:
+ *                 type: string
+ *                 example: Eco-friendly bamboo water bottle
+ *               category:
+ *                 type: string
+ *                 example: kitchen
+ *               price:
+ *                 type: number
+ *                 example: 25.99
+ *               discount:
+ *                 type: number
+ *                 example: 10
+ *               stock:
+ *                 type: number
+ *                 example: 100
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *               thumbnail:
+ *                 type: string
+ *                 format: binary
+ *               cover:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         description: Product created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/Product'
+ *       403:
+ *         description: Admin access required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+// Route: GET /v1/products - Get products with filtering, pagination
+Router.route('/')
+  .get(productController.getMany)
+  .post(authMiddleware.isAuthorized, authMiddleware.isAdmin, multerUploadMiddleware.uploadAny(), productValidation.createNew, productController.createNew)
+
+/**
+ * @swagger
+ * /v1/products/featured:
+ *   get:
+ *     summary: Get featured products
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Featured products retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/Product'
+ */
+// Route: GET /v1/products/featured - Get featured products
+Router.route('/featured')
+  .get(productController.getFeatured)
+
+/**
+ * @swagger
+ * /v1/products/stats:
+ *   get:
+ *     summary: Get product statistics (Admin only)
+ *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Product statistics retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         totalProducts:
+ *                           type: integer
+ *                           example: 150
+ *                         categories:
+ *                           type: object
+ *                           example: { "kitchen": 45, "home": 30, "outdoor": 25 }
+ */
+// Route: GET /v1/products/stats - Get product statistics
+Router.route('/stats')
+  .get(authMiddleware.isAuthorized, authMiddleware.isAdmin, productController.getStats)
+
+/**
+ * @swagger
+ * /v1/products/my-products:
+ *   get:
+ *     summary: Get products created by current admin
+ *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Admin products retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/Product'
+ */
+// Route: GET /v1/products/my-products - Get products created by current user (admin)
+Router.route('/my-products')
+  .get(authMiddleware.isAuthorized, authMiddleware.isAdmin, productController.getMyProducts)
+
+/**
+ * @swagger
+ * /v1/products/categories:
+ *   get:
+ *     summary: Get product categories
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Product categories retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                       example: ["kitchen", "home", "outdoor", "personal-care", "food"]
+ */
+// Route: GET /v1/products/categories - Get product categories
+Router.route('/categories')
+  .get(productController.getCategories)
+
+/**
+ * @swagger
+ * /v1/products/search:
+ *   get:
+ *     summary: Search products
+ *     tags: [Products]
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Search query
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of results per page
+ *     responses:
+ *       200:
+ *         description: Search results retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         products:
+ *                           type: array
+ *                           items:
+ *                             $ref: '#/components/schemas/Product'
+ *                         totalProducts:
+ *                           type: integer
+ *                         totalPages:
+ *                           type: integer
+ *                         currentPage:
+ *                           type: integer
+ *                         searchQuery:
+ *                           type: string
+ */
+// Route: GET /v1/products/search - Search products
+Router.route('/search')
+  .get(productController.searchProducts)
+
+/**
+ * @swagger
+ * /v1/products/{id}:
+ *   get:
+ *     summary: Get product details by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Product ID
+ *     responses:
+ *       200:
+ *         description: Product details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Product not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *   put:
+ *     summary: Update product (Admin only)
+ *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Product ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               discount:
+ *                 type: number
+ *               stock:
+ *                 type: number
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/Product'
+ *   delete:
+ *     summary: Delete product (Admin only)
+ *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Product ID
+ *     responses:
+ *       200:
+ *         description: Product deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ */
+// Route: GET, PUT, DELETE /v1/products/:id
+Router.route('/:id')
+  .get(productController.getDetails)
+  .put(authMiddleware.isAuthorized, authMiddleware.isAdmin, multerUploadMiddleware.uploadAny(), productValidation.update, productController.update)
+  .delete(authMiddleware.isAuthorized, authMiddleware.isAdmin, productController.deleteItem)
+
+/**
+ * @swagger
+ * /v1/products/{id}/stock:
+ *   put:
+ *     summary: Update product stock (Admin only)
+ *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Product ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - stock
+ *             properties:
+ *               stock:
+ *                 type: number
+ *                 minimum: 0
+ *                 example: 50
+ *     responses:
+ *       200:
+ *         description: Product stock updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/Product'
+ */
+// Route: PUT /v1/products/:id/stock - Update product stock (admin only)
+Router.route('/:id/stock')
+  .put(authMiddleware.isAuthorized, authMiddleware.isAdmin, productValidation.updateStock, productController.updateStock)
+
+export const productRoute = Router
+import express from 'express'
+import { userValidation } from '~/validations/userValidation'
+import { userController } from '~/controllers/userController'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { multerUploadMiddleware } from '~/middlewares/multerUploadMiddleware'
+
+const Router = express.Router()
+
+/**
+ * @swagger
+ * tags:
+ *   name: Authentication
+ *   description: User authentication and account management endpoints
+ */
+
+/**
+ * @swagger
+ * /v1/users/register:
+ *   post:
+ *     summary: Register a new user account
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *               - displayName
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@covezi.org
+ *               password:
+ *                 type: string
+ *                 minLength: 8
+ *                 example: SecurePass123!
+ *               displayName:
+ *                 type: string
+ *                 example: Eco User
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+Router.route('/register')
+  .post(userValidation.createNew, userController.createNew)
+
+/**
+ * @swagger
+ * /v1/users/verify:
+ *   put:
+ *     summary: Verify user account with email token
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - token
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@covezi.org
+ *               token:
+ *                 type: string
+ *                 example: verification-token-123
+ *     responses:
+ *       200:
+ *         description: Account verified successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       400:
+ *         description: Invalid token or email
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+Router.route('/verify')
+  .put(userValidation.verifyAccount, userController.verifyAccount)
+
+/**
+ * @swagger
+ * /v1/users/verify-pin:
+ *   put:
+ *     summary: Verify account with PIN code
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - pin
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@covezi.org
+ *               pin:
+ *                 type: string
+ *                 example: "123456"
+ *     responses:
+ *       200:
+ *         description: PIN verified successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       400:
+ *         description: Invalid PIN or email
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+Router.route('/verify-pin')
+  .put(userValidation.verifyPIN, userController.verifyPIN)
+
+/**
+ * @swagger
+ * /v1/users/login:
+ *   post:
+ *     summary: Login with email and password
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@covezi.org
+ *               password:
+ *                 type: string
+ *                 example: SecurePass123!
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         user:
+ *                           $ref: '#/components/schemas/User'
+ *                         accessToken:
+ *                           type: string
+ *                           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *         headers:
+ *           Set-Cookie:
+ *             description: HTTP-only cookie with JWT token
+ *             schema:
+ *               type: string
+ *               example: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...; HttpOnly; Secure; SameSite=None
+ *       401:
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+Router.route('/login')
+  .post(userValidation.login, userController.login)
+
+/**
+ * @swagger
+ * /v1/users/logout:
+ *   delete:
+ *     summary: Logout user (clear authentication cookies)
+ *     tags: [Authentication]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *         headers:
+ *           Set-Cookie:
+ *             description: Cleared authentication cookies
+ *             schema:
+ *               type: string
+ *               example: accessToken=; HttpOnly; Secure; SameSite=None; Max-Age=0
+ */
+Router.route('/logout')
+  .delete(userController.logout)
+
+/**
+ * @swagger
+ * /v1/users/refresh_token:
+ *   get:
+ *     summary: Refresh access token
+ *     tags: [Authentication]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Token refreshed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       type: object
+ *                       properties:
+ *                         accessToken:
+ *                           type: string
+ *                           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *       401:
+ *         description: Invalid or expired refresh token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+Router.route('/refresh_token')
+  .get(userController.refreshToken)
+
+/**
+ * @swagger
+ * /v1/users/update:
+ *   put:
+ *     summary: Update user profile
+ *     tags: [Authentication]
+ *     security:
+ *       - cookieAuth: []
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               displayName:
+ *                 type: string
+ *                 example: Updated Display Name
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *                 description: Profile avatar image (jpg, png, gif)
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               displayName:
+ *                 type: string
+ *                 example: Updated Display Name
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               allOf:
+ *                 - $ref: '#/components/schemas/SuccessResponse'
+ *                 - type: object
+ *                   properties:
+ *                     data:
+ *                       $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+Router.route('/update')
+  .put(
+    authMiddleware.isAuthorized,
+    multerUploadMiddleware.upload.single('avatar'),
+    userValidation.update,
+    userController.update)
+
+export const userRoute = Router
+/**
+ * @swagger
+ * tags:
+ *   - name: Vouchers
+ *     description: 🎁 Voucher rewards, level milestones, and discount management
+ */
+
+import express from 'express'
+import { voucherController } from '~/controllers/voucherController'
+import { authMiddleware } from '~/middlewares/authMiddleware'
+import { voucherValidation } from '~/validations/voucherValidation'
+import multer from 'multer'
+
+const Router = express.Router()
+const multerUpload = multer()
+
+/**
+ * @swagger
+ * /v1/vouchers:
+ *   get:
+ *     tags: [Vouchers]
+ *     summary: 📋 Get all user's vouchers
+ *     description: Retrieve complete voucher history including used, expired, and active vouchers for authenticated user
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ User vouchers retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       voucherType:
+ *                         type: string
+ *                         enum: [discount_percentage, discount_fixed, free_shipping]
+ *                       value:
+ *                         type: number
+ *                       requiredLevel:
+ *                         type: number
+ *                       status:
+ *                         type: string
+ *                         enum: [active, used, expired, pending]
+ *                       expiresAt:
+ *                         type: number
+ *                       usedAt:
+ *                         type: number
+ *                       createdAt:
+ *                         type: number
+ *                 summary:
+ *                   type: object
+ *                   properties:
+ *                     total:
+ *                       type: number
+ *                     active:
+ *                       type: number
+ *                     used:
+ *                       type: number
+ *                     expired:
+ *                       type: number
+ *             example:
+ *               success: true
+ *               data:
+ *                 - _id: "674f1234567890abcdef1234"
+ *                   voucherType: "discount_percentage"
+ *                   value: 10
+ *                   requiredLevel: 5
+ *                   status: "active"
+ *                   expiresAt: 1735689600000
+ *                   createdAt: 1733097600000
+ *               summary:
+ *                 total: 12
+ *                 active: 3
+ *                 used: 7
+ *                 expired: 2
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+Router.route('/')
+  .get(authMiddleware.isAuthorized, voucherController.getUserVouchers)
+
+/**
+ * @swagger
+ * /v1/vouchers/active:
+ *   get:
+ *     tags: [Vouchers]
+ *     summary: ✨ Get active vouchers
+ *     description: Get only active (unused & non-expired) vouchers for current user
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ Active vouchers retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       voucherType:
+ *                         type: string
+ *                       value:
+ *                         type: number
+ *                       minOrderValue:
+ *                         type: number
+ *                       maxDiscountAmount:
+ *                         type: number
+ *                       expiresAt:
+ *                         type: number
+ *                       timeUntilExpiry:
+ *                         type: string
+ *             example:
+ *               success: true
+ *               data:
+ *                 - _id: "674f1234567890abcdef1234"
+ *                   voucherType: "discount_percentage"
+ *                   value: 15
+ *                   minOrderValue: 100000
+ *                   maxDiscountAmount: 50000
+ *                   expiresAt: 1735689600000
+ *                   timeUntilExpiry: "5 days remaining"
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+Router.route('/active')
+  .get(authMiddleware.isAuthorized, voucherController.getActiveVouchers)
+
+/**
+ * @swagger
+ * /v1/vouchers/{voucherId}/use:
+ *   post:
+ *     tags: [Vouchers]
+ *     summary: 🎫 Request to use voucher
+ *     description: Submit voucher usage request with order details. Requires admin approval.
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: voucherId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Voucher ID to use
+ *         example: "674f1234567890abcdef1234"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - orderId
+ *               - orderValue
+ *             properties:
+ *               orderId:
+ *                 type: string
+ *                 description: Order ID to apply voucher
+ *                 example: "674f9876543210fedcba9876"
+ *               orderValue:
+ *                 type: number
+ *                 description: Total order value in VND
+ *                 example: 500000
+ *               note:
+ *                 type: string
+ *                 description: Optional usage note
+ *                 example: "Using for eco-product purchase"
+ *     responses:
+ *       200:
+ *         description: ✅ Voucher usage request submitted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Voucher usage request submitted. Awaiting admin approval."
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     requestId:
+ *                       type: string
+ *                     status:
+ *                       type: string
+ *                       example: "pending"
+ *                     expectedDiscount:
+ *                       type: number
+ *       400:
+ *         $ref: '#/components/responses/BadRequest'
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ *       404:
+ *         description: ❌ Voucher not found or expired
+ */
+Router.route('/:voucherId/use')
+  .post(authMiddleware.isAuthorized, voucherValidation.requestUse, voucherController.requestVoucherUsage)
+
+/**
+ * @swagger
+ * /v1/vouchers/{voucherId}/share:
+ *   post:
+ *     tags: [Vouchers]
+ *     summary: 📱 Share voucher to social media
+ *     description: Share voucher achievement to social platforms (Facebook, Instagram, etc.) for bonus XP
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: voucherId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - platform
+ *             properties:
+ *               platform:
+ *                 type: string
+ *                 enum: [facebook, instagram, twitter, linkedin]
+ *                 example: "facebook"
+ *               caption:
+ *                 type: string
+ *                 example: "Just earned a new eco-voucher on Covezi! 🌳🎁"
+ *     responses:
+ *       200:
+ *         description: ✅ Voucher shared successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Voucher shared successfully! +10 XP bonus earned."
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpBonus:
+ *                       type: number
+ *                       example: 10
+ *                     shareUrl:
+ *                       type: string
+ *       401:
+ *         description: ? Authentication required
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 success:
+                   type: boolean
+                   example: false
+                 message:
+                   type: string
+                   example: "Authentication required. Please login."
+ */
+Router.route('/:voucherId/share')
+  .post(authMiddleware.isAuthorized, voucherController.shareVoucher)
+
+// POST /v1/vouchers/:voucherId/proof - Submit proof of voucher usage (screenshot)
+Router.route('/:voucherId/proof')
+  .post(authMiddleware.isAuthorized, multerUpload.single('proof'), voucherController.submitVoucherProof)
+
+// GET /v1/vouchers/:voucherId - Get voucher details
+Router.route('/:voucherId')
+  .get(authMiddleware.isAuthorized, voucherController.getVoucherDetails)
+
+// GET /v1/vouchers/stats/summary - Get voucher stats for current user
+Router.route('/stats/summary')
+  .get(authMiddleware.isAuthorized, voucherController.getVoucherStats)
+
+// Admin Voucher Routes
+// GET /v1/admin/vouchers/pending - Get pending voucher requests (admin only)
+Router.route('/admin/pending')
+  .get(authMiddleware.isAuthorized, authMiddleware.isAdmin, voucherController.getPendingRequests)
+
+// POST /v1/admin/vouchers/:voucherId/confirm - Confirm voucher usage (admin only)
+Router.route('/admin/:voucherId/confirm')
+  .post(authMiddleware.isAuthorized, authMiddleware.isAdmin, voucherValidation.confirmUsage, voucherController.confirmVoucherUsage)
+
+// POST /v1/admin/vouchers/:voucherId/reject - Reject voucher usage (admin only)
+Router.route('/admin/:voucherId/reject')
+  .post(authMiddleware.isAuthorized, authMiddleware.isAdmin, voucherController.rejectVoucherUsage)
+
+export const voucherRoute = Router

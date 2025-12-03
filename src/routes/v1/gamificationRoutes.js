@@ -97,7 +97,18 @@ const router = Router()
  *                   available: 3
  *                   totalEarned: 15
  *       401:
- *         $ref: '#/components/responses/Unauthorized'
+ *         description: ❌ Authentication required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Authentication required. Please login."
  */
 router.get('/user-garden', authMiddleware.isAuthorized, GamificationController.getUserGarden)
 
