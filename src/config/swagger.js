@@ -1,8 +1,13 @@
 import swaggerJsdoc from 'swagger-jsdoc'
-import swaggerUi from 'swagger-ui-express'
 import { env } from '~/config/environment'
 
-const options = {
+/**
+ * Comprehensive Swagger configuration for Covezi API
+ * Features: JWT cookie auth, complete route documentation, test interfaces
+ * Design: Green/purple/red/orange theme with Covezi branding
+ */
+
+const specs = {
   definition: {
     openapi: '3.0.0',
     info: {
@@ -394,563 +399,363 @@ const options = {
           }
         }
       }
-    },
-    components: {
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
-          description: 'Enter your JWT token'
-        },
-        cookieAuth: {
-          type: 'apiKey',
-          in: 'cookie',
-          name: 'accessToken',
-          description: 'JWT token stored in HTTP-only cookie (auto-sent by browser)'
-        }
-      },
-      schemas: {
-        User: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            email: { type: 'string', format: 'email', example: 'user@covezi.org' },
-            username: { type: 'string', example: 'ecouser' },
-            displayName: { type: 'string', example: 'Eco User' },
-            avatar: { type: 'string', nullable: true, example: 'https://res.cloudinary.com/covezi/image/upload/avatar.jpg' },
-            role: { type: 'string', enum: ['client', 'admin'], default: 'client' },
-            isActive: { type: 'boolean', default: false },
-            createdAt: { type: 'number', example: 1701532800000 },
-            updatedAt: { type: 'number', nullable: true }
-          }
-        },
-        Product: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            name: { type: 'string', example: 'Eco Bamboo Water Bottle' },
-            description: { type: 'string', example: 'Sustainable bamboo water bottle with leak-proof design' },
-            shortDescription: { type: 'string', example: 'Eco-friendly bamboo water bottle' },
-            category: { type: 'string', example: 'kitchen' },
-            price: { type: 'number', example: 25.99 },
-            discount: { type: 'number', example: 10 },
-            images: { type: 'array', items: { type: 'string' } },
-            thumbnail: { type: 'string', example: 'https://res.cloudinary.com/covezi/image/upload/thumb.jpg' },
-            cover: { type: 'string', example: '/assets/Covezi-Product.png' },
-            links: {
-              type: 'object',
-              properties: {
-                shopee: { type: 'string', example: 'https://shopee.vn/product/123' },
-                tiktok: { type: 'string', example: 'https://shop.tiktok.com/product/123' },
-                facebook: { type: 'string', example: 'https://facebook.com/marketplace/123' }
-              }
-            },
-            stock: { type: 'number', example: 100 },
-            status: { type: 'string', enum: ['active', 'inactive', 'out_of_stock'], default: 'active' },
-            sold: { type: 'number', example: 25 },
-            views: { type: 'number', example: 150 },
-            rating: { type: 'number', minimum: 0, maximum: 5, example: 4.5 },
-            reviewCount: { type: 'number', example: 12 },
-            featured: { type: 'boolean', default: false },
-            createdBy: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            createdAt: { type: 'number', example: 1701532800000 },
-            updatedAt: { type: 'number', nullable: true }
-          }
-        },
-        Challenge: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            title: { type: 'string', example: 'Plant 5 Trees Challenge' },
-            description: { type: 'string', example: 'Plant 5 trees in your local area and share photos' },
-            type: { type: 'string', enum: ['ECO_ACTION', 'AWARENESS', 'COMMUNITY'], default: 'ECO_ACTION' },
-            tags: { type: 'array', items: { type: 'string' }, example: ['planting', 'environment', 'trees'] },
-            durationDays: { type: 'number', example: 7 },
-            status: { type: 'string', enum: ['ACTIVE', 'EXPIRED', 'DRAFT'], default: 'ACTIVE' },
-            startDate: { type: 'number', example: 1701532800000 },
-            endDate: { type: 'number', example: 1702137600000 },
-            likeCount: { type: 'number', example: 45 },
-            commentCount: { type: 'number', example: 12 },
-            participantCount: { type: 'number', example: 8 },
-            image: { type: 'string', example: 'https://res.cloudinary.com/covezi/image/upload/challenge.jpg' },
-            createdBy: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            creatorDisplayName: { type: 'string', example: 'Eco Warrior' },
-            isTrending: { type: 'boolean', default: false },
-            isOfficial: { type: 'boolean', default: false },
-            featured: { type: 'boolean', default: false }
-          }
-        },
-        UserGarden: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            userId: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            level: { type: 'number', example: 15 },
-            currentXp: { type: 'number', example: 750 },
-            nextLevelXp: { type: 'number', example: 800 },
-            treeStage: { type: 'number', example: 3 },
-            treeCustomization: {
-              type: 'object',
-              properties: {
-                name: { type: 'string', example: 'My Eco Tree' },
-                treeType: { type: 'string', example: 'oak' },
-                color: { type: 'string', example: '#4CAF50' },
-                potType: { type: 'string', example: 'ceramic' },
-                potColor: { type: 'string', example: '#D7CCC8' },
-                effects: { type: 'string', example: 'sparkle' }
-              }
-            }
-          }
-        },
-        Voucher: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            code: { type: 'string', example: 'ECO20231201' },
-            userId: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            levelEarned: { type: 'number', example: 20 },
-            discountPercent: { type: 'number', example: 20 },
-            status: { type: 'string', enum: ['active', 'used', 'expired'], default: 'active' },
-            issuedAt: { type: 'number', example: 1701532800000 },
-            expiresAt: { type: 'number', example: 1717084800000 }
-          }
-        },
-        ChatSession: {
-          type: 'object',
-          properties: {
-            _id: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            userId: { type: 'string', example: '507f1f77bcf86cd799439011' },
-            title: { type: 'string', example: 'Eco Products Chat' },
-            createdAt: { type: 'number', example: 1701532800000 },
-            updatedAt: { type: 'number', example: 1701532800000 }
-          }
-        },
-        Error: {
-          type: 'object',
-          properties: {
-            message: { type: 'string', example: 'Error message' },
-            statusCode: { type: 'number', example: 400 },
-            stack: { type: 'string', example: 'Error stack trace (dev only)' }
-          }
-        },
-        SuccessResponse: {
-          type: 'object',
-          properties: {
-            message: { type: 'string', example: 'Operation successful' },
-            data: { type: 'object', example: {} },
-            statusCode: { type: 'number', example: 200 }
-          }
-        }
-      }
-    },
-    security: [
-      {
-        cookieAuth: []
-      },
-      {
-        bearerAuth: []
-      }
-    ]
+    }
   },
   apis: [
-    './src/routes/*.js',
-    './src/controllers/*.js'
+    './src/routes/v1/*.js'
   ]
 }
 
-const specs = swaggerJsdoc(options)
+const swaggerSpec = swaggerJsdoc(specs)
 
-export const setupSwagger = (app) => {
-  // Serve swagger docs at /api-docs
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
-    explorer: true,
-    swaggerOptions: {
-      docExpansion: 'list',
-      filter: true,
-      showRequestHeaders: false,
-      defaultModelsExpandDepth: 1,
-      defaultModelExpandDepth: 1,
-      tagsSorter: 'alpha',
-      operationsSorter: 'alpha'
-    },
-    customCss: `
-      /* Hide default topbar */
-      .swagger-ui .topbar { display: none !important; }
-      
-      /* Main container styling with background */
+// Enhanced UI customization with Cover_Covezi background and colorful theme
+export const swaggerUIOptions = {
+  customCssUrl: null,
+  customCss: `
+    /* === GLOBAL RESET & SETUP === */
+    * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif !important;
+    }
+    
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 25%, #2d8659 50%, #0f4c3a 100%);
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    /* Background Image - Cover_Covezi */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJjb3ZlemktcGF0dGVybiIgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBvcGFjaXR5PSIwLjA1Ij4KICAgICAgPGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMyIgZmlsbD0iIzRhOWY3YyIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2NvdmV6aS1wYXR0ZXJuKSIvPgo8L3N2Zz4K');
+      background-size: 100px 100px;
+      opacity: 0.3;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* === MAIN CONTAINER === */
+    .swagger-ui {
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 20px !important;
+      background: transparent !important;
+      color: #ffffff !important;
+    }
+    
+    /* === HEADER SECTION === */
+    .swagger-ui .info {
+      background: linear-gradient(135deg, rgba(15, 76, 58, 0.95), rgba(45, 134, 89, 0.9));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(74, 159, 124, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .swagger-ui .info::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(74, 159, 124, 0.1), transparent);
+      animation: shimmer 3s infinite linear;
+      pointer-events: none;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+    }
+    
+    .swagger-ui .info .title {
+      color: #ffffff !important;
+      font-size: 3.5rem !important;
+      font-weight: 800 !important;
+      text-align: center;
+      margin-bottom: 20px !important;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(45deg, #4af27c, #2d8659, #66d9a3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .swagger-ui .info .description {
+      color: #e8f5e8 !important;
+      font-size: 1.1rem !important;
+      line-height: 1.8 !important;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(74, 159, 124, 0.2);
+    }
+
+    /* === SERVERS DROPDOWN === */
+    .swagger-ui .servers {
+      background: linear-gradient(135deg, rgba(102, 51, 153, 0.9), rgba(138, 43, 226, 0.8));
+      border-radius: 15px !important;
+      padding: 20px !important;
+      margin: 20px 0 !important;
+      border: 2px solid rgba(138, 43, 226, 0.3) !important;
+      box-shadow: 0 10px 30px rgba(102, 51, 153, 0.3);
+    }
+    
+    .swagger-ui .servers label {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    /* === TAG SECTIONS - COLOR CODED === */
+    .swagger-ui .opblock-tag-section {
+      margin: 30px 0 !important;
+    }
+    
+    /* Authentication - Purple */
+    .swagger-ui .opblock-tag[data-tag="Authentication"] {
+      background: linear-gradient(135deg, #6633cc, #8a2be2) !important;
+      color: #ffffff !important;
+      border-radius: 15px 15px 0 0 !important;
+      padding: 20px !important;
+      font-size: 1.4rem !important;
+      font-weight: 700 !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 20px rgba(102, 51, 204, 0.4);
+    }
+    
+    /* Products - Red/Orange */
+    .swagger-ui .opblock-tag[data-tag="Products"] {
+      background: linear-gradient(135deg, #dc3545, #ff6b35) !important;
+      color: #ffffff !important;
+      border-radius: 15px 15px 0 0 !important;
+      padding: 20px !important;
+      font-size: 1.4rem !important;
+      font-weight: 700 !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
+    }
+    
+    /* Challenges - Green */
+    .swagger-ui .opblock-tag[data-tag="Challenges"] {
+      background: linear-gradient(135deg, #28a745, #4af27c) !important;
+      color: #ffffff !important;
+      border-radius: 15px 15px 0 0 !important;
+      padding: 20px !important;
+      font-size: 1.4rem !important;
+      font-weight: 700 !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+    }
+    
+    /* Chat - Blue */
+    .swagger-ui .opblock-tag[data-tag="Chat"] {
+      background: linear-gradient(135deg, #007bff, #40a9ff) !important;
+      color: #ffffff !important;
+      border-radius: 15px 15px 0 0 !important;
+      padding: 20px !important;
+      font-size: 1.4rem !important;
+      font-weight: 700 !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
+    }
+    
+    /* Garden - Orange */
+    .swagger-ui .opblock-tag[data-tag="Garden"] {
+      background: linear-gradient(135deg, #fd7e14, #ffb347) !important;
+      color: #ffffff !important;
+      border-radius: 15px 15px 0 0 !important;
+      padding: 20px !important;
+      font-size: 1.4rem !important;
+      font-weight: 700 !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 20px rgba(253, 126, 20, 0.4);
+    }
+
+    /* === OPERATION BLOCKS === */
+    .swagger-ui .opblock {
+      margin: 15px 0 !important;
+      border-radius: 15px !important;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(74, 159, 124, 0.2) !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+    
+    .swagger-ui .opblock:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+    
+    .swagger-ui .opblock-summary {
+      padding: 20px !important;
+      background: rgba(245, 250, 245, 0.9) !important;
+      border-bottom: 1px solid rgba(74, 159, 124, 0.1);
+    }
+    
+    .swagger-ui .opblock-summary-method {
+      border-radius: 8px !important;
+      padding: 8px 15px !important;
+      font-weight: 600 !important;
+      font-size: 0.9rem !important;
+      text-transform: uppercase !important;
+    }
+
+    /* === RESPONSE SECTIONS === */
+    .swagger-ui .responses-wrapper {
+      background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(74, 159, 124, 0.1)) !important;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid rgba(74, 159, 124, 0.2);
+    }
+
+    /* === SEARCH & FILTER IMPROVEMENTS === */
+    .swagger-ui .filter-container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 250, 245, 0.9));
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      border: 2px solid rgba(74, 159, 124, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .swagger-ui .filter .operation-filter-input {
+      border: 2px solid #4a9f7c !important;
+      border-radius: 10px !important;
+      padding: 12px 20px !important;
+      font-size: 1rem !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      color: #0f4c3a !important;
+      transition: all 0.3s ease;
+    }
+    
+    .swagger-ui .filter .operation-filter-input:focus {
+      border-color: #28a745 !important;
+      box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2) !important;
+      transform: scale(1.02);
+    }
+
+    /* === INTERACTIVE ELEMENTS === */
+    .swagger-ui .btn {
+      border-radius: 10px !important;
+      padding: 12px 25px !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      transition: all 0.3s ease !important;
+      backdrop-filter: blur(5px);
+    }
+    
+    .swagger-ui .btn.execute {
+      background: linear-gradient(135deg, #28a745, #4af27c) !important;
+      border: none !important;
+      color: #ffffff !important;
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    }
+    
+    .swagger-ui .btn.execute:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+    }
+
+    /* === SCROLLBARS === */
+    .swagger-ui ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    
+    .swagger-ui ::-webkit-scrollbar-track {
+      background: rgba(74, 159, 124, 0.1);
+      border-radius: 6px;
+    }
+    
+    .swagger-ui ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #4a9f7c, #2d8659);
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .swagger-ui ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #28a745, #4af27c);
+    }
+
+    /* === MOBILE RESPONSIVE === */
+    @media (max-width: 768px) {
       .swagger-ui {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, rgba(156, 39, 176, 0.05) 50%, rgba(255, 152, 0, 0.05) 100%);
-        min-height: 100vh;
-        position: relative;
+        padding: 10px !important;
       }
       
-      /* Background image */
-      .swagger-ui::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('https://website-covezi-frontend.vercel.app/assets/Cover_Covezi.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0.03;
-        z-index: -1;
-      }
-      
-      /* Custom header */
       .swagger-ui .info {
-        margin: 0;
-        padding: 30px;
-        background: linear-gradient(135deg, #4CAF50 0%, #81C784 50%, #A5D6A7 100%);
-        border-radius: 15px 15px 0 0;
-        box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .swagger-ui .info::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-        border-radius: 50%;
+        padding: 20px !important;
       }
       
       .swagger-ui .info .title {
-        color: #fff !important;
-        font-size: 2.5em !important;
-        font-weight: 700 !important;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        margin-bottom: 15px !important;
-        position: relative;
-        z-index: 1;
+        font-size: 2.5rem !important;
       }
       
-      .swagger-ui .info .description {
-        color: #f1f8e9 !important;
-        font-size: 1.1em !important;
-        line-height: 1.6 !important;
-        position: relative;
-        z-index: 1;
-        background: rgba(255,255,255,0.1);
-        padding: 20px;
-        border-radius: 10px;
-        backdrop-filter: blur(5px);
-      }
-      
-      /* Main wrapper */
-      .swagger-ui .wrapper {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        overflow: hidden;
-      }
-      
-      /* Filter/Search styling */
-      .swagger-ui .filter-container {
-        padding: 20px;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
-        border-bottom: 2px solid #4CAF50;
-      }
-      
-      .swagger-ui .filter input[type=text] {
-        border: 2px solid #4CAF50 !important;
-        border-radius: 25px !important;
-        padding: 12px 20px !important;
-        font-size: 16px !important;
-        width: 100% !important;
-        max-width: 400px !important;
-        background: #fff !important;
-        color: #2e7d32 !important;
-        box-shadow: 0 2px 10px rgba(76, 175, 80, 0.2) !important;
-        transition: all 0.3s ease !important;
-      }
-      
-      .swagger-ui .filter input[type=text]:focus {
-        outline: none !important;
-        border-color: #9c27b0 !important;
-        box-shadow: 0 4px 20px rgba(156, 39, 176, 0.3) !important;
-        transform: translateY(-2px);
-      }
-      
-      .swagger-ui .filter input[type=text]::placeholder {
-        color: #81c784 !important;
-      }
-      
-      /* Tag sections styling */
-      .swagger-ui .opblock-tag {
-        background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%) !important;
-        color: #fff !important;
-        padding: 15px 25px !important;
-        border-radius: 12px !important;
-        margin: 15px 0 !important;
-        border: none !important;
-        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important;
-        font-weight: 600 !important;
-        font-size: 1.3em !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
-        position: relative !important;
-        overflow: hidden !important;
-      }
-      
-      .swagger-ui .opblock-tag::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s;
-      }
-      
-      .swagger-ui .opblock-tag:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4) !important;
-        background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%) !important;
-      }
-      
-      .swagger-ui .opblock-tag:hover::before {
-        left: 100%;
-      }
-      
-      /* Different colors for different tag sections */
-      .swagger-ui .opblock-tag[data-tag="Authentication"] {
-        background: linear-gradient(135deg, #9C27B0 0%, #BA68C8 100%) !important;
-        box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Authentication"]:hover {
-        background: linear-gradient(135deg, #BA68C8 0%, #9C27B0 100%) !important;
-        box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Products"] {
-        background: linear-gradient(135deg, #FF5722 0%, #FF7043 100%) !important;
-        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Products"]:hover {
-        background: linear-gradient(135deg, #FF7043 0%, #FF5722 100%) !important;
-        box-shadow: 0 8px 25px rgba(255, 87, 34, 0.4) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Challenges"] {
-        background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%) !important;
-        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Chat"] {
-        background: linear-gradient(135deg, #2196F3 0%, #42A5F5 100%) !important;
-        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Chat"]:hover {
-        background: linear-gradient(135deg, #42A5F5 0%, #2196F3 100%) !important;
-        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Garden"] {
-        background: linear-gradient(135deg, #FF9800 0%, #FFB74D 100%) !important;
-        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3) !important;
-      }
-      
-      .swagger-ui .opblock-tag[data-tag="Garden"]:hover {
-        background: linear-gradient(135deg, #FFB74D 0%, #FF9800 100%) !important;
-        box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4) !important;
-      }
-      
-      /* Individual operation blocks */
       .swagger-ui .opblock {
-        border-radius: 10px !important;
-        margin: 10px 0 !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-        overflow: hidden !important;
-        transition: all 0.3s ease !important;
-      }
-      
-      .swagger-ui .opblock:hover {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
-        transform: translateY(-2px) !important;
-      }
-      
-      /* HTTP Method colors */
-      .swagger-ui .opblock.opblock-post {
-        border-left: 5px solid #4CAF50 !important;
-      }
-      
-      .swagger-ui .opblock.opblock-get {
-        border-left: 5px solid #2196F3 !important;
-      }
-      
-      .swagger-ui .opblock.opblock-put {
-        border-left: 5px solid #FF9800 !important;
-      }
-      
-      .swagger-ui .opblock.opblock-delete {
-        border-left: 5px solid #F44336 !important;
-      }
-      
-      /* Scheme container */
-      .swagger-ui .scheme-container {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%) !important;
-        border: 2px solid #4CAF50 !important;
-        border-radius: 15px !important;
-        padding: 20px !important;
-        margin: 20px 0 !important;
-        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2) !important;
-      }
-      
-      /* Authorization button */
-      .swagger-ui .btn.authorize {
-        background: linear-gradient(135deg, #9C27B0 0%, #BA68C8 100%) !important;
-        border: none !important;
-        border-radius: 25px !important;
-        padding: 12px 25px !important;
-        color: #fff !important;
-        font-weight: 600 !important;
-        box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3) !important;
-        transition: all 0.3s ease !important;
-      }
-      
-      .swagger-ui .btn.authorize:hover {
-        background: linear-gradient(135deg, #BA68C8 0%, #9C27B0 100%) !important;
-        box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4) !important;
-        transform: translateY(-2px) !important;
-      }
-      
-      /* Try it out buttons */
-      .swagger-ui .btn.try-out__btn {
-        background: linear-gradient(135deg, #FF5722 0%, #FF7043 100%) !important;
-        border: none !important;
-        border-radius: 20px !important;
-        color: #fff !important;
-        padding: 8px 20px !important;
-        font-weight: 500 !important;
-        transition: all 0.3s ease !important;
-      }
-      
-      .swagger-ui .btn.try-out__btn:hover {
-        background: linear-gradient(135deg, #FF7043 0%, #FF5722 100%) !important;
-        transform: translateY(-1px) !important;
-        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3) !important;
-      }
-      
-      /* Execute button */
-      .swagger-ui .btn.execute {
-        background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%) !important;
-        border: none !important;
-        border-radius: 25px !important;
-        color: #fff !important;
-        padding: 12px 30px !important;
-        font-weight: 600 !important;
-        font-size: 16px !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important;
-      }
-      
-      .swagger-ui .btn.execute:hover {
-        background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4) !important;
-      }
-      
-      /* Parameter tables */
-      .swagger-ui table {
-        border-radius: 10px !important;
-        overflow: hidden !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-      }
-      
-      .swagger-ui .parameters-container {
-        background: #f8f9fa !important;
-        border-radius: 10px !important;
-        padding: 15px !important;
         margin: 10px 0 !important;
       }
-      
-      /* Response section */
-      .swagger-ui .responses-wrapper {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%) !important;
-        border-radius: 10px !important;
-        padding: 15px !important;
-        margin: 15px 0 !important;
-        border-left: 4px solid #4CAF50 !important;
-      }
-      
-      /* Custom scrollbar */
-      .swagger-ui ::-webkit-scrollbar {
-        width: 12px;
-      }
-      
-      .swagger-ui ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-      }
-      
-      .swagger-ui ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
-        border-radius: 10px;
-      }
-      
-      .swagger-ui ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
-      }
-      
-      /* Model section */
-      .swagger-ui .model-container {
-        background: linear-gradient(135deg, #fafafa 0%, #f0f4f0 100%) !important;
-        border-radius: 10px !important;
-        border: 1px solid #e0e0e0 !important;
-        margin: 10px 0 !important;
-      }
-      
-      /* Responsive design */
-      @media (max-width: 768px) {
-        .swagger-ui .wrapper {
-          padding: 0 10px;
-          margin: 10px;
-        }
-        
-        .swagger-ui .info {
-          padding: 20px;
-        }
-        
-        .swagger-ui .info .title {
-          font-size: 2em !important;
-        }
-        
-        .swagger-ui .filter input[type=text] {
-          max-width: 100% !important;
-        }
-      }
-    `,
-    customSiteTitle: 'Covezi API Documentation | Eco-Commerce Platform',
-    customfavIcon: 'https://website-covezi-frontend.vercel.app/favicon.ico'
-  }))
+    }
 
-  // JSON endpoint for the swagger spec
-  app.get('/api-docs.json', (req, res) => {
+    /* === ACCESSIBILITY IMPROVEMENTS === */
+    .swagger-ui .opblock-summary:focus {
+      outline: 3px solid rgba(40, 167, 69, 0.5) !important;
+      outline-offset: 2px;
+    }
+    
+    .swagger-ui .btn:focus {
+      outline: 3px solid rgba(40, 167, 69, 0.5) !important;
+      outline-offset: 2px;
+    }
+  `,
+  customSiteTitle: 'Covezi API Documentation - Eco E-Commerce Platform',
+  customfavIcon: '/favicon.ico',
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+    filter: true,
+    showCommonExtensions: true,
+    showExtensions: true,
+    docExpansion: 'list',
+    defaultModelsExpandDepth: 2,
+    defaultModelExpandDepth: 2,
+    displayOperationId: false,
+    tryItOutEnabled: true,
+    requestInterceptor: (request) => {
+      // Auto-include cookies in requests
+      request.credentials = 'include'
+      return request
+    }
+  }
+}
+
+// API spec endpoint for external access
+export const apiSpecEndpoint = (app) => {
+  app.get('/api-spec', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(specs)
   })
 
+  // eslint-disable-next-line no-console
   console.log(`📚 API Documentation available at: ${env.BUILD_MODE === 'production'
     ? 'https://website-covezi-backend-1.onrender.com/api-docs'
     : 'http://localhost:8017/api-docs'}`)
 }
 
-export default specs
+export default swaggerSpec
