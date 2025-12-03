@@ -11,7 +11,8 @@ import { corsOptions } from './config/cors'
 import cookieParser from 'cookie-parser'
 import http from 'http'
 import { Server as SocketIOServer } from 'socket.io'
-import { setupSwagger } from '~/config/swagger'
+import swaggerSpec, { swaggerUIOptions, apiSpecEndpoint } from '~/config/swagger'
+import swaggerUi from 'swagger-ui-express'
 // Challenge cron jobs
 import { challengeCronJobs } from './jobs/challengeJobs'
 // Voucher cleanup cron job
@@ -56,7 +57,8 @@ const START_SERVER = () => {
   app.use('/v1', APIs_V1)
 
   // Setup API Documentation with Swagger
-  setupSwagger(app)
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUIOptions))
+  apiSpecEndpoint(app)
 
   // Apply centralized error handling middleware
   app.use(errorHandlingMiddleware)
