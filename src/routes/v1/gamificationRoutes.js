@@ -156,11 +156,160 @@ router.get('/user-garden', authMiddleware.isAuthorized, GamificationController.g
  */
 router.post('/daily-login', authMiddleware.isAuthorized, GamificationController.claimDailyLoginReward)
 
-// Challenge: +10 XP for join, +20 for complete
+/**
+ * @swagger
+ * /v1/gamification/join-challenge:
+ *   post:
+ *     tags: [Gamification]
+ *     summary: 🎯 Join environmental challenge
+ *     description: Join a challenge to earn +10 XP bonus
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - challengeId
+ *             properties:
+ *               challengeId:
+ *                 type: string
+ *                 description: ID of challenge to join
+ *                 example: "674f1234567890abcdef1234"
+ *     responses:
+ *       200:
+ *         description: ✅ Challenge joined successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Challenge joined! +10 XP earned"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpGained:
+ *                       type: number
+ *                       example: 10
+ *                     newTotalXP:
+ *                       type: number
+ *                       example: 2460
+ *                     challengeInfo:
+ *                       type: object
+ *       401:
+ *         $ref: '#/components/responses/Unauthorized'
+ */
 router.post('/join-challenge', authMiddleware.isAuthorized, GamificationController.joinChallenge)
+
+/**
+ * @swagger
+ * /v1/gamification/complete-challenge:
+ *   post:
+ *     tags: [Gamification]
+ *     summary: 🏆 Complete challenge
+ *     description: Mark challenge as completed to earn +20 XP reward
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - challengeId
+ *             properties:
+ *               challengeId:
+ *                 type: string
+ *                 example: "674f1234567890abcdef1234"
+ *               proof:
+ *                 type: string
+ *                 description: Optional completion proof/description
+ *                 example: "Completed 7 days of zero waste living!"
+ *     responses:
+ *       200:
+ *         description: ✅ Challenge completed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Challenge completed! +20 XP earned"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpGained:
+ *                       type: number
+ *                       example: 20
+ *                     bonusXP:
+ *                       type: number
+ *                       example: 5
+ *                     newLevel:
+ *                       type: number
+ *                     achievements:
+ *                       type: array
+ *       401:
+ *         $ref: '#/components/responses/Unauthorized'
+ */
 router.post('/complete-challenge', authMiddleware.isAuthorized, GamificationController.completeChallenge)
 
-// Creator bonus: +30 XP when challenge has >10 participants
+/**
+ * @swagger
+ * /v1/gamification/creator-bonus:
+ *   post:
+ *     tags: [Gamification]
+ *     summary: 🌟 Award creator bonus
+ *     description: Award +30 XP bonus to challenge creator when challenge has >10 participants
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - challengeId
+ *             properties:
+ *               challengeId:
+ *                 type: string
+ *                 example: "674f1234567890abcdef1234"
+ *     responses:
+ *       200:
+ *         description: ✅ Creator bonus awarded
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *                   example: "Creator bonus awarded! +30 XP for popular challenge"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpGained:
+ *                       type: number
+ *                       example: 30
+ *                     participantCount:
+ *                       type: number
+ *                       example: 15
+ *       401:
+ *         $ref: '#/components/responses/Unauthorized'
+ */
 router.post('/creator-bonus', authMiddleware.isAuthorized, GamificationController.awardCreatorBonus)
 
 // === GARDEN - CROPS ===
@@ -290,9 +439,132 @@ router.get('/leaderboard', GamificationController.getLeaderboard)
  */
 router.get('/user-rank', authMiddleware.isAuthorized, GamificationController.getUserRank)
 
-// === ADMIN ===
+/**
+ * @swagger
+ * /v1/gamification/admin/config:
+ *   get:
+ *     tags: [Gamification]
+ *     summary: 🔧 Get gamification config (Admin)
+ *     description: Get current gamification system configuration
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: ✅ Config retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     xpRates:
+ *                       type: object
+ *                       properties:
+ *                         dailyLogin:
+ *                           type: number
+ *                           example: 5
+ *                         challengeJoin:
+ *                           type: number
+ *                           example: 10
+ *                         challengeComplete:
+ *                           type: number
+ *                           example: 20
+ *                     levelRequirements:
+ *                       type: array
+ *                       items:
+ *                         type: number
+ *                     voucherTiers:
+ *                       type: array
+ *       401:
+ *         $ref: '#/components/responses/Unauthorized'
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ *   put:
+ *     tags: [Gamification]
+ *     summary: 🛠️ Update gamification config (Admin)
+ *     description: Update system configuration settings
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               xpRates:
+ *                 type: object
+ *                 properties:
+ *                   dailyLogin:
+ *                     type: number
+ *                     example: 5
+ *                   challengeJoin:
+ *                     type: number
+ *                     example: 10
+ *                   challengeComplete:
+ *                     type: number
+ *                     example: 25
+ *               levelRequirements:
+ *                 type: array
+ *                 items:
+ *                   type: number
+ *                 example: [100, 250, 500, 1000, 2000]
+ *     responses:
+ *       200:
+ *         description: ✅ Config updated
+ *       401:
+ *         $ref: '#/components/responses/Unauthorized'
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
 router.get('/admin/config', authMiddleware.isAuthorized, GamificationController.getConfig)
 router.put('/admin/config', authMiddleware.isAuthorized, GamificationController.updateConfig)
+
+/**
+ * @swagger
+ * /v1/gamification/admin/voucher-tier:
+ *   put:
+ *     tags: [Gamification]
+ *     summary: 🎁 Update voucher tier (Admin)
+ *     description: Update voucher tier configuration for level rewards
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - level
+ *               - voucherType
+ *               - value
+ *             properties:
+ *               level:
+ *                 type: number
+ *                 example: 10
+ *               voucherType:
+ *                 type: string
+ *                 enum: [discount_percentage, discount_fixed, free_shipping]
+ *                 example: "discount_percentage"
+ *               value:
+ *                 type: number
+ *                 example: 15
+ *               description:
+ *                 type: string
+ *                 example: "15% discount for reaching level 10"
+ *     responses:
+ *       200:
+ *         description: ✅ Voucher tier updated
+ *       401:
+ *         $ref: '#/components/responses/Unauthorized'
+ *       403:
+ *         $ref: '#/components/responses/Forbidden'
+ */
 router.put('/admin/voucher-tier', authMiddleware.isAuthorized, GamificationController.updateVoucherTier)
 
 // NEW: Admin voucher milestone management
