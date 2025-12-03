@@ -121,7 +121,7 @@ export const swaggerUIOptions = {
     html, body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 25%, #2d8659 50%, #0f4c3a 100%);
+      background: linear-gradient(135deg, #32778E 0%, #4A8FA3 25%, #5BA7C2 50%, #32778E 100%);
       min-height: 100vh;
       position: relative;
     }
@@ -152,9 +152,9 @@ export const swaggerUIOptions = {
     
     /* === HEADER SECTION === */
     .swagger-ui .info {
-      background: linear-gradient(135deg, rgba(15, 76, 58, 0.95), rgba(45, 134, 89, 0.9));
+      background: linear-gradient(135deg, rgba(50, 119, 142, 0.95), rgba(91, 167, 194, 0.9));
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(74, 159, 124, 0.3);
+      border: 1px solid rgba(74, 143, 163, 0.3);
       border-radius: 20px;
       padding: 40px;
       margin-bottom: 30px;
@@ -170,7 +170,7 @@ export const swaggerUIOptions = {
       left: -50%;
       width: 200%;
       height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(74, 159, 124, 0.1), transparent);
+      background: linear-gradient(45deg, transparent, rgba(74, 143, 163, 0.1), transparent);
       animation: shimmer 3s infinite linear;
       pointer-events: none;
     }
@@ -187,7 +187,7 @@ export const swaggerUIOptions = {
       text-align: center;
       margin-bottom: 20px !important;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      background: linear-gradient(45deg, #4af27c, #2d8659, #66d9a3);
+      background: linear-gradient(45deg, #4AC5E8, #32778E, #66D9FF);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -202,7 +202,7 @@ export const swaggerUIOptions = {
       background: rgba(255, 255, 255, 0.1);
       padding: 20px;
       border-radius: 15px;
-      border: 1px solid rgba(74, 159, 124, 0.2);
+      border: 1px solid rgba(74, 143, 163, 0.2);
     }
 
     /* === SERVERS DROPDOWN === */
@@ -249,16 +249,16 @@ export const swaggerUIOptions = {
       box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
     }
     
-    /* Challenges - Green */
+    /* Challenges - Blue/Teal */
     .swagger-ui .opblock-tag[data-tag="Challenges"] {
-      background: linear-gradient(135deg, #28a745, #4af27c) !important;
+      background: linear-gradient(135deg, #32778E, #4AC5E8) !important;
       color: #ffffff !important;
       border-radius: 15px 15px 0 0 !important;
       padding: 20px !important;
       font-size: 1.4rem !important;
       font-weight: 700 !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-      box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+      box-shadow: 0 5px 20px rgba(50, 119, 142, 0.4);
     }
     
     /* Chat - Blue */
@@ -363,15 +363,15 @@ export const swaggerUIOptions = {
     }
     
     .swagger-ui .btn.execute {
-      background: linear-gradient(135deg, #28a745, #4af27c) !important;
+      background: linear-gradient(135deg, #32778E, #4AC5E8) !important;
       border: none !important;
       color: #ffffff !important;
-      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+      box-shadow: 0 5px 15px rgba(50, 119, 142, 0.3);
     }
     
     .swagger-ui .btn.execute:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+      box-shadow: 0 8px 25px rgba(50, 119, 142, 0.4);
     }
 
     /* === SCROLLBARS === */
@@ -381,18 +381,18 @@ export const swaggerUIOptions = {
     }
     
     .swagger-ui ::-webkit-scrollbar-track {
-      background: rgba(74, 159, 124, 0.1);
+      background: rgba(74, 143, 163, 0.1);
       border-radius: 6px;
     }
     
     .swagger-ui ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #4a9f7c, #2d8659);
+      background: linear-gradient(135deg, #32778E, #4AC5E8);
       border-radius: 6px;
       border: 2px solid rgba(255, 255, 255, 0.1);
     }
     
     .swagger-ui ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #28a745, #4af27c);
+      background: linear-gradient(135deg, #4AC5E8, #66D9FF);
     }
 
     /* === MOBILE RESPONSIVE === */
